@@ -188,10 +188,22 @@
       const urlParams = new URLSearchParams(window.location.search);
       couponDiscount = parseInt(urlParams.get('coupon')) || 0;
 
+      // Auto-fill logged in user info
+      if (typeof AuthStore !== 'undefined' && AuthStore.isLoggedIn()) {
+        const u = AuthStore.getCurrentUser();
+        if (u) {
+          if (document.getElementById('order-name')) document.getElementById('order-name').value = u.name || '';
+          if (document.getElementById('order-phone')) document.getElementById('order-phone').value = u.phone || '';
+          if (document.getElementById('order-email')) document.getElementById('order-email').value = u.email || '';
+          if (document.getElementById('ship-name')) document.getElementById('ship-name').value = u.name || '';
+          if (document.getElementById('ship-phone')) document.getElementById('ship-phone').value = u.phone || '';
+          if (document.getElementById('ship-address') && u.address) document.getElementById('ship-address').value = u.address;
+        }
+      }
       summary = CartStore.getSummary(couponDiscount);
       if (summary.selectedItems.length === 0) {
         alert('주문할 상품이 없습니다.');
-        window.location.href = '/cart.html';
+        window.location.href = 'cart.html';
         return;
       }
 
@@ -241,7 +253,7 @@
         CartStore.removeSelected();
         const orderId = result.order ? result.order.orderId : ('ORD-' + Date.now().toString().slice(-8));
         sessionStorage.setItem('latest_order', JSON.stringify(result.order || orderData));
-        window.location.href = `/order-complete.html?orderId=${encodeURIComponent(orderId)}`;
+        window.location.href = `order-complete.html?orderId=${encodeURIComponent(orderId)}`;
       } catch (err) {
         alert('주문 처리 중 오류가 발생했습니다.');
         console.error(err);
