@@ -581,7 +581,33 @@
 
   <!-- SCRIPTS -->
   <script src="js/api.js"></script>
+  <!-- EasyShop Components & UI Helpers -->
+  <script src="js/components.js"></script>
   <script>
+    
+    // Defensive ShopUI Fallback
+    if (typeof window.ShopUI === 'undefined') {
+      window.ShopUI = {
+        formatPrice: (p) => '₩' + Number(p || 0).toLocaleString('ko-KR'),
+        showToast: (msg) => {
+          let toast = document.getElementById('shop-toast');
+          if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'shop-toast';
+            toast.className = 'fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl text-xs font-bold transition duration-300 opacity-0 pointer-events-none transform translate-y-2';
+            document.body.appendChild(toast);
+          }
+          toast.textContent = msg;
+          toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
+          toast.classList.add('opacity-100', 'translate-y-0');
+          setTimeout(() => {
+            toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
+            toast.classList.remove('opacity-100', 'translate-y-0');
+          }, 2500);
+        }
+      };
+    }
+
     let adminProducts = [];
     let adminOrders = [];
     let adminInquiries = [];
