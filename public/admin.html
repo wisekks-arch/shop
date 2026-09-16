@@ -708,16 +708,18 @@
           recentTbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-400 text-xs">최근 주문 내역이 없습니다.</td></tr>`;
         } else {
           recentTbody.innerHTML = recentOrders.map(o => {
-            const firstItem = o.items && o.items[0] ? o.items[0].productName : '상품';
-            const extraCount = o.items && o.items.length > 1 ? ` 외 ${o.items.length - 1}건` : '';
+            const buyerName = o.customerName || o.shippingName || (o.buyer && o.buyer.name) || '주문고객';
+            const buyerPhone = o.customerPhone || o.shippingPhone || (o.buyer && o.buyer.phone) || '-';
+            const firstItem = (o.items && o.items[0]) ? (o.items[0].name || o.items[0].productName || '주문상품') : '상품';
+            const extraCount = (o.items && o.items.length > 1) ? ` 외 ${o.items.length - 1}건` : '';
             return `
               <tr class="hover:bg-slate-50/80 transition">
                 <td class="p-4 pl-6">
                   <span class="font-mono text-xs font-bold text-indigo-600">${o.orderId}</span>
-                  <p class="text-[11px] text-slate-400 mt-0.5">${o.createdAt}</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5">${o.createdAt || o.orderDate || '-'}</p>
                 </td>
-                <td class="p-4 font-medium text-slate-800">${o.buyer ? o.buyer.name : '-'} (${o.buyer ? o.buyer.phone : '-'})</td>
-                <td class="p-4 text-slate-600">${firstItem}${extraCount}</td>
+                <td class="p-4 font-bold text-slate-800">${buyerName} <span class="text-slate-400 font-normal text-xs">(${buyerPhone})</span></td>
+                <td class="p-4 font-semibold text-slate-700">${firstItem}${extraCount}</td>
                 <td class="p-4 text-right font-extrabold text-slate-900">${ShopUI.formatPrice(o.totalAmount)}</td>
                 <td class="p-4">
                   <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${getStatusBadgeClass(o.status)}">
@@ -935,20 +937,23 @@
       }
 
       tbody.innerHTML = orders.map(o => {
-        const itemsList = (o.items || []).map(i => `${i.productName} (${i.quantity}개)`).join(', ');
+        const buyerName = o.customerName || o.shippingName || (o.buyer && o.buyer.name) || '주문고객';
+        const buyerPhone = o.customerPhone || o.shippingPhone || (o.buyer && o.buyer.phone) || '-';
+        const buyerAddress = o.shippingAddress || (o.buyer && o.buyer.address) || '-';
+        const itemsList = (o.items || []).map(i => `${i.name || i.productName || '상품'} (${i.quantity}개)`).join(', ');
         return `
           <tr class="hover:bg-slate-50/80 transition">
             <td class="p-4 pl-6">
               <span class="font-mono text-xs font-bold text-indigo-600">${o.orderId}</span>
-              <p class="text-[11px] text-slate-400 mt-0.5">${o.createdAt}</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">${o.createdAt || o.orderDate || '-'}</p>
             </td>
             <td class="p-4">
-              <p class="font-bold text-slate-900">${o.buyer ? o.buyer.name : '-'}</p>
-              <p class="text-[11px] text-slate-500">${o.buyer ? o.buyer.phone : '-'}</p>
-              <p class="text-[11px] text-slate-400 truncate max-w-xs">${o.buyer ? o.buyer.address : ''}</p>
+              <p class="font-bold text-slate-900">${buyerName}</p>
+              <p class="text-[11px] text-slate-500">${buyerPhone}</p>
+              <p class="text-[11px] text-slate-400 truncate max-w-xs">${buyerAddress}</p>
             </td>
             <td class="p-4">
-              <p class="text-xs text-slate-700 line-clamp-2">${itemsList}</p>
+              <p class="text-xs font-medium text-slate-800 line-clamp-2">${itemsList}</p>
             </td>
             <td class="p-4 text-right font-extrabold text-slate-900">${ShopUI.formatPrice(o.totalAmount)}</td>
             <td class="p-4">

@@ -1,6 +1,6 @@
 /**
- * EasyShop REST API Client Module (v5 Enhanced Cache Busting)
- * Supports Local REST API and GitHub Pages Static Fallback + Dynamic Sync
+ * EasyShop REST API Client Module (v6 Dynamic Order & Stats Sync)
+ * Supports Local REST API and GitHub Pages Static Fallback + Dynamic Real-time Sync
  */
 const ShopAPI = {
   BASE_URL: window.location.origin,
@@ -59,7 +59,6 @@ const ShopAPI = {
         const urlObj = new URL('http://dummy.com' + endpoint);
         const id = urlObj.searchParams.get('id');
 
-        // Always fetch fresh 50 products list from server / data folder
         try {
           const res = await fetch('data/products.json?_t=' + Date.now());
           list = await res.json();
@@ -75,13 +74,12 @@ const ShopAPI = {
             });
           }
 
-          // Clear old obsolete cache
           localStorage.removeItem('easyshop_products');
           localStorage.removeItem('easyshop_products_v2');
           localStorage.removeItem('easyshop_products_v3');
           localStorage.setItem('easyshop_products_v5', JSON.stringify(list));
         } catch (e) {
-          const stored = localStorage.getItem('easyshop_products_v5') || localStorage.getItem('easyshop_products_v3');
+          const stored = localStorage.getItem('easyshop_products_v5');
           if (stored) list = JSON.parse(stored);
         }
 
@@ -141,19 +139,68 @@ const ShopAPI = {
         }
       }
 
-      // 3. Orders
+      // 3. Orders (Robust Normalization & Real-time Sync)
       if (endpoint.startsWith('/api/orders')) {
         let orders = [];
-        const stored = localStorage.getItem('easyshop_orders');
+        const stored = localStorage.getItem('easyshop_orders_v5');
         if (stored) {
-          orders = JSON.parse(stored);
+          try {
+            orders = JSON.parse(stored);
+          } catch(e) { orders = []; }
         } else {
           try {
-            const res = await fetch('data/orders.json');
-            orders = await res.json();
+            const res = await fetch('data/orders.json?_t=' + Date.now());
+            const raw = await res.json();
+            // Flatten if nested
+            if (Array.isArray(raw)) {
+              raw.forEach(entry => {
+                if (entry && Array.isArray(entry.value)) {
+                  orders.push(...entry.value);
+                } else if (entry && entry.orderId) {
+                  orders.push(entry);
+                }
+              });
+            }
           } catch(e) { orders = []; }
-          localStorage.setItem('easyshop_orders', JSON.stringify(orders));
+          localStorage.setItem('easyshop_orders_v5', JSON.stringify(orders));
         }
+
+        // Sanitize and normalize all order objects
+        orders = orders.map(o => {
+          const buyerName = o.customerName || o.shippingName || (o.buyer && o.buyer.name) || '주문고객';
+          const buyerPhone = o.customerPhone || o.shippingPhone || (o.buyer && o.buyer.phone) || '010-0000-0000';
+          const buyerEmail = o.customerEmail || (o.buyer && o.buyer.email) || '';
+          const address = o.shippingAddress || (o.buyer && o.buyer.address) || '';
+          const normalizedItems = (o.items || []).map(i => ({
+            ...i,
+            name: i.name || i.productName || '상품',
+            productName: i.name || i.productName || '상품',
+            quantity: Number(i.quantity) || 1,
+            price: Number(i.price) || 0
+          }));
+
+          return {
+            ...o,
+            orderId: o.orderId || ('ORD-' + Date.now().toString().slice(-8)),
+            createdAt: o.createdAt || o.orderDate || new Date().toISOString().replace('T', ' ').substring(0, 19),
+            customerName: buyerName,
+            customerPhone: buyerPhone,
+            customerEmail: buyerEmail,
+            shippingName: buyerName,
+            shippingPhone: buyerPhone,
+            shippingAddress: address,
+            buyer: {
+              name: buyerName,
+              phone: buyerPhone,
+              email: buyerEmail,
+              address: address
+            },
+            items: normalizedItems,
+            totalAmount: Number(o.totalAmount) || 0,
+            status: o.status || '결제완료',
+            trackingNumber: o.trackingNumber || ''
+          };
+        });
 
         const urlObj = new URL('http://dummy.com' + endpoint);
         const orderId = urlObj.searchParams.get('orderId');
@@ -165,11 +212,51 @@ const ShopAPI = {
         }
 
         if (method === 'POST') {
-          const newOrder = JSON.parse(options.body || '{}');
-          newOrder.orderId = 'ORD-' + Date.now().toString().slice(-8);
-          newOrder.createdAt = new Date().toISOString().replace('T', ' ').substring(0, 16);
-          newOrder.status = newOrder.status || '결제완료';
+          const newOrderRaw = JSON.parse(options.body || '{}');
+          const buyerName = newOrderRaw.customerName || newOrderRaw.shippingName || (newOrderRaw.buyer && newOrderRaw.buyer.name) || '주문고객';
+          const buyerPhone = newOrderRaw.customerPhone || newOrderRaw.shippingPhone || (newOrderRaw.buyer && newOrderRaw.buyer.phone) || '010-0000-0000';
+          const buyerEmail = newOrderRaw.customerEmail || (newOrderRaw.buyer && newOrderRaw.buyer.email) || '';
+          const shippingAddress = newOrderRaw.shippingAddress || (newOrderRaw.buyer && newOrderRaw.buyer.address) || '';
+
+          const now = new Date();
+          const dateStr = now.getFullYear() + '-' +
+            String(now.getMonth() + 1).padStart(2, '0') + '-' +
+            String(now.getDate()).padStart(2, '0') + ' ' +
+            String(now.getHours()).padStart(2, '0') + ':' +
+            String(now.getMinutes()).padStart(2, '0') + ':' +
+            String(now.getSeconds()).padStart(2, '0');
+
+          const newOrder = {
+            ...newOrderRaw,
+            orderId: newOrderRaw.orderId || ('ORD-' + Date.now().toString().slice(-8)),
+            createdAt: dateStr,
+            orderDate: dateStr,
+            customerName: buyerName,
+            customerPhone: buyerPhone,
+            customerEmail: buyerEmail,
+            shippingName: buyerName,
+            shippingPhone: buyerPhone,
+            shippingAddress: shippingAddress,
+            buyer: {
+              name: buyerName,
+              phone: buyerPhone,
+              email: buyerEmail,
+              address: shippingAddress
+            },
+            items: (newOrderRaw.items || []).map(item => ({
+              ...item,
+              name: item.name || item.productName || '상품',
+              productName: item.name || item.productName || '상품',
+              quantity: Number(item.quantity) || 1,
+              price: Number(item.price) || 0
+            })),
+            totalAmount: Number(newOrderRaw.totalAmount) || 0,
+            status: newOrderRaw.status || '결제완료',
+            trackingNumber: ''
+          };
+
           orders.unshift(newOrder);
+          localStorage.setItem('easyshop_orders_v5', JSON.stringify(orders));
           localStorage.setItem('easyshop_orders', JSON.stringify(orders));
           return { success: true, order: newOrder };
         }
@@ -180,6 +267,7 @@ const ShopAPI = {
           if (target) {
             if (updateData.status) target.status = updateData.status;
             if (updateData.trackingNumber !== undefined) target.trackingNumber = updateData.trackingNumber;
+            localStorage.setItem('easyshop_orders_v5', JSON.stringify(orders));
             localStorage.setItem('easyshop_orders', JSON.stringify(orders));
           }
           return { success: true };
@@ -229,19 +317,25 @@ const ShopAPI = {
         }
       }
 
-      // 5. Stats
+      // 5. Stats (Real-time dynamic KPI calculation)
       if (endpoint.startsWith('/api/stats')) {
-        const prods = JSON.parse(localStorage.getItem('easyshop_products_v5') || localStorage.getItem('easyshop_products_v3') || '[]');
-        const orders = JSON.parse(localStorage.getItem('easyshop_orders') || '[]');
+        const prods = JSON.parse(localStorage.getItem('easyshop_products_v5') || '[]');
+        let orders = [];
+        try {
+          orders = JSON.parse(localStorage.getItem('easyshop_orders_v5') || localStorage.getItem('easyshop_orders') || '[]');
+        } catch(e) { orders = []; }
         const inqs = JSON.parse(localStorage.getItem('easyshop_inquiries') || '[]');
-        const totalSales = orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+        const totalSales = orders.reduce((sum, o) => sum + (Number(o.totalAmount) || 0), 0);
+        const pendingOrdersCount = orders.filter(o => o.status === '결제완료' || o.status === '상품준비중' || o.status === '상품준비' || o.status === 'PAID').length;
+        const completedOrdersCount = orders.filter(o => o.status === '배송완료' || o.status === 'DELIVERED').length;
+
         return {
           success: true,
-          totalSales,
+          totalSales: totalSales,
           orderCount: orders.length,
           productCount: prods.length,
-          pendingOrders: orders.filter(o => o.status === '결제완료' || o.status === '상품준비중').length,
-          completedOrders: orders.filter(o => o.status === '배송완료').length,
+          pendingOrders: pendingOrdersCount,
+          completedOrders: completedOrdersCount,
           pendingInquiries: inqs.filter(i => i.status === '답변대기').length
         };
       }
