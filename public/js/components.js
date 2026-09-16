@@ -25,13 +25,22 @@ const ShopUI = {
             <span class="text-slate-200 hidden sm:inline">신규 가입 시 <strong>10,000원 웰컴 쿠폰팩</strong> 즉시 지급!</span>
             <span class="text-slate-300 sm:hidden">5만원 이상 무료배송 혜택</span>
           </div>
-          <div class="flex items-center gap-4 text-slate-300 text-[11px]">
+          <div class="flex items-center gap-3 text-slate-300 text-[11px]" id="nav-top-auth-links">
+            <span id="nav-user-greeting" class="hidden text-amber-300 font-bold flex items-center gap-1">
+              <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+              <span id="nav-user-name-text"></span>
+            </span>
+            <a id="nav-link-login" href="login.html" class="hover:text-white transition">로그인</a>
+            <span id="nav-sep-signup" class="text-slate-600">|</span>
+            <a id="nav-link-signup" href="signup.html" class="hover:text-white font-bold text-indigo-300 transition">회원가입</a>
+            <button id="nav-btn-logout" onclick="AuthStore.logout(); location.reload();" class="hidden hover:text-rose-400 font-bold transition cursor-pointer">로그아웃</button>
+            <span class="text-slate-600">|</span>
             <a href="order-lookup.html" class="hover:text-white transition flex items-center gap-1">
-              <i data-lucide="truck" class="w-3.5 h-3.5 text-indigo-400"></i> 주문/배송 조회
+              <i data-lucide="truck" class="w-3.5 h-3.5 text-indigo-400"></i> 주문조회
             </a>
             <span class="text-slate-600">|</span>
             <a href="admin.html" class="hover:text-amber-300 font-semibold text-amber-400 transition flex items-center gap-1">
-              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> 관리자 어드민
+              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> 관리자
             </a>
           </div>
         </div>
@@ -224,10 +233,47 @@ const ShopUI = {
     // Subscribe to cart updates for badges
     CartStore.subscribe(() => {
       this.updateNavBadges();
+    
+    // Update Auth State in Navbar
+    this.updateAuthNav();
+    if (typeof AuthStore !== 'undefined') {
+      AuthStore.subscribe(() => {
+        ShopUI.updateAuthNav();
+      });
+    }
+
       this.renderDrawerItems();
     });
   },
 
+  
+  updateAuthNav() {
+    if (typeof AuthStore === 'undefined') return;
+    const user = AuthStore.getCurrentUser();
+    const greet = document.getElementById('nav-user-greeting');
+    const nameText = document.getElementById('nav-user-name-text');
+    const loginLink = document.getElementById('nav-link-login');
+    const signupLink = document.getElementById('nav-link-signup');
+    const signupSep = document.getElementById('nav-sep-signup');
+    const logoutBtn = document.getElementById('nav-btn-logout');
+
+    if (user) {
+      if (greet) { greet.classList.remove('hidden'); }
+      if (nameText) { nameText.textContent = `${user.name}님 (${(user.points || 0).toLocaleString()}P)`; }
+      if (loginLink) { loginLink.classList.add('hidden'); }
+      if (signupLink) { signupLink.classList.add('hidden'); }
+      if (signupSep) { signupSep.classList.add('hidden'); }
+      if (logoutBtn) { logoutBtn.classList.remove('hidden'); }
+    } else {
+      if (greet) { greet.classList.add('hidden'); }
+      if (loginLink) { loginLink.classList.remove('hidden'); }
+      if (signupLink) { signupLink.classList.remove('hidden'); }
+      if (signupSep) { signupSep.classList.remove('hidden'); }
+      if (logoutBtn) { logoutBtn.classList.add('hidden'); }
+    }
+    if (window.lucide) window.lucide.createIcons();
+  },
+  
   updateNavBadges() {
     const cartBadge = document.getElementById('nav-cart-badge');
     const wishlistBadge = document.getElementById('nav-wishlist-badge');

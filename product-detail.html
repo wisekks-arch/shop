@@ -350,6 +350,14 @@
       const opt = document.getElementById('option-select').value;
       const qty = parseInt(document.getElementById('buy-qty').value) || 1;
       CartStore.addItem(currentProduct, opt, qty);
+      
+      if (typeof AuthStore !== 'undefined' && !AuthStore.isLoggedIn()) {
+        ShopUI.showToast('주문 결제를 진행하시려면 로그인이 필요합니다.');
+        setTimeout(() => {
+          window.location.href = 'login.html?redirect=' + encodeURIComponent('checkout.html');
+        }, 600);
+        return;
+      }
       window.location.href = 'checkout.html';
     }
 
