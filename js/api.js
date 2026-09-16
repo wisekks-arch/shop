@@ -1,6 +1,6 @@
 /**
- * EasyShop REST API Client Module
- * Supports both Local REST API and GitHub Pages Static Fallback + LocalStorage
+ * EasyShop REST API Client Module (v5 Enhanced Cache Busting)
+ * Supports Local REST API and GitHub Pages Static Fallback + Dynamic Sync
  */
 const ShopAPI = {
   BASE_URL: window.location.origin,
@@ -40,44 +40,87 @@ const ShopAPI = {
     try {
       // 1. Categories
       if (endpoint.startsWith('/api/categories')) {
-        const stored = localStorage.getItem('easyshop_categories');
-        if (stored) return JSON.parse(stored);
-        const res = await fetch('data/categories.json');
-        const data = await res.json();
-        localStorage.setItem('easyshop_categories', JSON.stringify(data));
-        return data;
+        try {
+          const res = await fetch('data/categories.json?_t=' + Date.now());
+          const data = await res.json();
+          localStorage.setItem('easyshop_categories_v5', JSON.stringify(data));
+          return data;
+        } catch (e) {
+          const stored = localStorage.getItem('easyshop_categories_v5');
+          if (stored) return JSON.parse(stored);
+          return [];
+        }
       }
 
       // 2. Products
       if (endpoint.startsWith('/api/products')) {
         let list = [];
-        const stored = localStorage.getItem('easyshop_products_v3');
-        if (stored && JSON.parse(stored).length > 0) {
-          list = JSON.parse(stored);
-        } else {
-          const res = await fetch('data/products.json');
-          list = await res.json();
-          localStorage.setItem('easyshop_products_v3', JSON.stringify(list));
-        }
-
+        const method = (options.method || 'GET').toUpperCase();
         const urlObj = new URL('http://dummy.com' + endpoint);
         const id = urlObj.searchParams.get('id');
-        const method = (options.method || 'GET').toUpperCase();
+
+        // Always fetch fresh 50 products list from server / data folder
+        try {
+          const res = await fetch('data/products.json?_t=' + Date.now());
+          list = await res.json();
+
+          // Sync with any custom user-added products in admin
+          const localCustom = localStorage.getItem('easyshop_custom_products');
+          if (localCustom) {
+            const customs = JSON.parse(localCustom);
+            customs.forEach(cp => {
+              if (!list.some(p => p.id === cp.id)) {
+                list.push(cp);
+              }
+            });
+          }
+
+          // Clear old obsolete cache
+          localStorage.removeItem('easyshop_products');
+          localStorage.removeItem('easyshop_products_v2');
+          localStorage.removeItem('easyshop_products_v3');
+          localStorage.setItem('easyshop_products_v5', JSON.stringify(list));
+        } catch (e) {
+          const stored = localStorage.getItem('easyshop_products_v5') || localStorage.getItem('easyshop_products_v3');
+          if (stored) list = JSON.parse(stored);
+        }
 
         if (method === 'GET') {
           if (id) {
             const item = list.find(p => p.id === id);
             return item || null;
           }
-          return list;
+
+          const category = urlObj.searchParams.get('category');
+          const search = urlObj.searchParams.get('search');
+          const isBest = urlObj.searchParams.get('isBest');
+          const isNew = urlObj.searchParams.get('isNew');
+          const isSale = urlObj.searchParams.get('isSale');
+
+          let result = [...list];
+          if (category && category !== '전체') {
+            result = result.filter(p => p.category === category);
+          }
+          if (search) {
+            const q = search.toLowerCase();
+            result = result.filter(p => p.name.toLowerCase().includes(q) || (p.summary && p.summary.toLowerCase().includes(q)));
+          }
+          if (isBest === 'true') result = result.filter(p => p.isBest);
+          if (isNew === 'true') result = result.filter(p => p.isNew);
+          if (isSale === 'true') result = result.filter(p => p.isSale);
+
+          return result;
         }
 
         if (method === 'POST') {
           const newProd = JSON.parse(options.body || '{}');
-          newProd.id = 'prod-' + Date.now();
-          newProd.createdAt = new Date().toISOString();
+          newProd.id = newProd.id || 'prod-' + Date.now();
           list.unshift(newProd);
-          localStorage.setItem('easyshop_products_v3', JSON.stringify(list));
+          
+          let customs = JSON.parse(localStorage.getItem('easyshop_custom_products') || '[]');
+          customs.unshift(newProd);
+          localStorage.setItem('easyshop_custom_products', JSON.stringify(customs));
+          localStorage.setItem('easyshop_products_v5', JSON.stringify(list));
           return { success: true, product: newProd };
         }
 
@@ -86,14 +129,14 @@ const ShopAPI = {
           const idx = list.findIndex(p => p.id === id);
           if (idx > -1) {
             list[idx] = { ...list[idx], ...updateData };
-            localStorage.setItem('easyshop_products_v3', JSON.stringify(list));
+            localStorage.setItem('easyshop_products_v5', JSON.stringify(list));
           }
           return { success: true };
         }
 
         if (method === 'DELETE') {
           list = list.filter(p => p.id !== id);
-          localStorage.setItem('easyshop_products_v3', JSON.stringify(list));
+          localStorage.setItem('easyshop_products_v5', JSON.stringify(list));
           return { success: true };
         }
       }
@@ -188,7 +231,7 @@ const ShopAPI = {
 
       // 5. Stats
       if (endpoint.startsWith('/api/stats')) {
-        const prods = JSON.parse(localStorage.getItem('easyshop_products_v3') || '[]');
+        const prods = JSON.parse(localStorage.getItem('easyshop_products_v5') || localStorage.getItem('easyshop_products_v3') || '[]');
         const orders = JSON.parse(localStorage.getItem('easyshop_orders') || '[]');
         const inqs = JSON.parse(localStorage.getItem('easyshop_inquiries') || '[]');
         const totalSales = orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
