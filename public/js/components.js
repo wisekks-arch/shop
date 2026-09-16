@@ -9,12 +9,26 @@ const ShopUI = {
   },
 
   // Render Global Navigation
-  renderNavbar(active = '') {
+    renderNavbar(active = '') {
     const root = document.getElementById('navbar-root');
     if (!root) return;
 
     const cartCount = CartStore.getTotalCount();
     const wishlistCount = CartStore.getWishlist().length;
+    const user = (typeof AuthStore !== 'undefined') ? AuthStore.getCurrentUser() : null;
+
+    const authSectionHtml = user ? `
+      <span class="text-amber-300 font-bold flex items-center gap-1">
+        <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+        <span>${user.name}님 (${(user.points || 0).toLocaleString()}P)</span>
+      </span>
+      <span class="text-slate-600">|</span>
+      <button onclick="AuthStore.logout(); location.reload();" class="hover:text-rose-400 font-bold transition cursor-pointer text-slate-300 hover:text-white">로그아웃</button>
+    ` : `
+      <a href="login.html" class="hover:text-white transition">로그인</a>
+      <span class="text-slate-600">|</span>
+      <a href="signup.html" class="hover:text-white font-bold text-indigo-300 transition">회원가입</a>
+    `;
 
     root.innerHTML = `
       <!-- Top Promotion Banner Bar -->
@@ -26,14 +40,7 @@ const ShopUI = {
             <span class="text-slate-300 sm:hidden">5만원 이상 무료배송 혜택</span>
           </div>
           <div class="flex items-center gap-3 text-slate-300 text-[11px]" id="nav-top-auth-links">
-            <span id="nav-user-greeting" class="hidden text-amber-300 font-bold flex items-center gap-1">
-              <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
-              <span id="nav-user-name-text"></span>
-            </span>
-            <a id="nav-link-login" href="login.html" class="hover:text-white transition">로그인</a>
-            <span id="nav-sep-signup" class="text-slate-600">|</span>
-            <a id="nav-link-signup" href="signup.html" class="hover:text-white font-bold text-indigo-300 transition">회원가입</a>
-            <button id="nav-btn-logout" onclick="AuthStore.logout(); location.reload();" class="hidden hover:text-rose-400 font-bold transition cursor-pointer">로그아웃</button>
+            ${authSectionHtml}
             <span class="text-slate-600">|</span>
             <a href="order-lookup.html" class="hover:text-white transition flex items-center gap-1">
               <i data-lucide="truck" class="w-3.5 h-3.5 text-indigo-400"></i> 주문조회
@@ -109,72 +116,112 @@ const ShopUI = {
                 <span class="hidden sm:inline">장바구니</span>
               </button>
 
-              <!-- Mobile Menu Toggle -->
-              <button id="mobile-menu-btn" class="p-2 text-slate-600 hover:text-slate-900 lg:hidden">
+              <!-- Mobile Hamburger Menu Button -->
+              <button 
+                id="mobile-menu-btn" 
+                class="p-2 text-slate-700 hover:bg-slate-100 rounded-xl md:hidden"
+                aria-label="메뉴 열기"
+              >
                 <i data-lucide="menu" class="w-6 h-6"></i>
               </button>
             </div>
-
           </div>
-
-          <!-- Secondary Category Nav -->
-          <nav class="hidden lg:flex items-center gap-8 py-3 text-sm font-medium border-t border-slate-100">
-            <a href="products.html" class="flex items-center gap-2 text-slate-900 font-bold hover:text-indigo-600 transition ${active === 'all' ? 'text-indigo-600' : ''}">
-              <i data-lucide="layout-grid" class="w-4 h-4 text-indigo-500"></i> 전체 카테고리
-            </a>
-            <a href="products.html?category=패션 / 의류" class="text-slate-600 hover:text-indigo-600 transition ${active === 'fashion' ? 'text-indigo-600 font-bold' : ''}">패션 / 의류</a>
-            <a href="products.html?category=디지털 / 가전" class="text-slate-600 hover:text-indigo-600 transition ${active === 'digital' ? 'text-indigo-600 font-bold' : ''}">디지털 / 가전</a>
-            <a href="products.html?category=뷰티 / 케어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'beauty' ? 'text-indigo-600 font-bold' : ''}">뷰티 / 케어</a>
-            <a href="products.html?category=리빙 / 인테리어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'living' ? 'text-indigo-600 font-bold' : ''}">리빙 / 인테리어</a>
-            <a href="products.html?category=푸드 / 키친" class="text-slate-600 hover:text-indigo-600 transition ${active === 'food' ? 'text-indigo-600 font-bold' : ''}">푸드 / 키친</a>
-            <div class="ml-auto flex items-center gap-4">
-              <a href="products.html?isBest=true" class="text-amber-600 font-bold flex items-center gap-1 hover:text-amber-700 transition">
-                <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i> 베스트 랭킹
-              </a>
-              <a href="products.html?isSale=true" class="text-rose-600 font-bold flex items-center gap-1 hover:text-rose-700 transition">
-                <i data-lucide="tag" class="w-4 h-4 text-rose-500"></i> 타임세일 특가
-              </a>
-            </div>
-          </nav>
         </div>
 
-        <!-- Mobile Drawer Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-2">
-          <a href="products.html" class="block py-2 text-slate-800 font-bold">전체 상품 탐색</a>
-          <a href="products.html?category=패션 / 의류" class="block py-2 text-slate-600">패션 / 의류</a>
-          <a href="products.html?category=디지털 / 가전" class="block py-2 text-slate-600">디지털 / 가전</a>
-          <a href="products.html?category=뷰티 / 케어" class="block py-2 text-slate-600">뷰티 / 케어</a>
-          <a href="products.html?category=리빙 / 인테리어" class="block py-2 text-slate-600">리빙 / 인테리어</a>
-          <a href="products.html?category=푸드 / 키친" class="block py-2 text-slate-600">푸드 / 키친</a>
-          <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
-            <a href="cart.html" class="py-2 text-indigo-600 font-semibold flex items-center gap-2">
-              <i data-lucide="shopping-cart" class="w-4 h-4"></i> 장바구니 바로가기
-            </a>
-            <a href="order-lookup.html" class="py-2 text-slate-700 font-medium flex items-center gap-2">
-              <i data-lucide="truck" class="w-4 h-4"></i> 주문 및 배송조회
-            </a>
-            <a href="admin.html" class="py-2 text-amber-600 font-bold flex items-center gap-2">
-              <i data-lucide="shield-check" class="w-4 h-4"></i> 관리자 어드민 대시보드
-            </a>
+        <!-- Global Category Navigation Bar -->
+        <nav class="bg-white border-t border-slate-100 hidden md:block">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ul class="flex items-center gap-8 py-3 text-xs font-bold text-slate-700 tracking-tight">
+              <li>
+                <a href="products.html" class="flex items-center gap-1.5 text-indigo-600 hover:text-indigo-800 transition py-1">
+                  <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                  <span>전체 카테고리</span>
+                </a>
+              </li>
+              <li>
+                <a href="products.html?category=패션 / 의류" class="hover:text-indigo-600 transition py-1 ${active === 'fashion' ? 'text-indigo-600 font-black' : ''}">
+                  패션 / 의류
+                </a>
+              </li>
+              <li>
+                <a href="products.html?category=디지털 / 가전" class="hover:text-indigo-600 transition py-1 ${active === 'digital' ? 'text-indigo-600 font-black' : ''}">
+                  디지털 / 가전
+                </a>
+              </li>
+              <li>
+                <a href="products.html?category=뷰티 / 케어" class="hover:text-indigo-600 transition py-1 ${active === 'beauty' ? 'text-indigo-600 font-black' : ''}">
+                  뷰티 / 케어
+                </a>
+              </li>
+              <li>
+                <a href="products.html?category=리빙 / 인테리어" class="hover:text-indigo-600 transition py-1 ${active === 'living' ? 'text-indigo-600 font-black' : ''}">
+                  리빙 / 인테리어
+                </a>
+              </li>
+              <li>
+                <a href="products.html?category=푸드 / 키친" class="hover:text-indigo-600 transition py-1 ${active === 'food' ? 'text-indigo-600 font-black' : ''}">
+                  푸드 / 키친
+                </a>
+              </li>
+              <li class="ml-auto flex items-center gap-4">
+                <a href="products.html?isBest=true" class="text-amber-600 hover:text-amber-700 flex items-center gap-1 py-1">
+                  <i data-lucide="flame" class="w-3.5 h-3.5"></i> 베스트 랭킹
+                </a>
+                <a href="products.html?isSale=true" class="text-rose-600 hover:text-rose-700 flex items-center gap-1 py-1">
+                  <i data-lucide="tag" class="w-3.5 h-3.5"></i> 타임세일 특가
+                </a>
+              </li>
+            </ul>
           </div>
+        </nav>
+
+        <!-- Mobile Collapsible Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-3">
+          <div class="pb-3 border-b border-slate-100 flex items-center justify-between text-xs">
+            ${user ? `
+              <span class="font-bold text-slate-800">${user.name}님 (${(user.points || 0).toLocaleString()}P)</span>
+              <button onclick="AuthStore.logout(); location.reload();" class="text-rose-600 font-bold">로그아웃</button>
+            ` : `
+              <div class="flex items-center gap-3">
+                <a href="login.html" class="font-bold text-indigo-600">로그인</a>
+                <span class="text-slate-300">|</span>
+                <a href="signup.html" class="font-bold text-slate-700">회원가입</a>
+              </div>
+            `}
+          </div>
+          <ul class="space-y-2 text-xs font-bold text-slate-700">
+            <li><a href="products.html" class="block py-1.5 hover:text-indigo-600">전체 카테고리</a></li>
+            <li><a href="products.html?category=패션 / 의류" class="block py-1.5 hover:text-indigo-600">패션 / 의류</a></li>
+            <li><a href="products.html?category=디지털 / 가전" class="block py-1.5 hover:text-indigo-600">디지털 / 가전</a></li>
+            <li><a href="products.html?category=뷰티 / 케어" class="block py-1.5 hover:text-indigo-600">뷰티 / 케어</a></li>
+            <li><a href="products.html?category=리빙 / 인테리어" class="block py-1.5 hover:text-indigo-600">리빙 / 인테리어</a></li>
+            <li><a href="products.html?category=푸드 / 키친" class="block py-1.5 hover:text-indigo-600">푸드 / 키친</a></li>
+          </ul>
         </div>
       </header>
 
-      <!-- Cart Drawer Overlay & Panel -->
-      <div id="cart-drawer-backdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300" onclick="ShopUI.closeCartDrawer()"></div>
-      <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+      <!-- Cart Side Drawer Backdrop -->
+      <div id="cart-drawer-backdrop" onclick="ShopUI.closeCartDrawer()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 transition-opacity duration-300 opacity-0 hidden"></div>
+
+      <!-- Cart Side Drawer Content -->
+      <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white z-50 shadow-2xl transition-transform duration-300 transform translate-x-full flex flex-col">
         <!-- Header -->
-        <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50/80">
           <div class="flex items-center gap-2">
-            <i data-lucide="shopping-bag" class="w-5 h-5 text-indigo-600"></i>
-            <h3 class="font-bold text-slate-900 text-lg">장바구니 (<span id="drawer-cart-count">0</span>)</h3>
+            <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+              <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h3 class="font-black text-slate-900 text-sm">내 장바구니</h3>
+              <p class="text-[11px] text-slate-400">담긴 상품 <span id="drawer-cart-count" class="font-bold text-indigo-600">${cartCount}</span>개</p>
+            </div>
           </div>
-          <button onclick="ShopUI.closeCartDrawer()" class="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200 rounded-full transition">
-            <i data-lucide="x" class="w-5 h-5"></i>
+          <button onclick="ShopUI.closeCartDrawer()" class="w-8 h-8 rounded-xl hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+            <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
 
-        <!-- Free shipping meter -->
+        <!-- Free Shipping Meter -->
         <div class="px-5 py-3 bg-indigo-50/70 border-b border-indigo-100">
           <div class="flex items-center justify-between text-xs mb-1.5">
             <span id="drawer-shipping-text" class="font-bold text-indigo-950">50,000원 이상 무료배송</span>
@@ -233,47 +280,16 @@ const ShopUI = {
     // Subscribe to cart updates for badges
     CartStore.subscribe(() => {
       this.updateNavBadges();
-    
-    // Update Auth State in Navbar
-    this.updateAuthNav();
-    if (typeof AuthStore !== 'undefined') {
-      AuthStore.subscribe(() => {
-        ShopUI.updateAuthNav();
-      });
-    }
-
       this.renderDrawerItems();
     });
-  },
 
-  
-  updateAuthNav() {
-    if (typeof AuthStore === 'undefined') return;
-    const user = AuthStore.getCurrentUser();
-    const greet = document.getElementById('nav-user-greeting');
-    const nameText = document.getElementById('nav-user-name-text');
-    const loginLink = document.getElementById('nav-link-login');
-    const signupLink = document.getElementById('nav-link-signup');
-    const signupSep = document.getElementById('nav-sep-signup');
-    const logoutBtn = document.getElementById('nav-btn-logout');
-
-    if (user) {
-      if (greet) { greet.classList.remove('hidden'); }
-      if (nameText) { nameText.textContent = `${user.name}님 (${(user.points || 0).toLocaleString()}P)`; }
-      if (loginLink) { loginLink.classList.add('hidden'); }
-      if (signupLink) { signupLink.classList.add('hidden'); }
-      if (signupSep) { signupSep.classList.add('hidden'); }
-      if (logoutBtn) { logoutBtn.classList.remove('hidden'); }
-    } else {
-      if (greet) { greet.classList.add('hidden'); }
-      if (loginLink) { loginLink.classList.remove('hidden'); }
-      if (signupLink) { signupLink.classList.remove('hidden'); }
-      if (signupSep) { signupSep.classList.remove('hidden'); }
-      if (logoutBtn) { logoutBtn.classList.add('hidden'); }
+    if (typeof AuthStore !== 'undefined') {
+      AuthStore.subscribe(() => {
+        this.renderNavbar(active);
+      });
     }
-    if (window.lucide) window.lucide.createIcons();
   },
-  
+
   updateNavBadges() {
     const cartBadge = document.getElementById('nav-cart-badge');
     const wishlistBadge = document.getElementById('nav-wishlist-badge');
