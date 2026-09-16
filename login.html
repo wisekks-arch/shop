@@ -96,6 +96,13 @@
           <span>로그인</span>
         </button>
 
+      
+        <!-- Quick Demo Account Fill -->
+        <button type="button" onclick="fillDemoAccount()" class="w-full py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-600"></i>
+          <span>1초 체험계정 자동 입력 (demo@easyshop.kr)</span>
+        </button>
+  
       </form>
 
       <!-- Bottom Links -->
@@ -151,6 +158,13 @@
       if (window.lucide) window.lucide.createIcons();
     }
 
+    
+    function fillDemoAccount() {
+      document.getElementById('email').value = 'demo@easyshop.kr';
+      document.getElementById('password').value = 'demo@123#pass';
+      ShopUI.showToast('체험계정 정보가 자동 입력되었습니다. 로그인 버튼을 눌러주세요!');
+    }
+  
     function handleLogin(e) {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();

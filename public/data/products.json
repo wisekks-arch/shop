@@ -21,8 +21,8 @@
       "images/prod-01-black.jpg",
       "images/prod-01-group.jpg"
     ],
-    "summary": "최고급 몽골리안 캐시미어 30% 혼방, 우아한 실루엣과 극강의 보온성",
-    "description": "<h3>타임리스 클래식의 정수, 프리미엄 캐시미어 코트</h3><p>엄선된 몽골산 천연 캐시미어와 호주산 메리노 울을 황금비율로 블렌딩하여 가벼우면서도 탁월한 보온성을 선사합니다. 체형을 자연스럽게 커버하는 세미 오버핏 실루엣과 고급 소뿔 단추 마감으로 격식 있는 자리부터 데일리 룩까지 완벽하게 소화합니다.</p><ul><li>원단: 캐시미어 30%, 메리노울 70%</li><li>색상: 오트밀 베이지, 미드나잇 블랙, 차콜 그레이</li><li>드라이클리닝 권장, 전용 슈트케이스 및 옷걸이 동봉</li></ul>",
+    "summary": "최고급 몽골리안 캐시미어 30% 혼방, 우아한 실루엣과 극강의 보온성 (아일릿 화보)",
+    "description": "<h3>타임리스 클래식의 정수, 프리미엄 캐시미어 코트</h3><p>엄선된 몽골산 천연 캐시미어와 호주산 메리노 울을 황금비율로 블렌딩하여 가벼우면서도 탁월한 보온성을 선사합니다. 체형을 자연스럽게 커버하는 세미 오버핏 실루엣과 고급 소뿔 단추 마감으로 격식 있는 자리부터 데일리 룩까지 완벽하게 소화합니다.</p>",
     "options": [
       {
         "name": "오트밀 베이지 / M(95-100)",
@@ -43,38 +43,363 @@
     ],
     "specs": {
       "제조국": "대한민국",
-      "제조사": "EasyShop Private Label",
       "소재": "캐시미어 30%, 울 70%",
-      "품질보증": "구입일로부터 1년 무상 수선",
-      "배송안내": "CJ대한통운 (오후 2시 이전 주문 시 당일 출발)"
-    },
-    "reviews": [
+      "배송안내": "무료배송"
+    }
+  },
+  {
+    "id": "prod-fashion-02",
+    "name": "프렌치 린넨 100% 루즈핏 스트라이프 셔츠",
+    "category": "패션 / 의류",
+    "categoryId": "cat-fashion",
+    "price": 79000,
+    "originalPrice": 110000,
+    "discountRate": 28,
+    "rating": 4.8,
+    "reviewCount": 96,
+    "stock": 48,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "프랑스산 프리미엄 노르망디 린넨 원사, 쾌적하고 자연스러운 내추럴 텍스처",
+    "description": "<h3>자연을 입는 여유, 100% 프렌치 린넨 셔츠</h3><p>프랑스 노르망디에서 재배된 최상급 린넨 원사로 직조하여 통기성이 우수하며 계절의 변화 속에서도 언제나 산뜻한 착용감을 선사합니다.</p>",
+    "options": [
       {
-        "id": "rev-1",
-        "author": "김*현",
-        "rating": 5,
-        "date": "2026-09-01",
-        "content": "원단 촉감이 정말 부드럽고 가볍습니다. 백화점 100만원대 코트 부럽지 않네요!",
-        "likes": 24
+        "name": "스카이 블루 스트라이프 / M",
+        "stock": 20
       },
       {
-        "id": "rev-2",
-        "author": "이*진",
-        "rating": 5,
-        "date": "2026-08-28",
-        "content": "오트밀 색상이 너무 고급스러워요. 배송도 하루 만에 와서 대만족입니다.",
-        "likes": 18
+        "name": "스카이 블루 스트라이프 / L",
+        "stock": 15
+      },
+      {
+        "name": "클래식 화이트 / M",
+        "stock": 13
       }
     ],
-    "qnas": [
+    "specs": {
+      "제조국": "대한민국",
+      "소재": "프렌치 린넨 100%",
+      "세탁방법": "찬물 단독 울코스 권장"
+    }
+  },
+  {
+    "id": "prod-fashion-03",
+    "name": "미니멀 클래식 테일러드 울 블레이저 자켓",
+    "category": "패션 / 의류",
+    "categoryId": "cat-fashion",
+    "price": 198000,
+    "originalPrice": 260000,
+    "discountRate": 23,
+    "rating": 4.9,
+    "reviewCount": 110,
+    "stock": 25,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "입체 패턴 테일러링으로 완성된 완벽한 숄더 라인과 도회적인 모던 실루엣",
+    "description": "<h3>모던 테일러링의 정수</h3><p>어깨 패드와 정교한 절개 라인이 현대적인 실루엣을 완성하는 클래식 울 블레이저입니다.</p>",
+    "options": [
       {
-        "id": "qna-1",
-        "author": "박*수",
-        "date": "2026-09-02",
-        "question": "178cm / 72kg인데 L사이즈 가면 될까요?",
-        "answer": "고객님 안녕하세요! 고객님의 체형에는 L(105) 사이즈를 착용하시면 자연스러운 세미 오버핏으로 멋스럽게 착용 가능합니다."
+        "name": "차콜 그레이 / S",
+        "stock": 8
+      },
+      {
+        "name": "차콜 그레이 / M",
+        "stock": 10
+      },
+      {
+        "name": "딥 블랙 / M",
+        "stock": 7
       }
-    ]
+    ],
+    "specs": {
+      "제조국": "대한민국",
+      "소재": "울 60%, 폴리에스터 40%",
+      "안감": "친환경 비스코스 레이온"
+    }
+  },
+  {
+    "id": "prod-fashion-04",
+    "name": "실크 터치 새틴 슬립 롱 플리츠 드레스",
+    "category": "패션 / 의류",
+    "categoryId": "cat-fashion",
+    "price": 128000,
+    "originalPrice": 168000,
+    "discountRate": 23,
+    "rating": 4.7,
+    "reviewCount": 78,
+    "stock": 30,
+    "isBest": false,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "은은한 윤기와 유려한 드레이프성이 돋보이는 프리미엄 페미닌 롱 드레스",
+    "description": "<h3>우아함이 흐르는 실크 터치 실루엣</h3><p>걸을 때마다 은은하게 빛나는 광택과 부드러운 촉감으로 특별한 날의 주인공을 만들어 드립니다.</p>",
+    "options": [
+      {
+        "name": "샴페인 베이지 / Free",
+        "stock": 15
+      },
+      {
+        "name": "에메랄드 그린 / Free",
+        "stock": 15
+      }
+    ],
+    "specs": {
+      "제조국": "대한민국",
+      "소재": "폴리에스터 100% (실크가공)",
+      "기장": "롱 (총장 120cm)"
+    }
+  },
+  {
+    "id": "prod-fashion-05",
+    "name": "헤비웨이트 프리미엄 코튼 후드 집업 800g",
+    "category": "패션 / 의류",
+    "categoryId": "cat-fashion",
+    "price": 89000,
+    "originalPrice": 119000,
+    "discountRate": 25,
+    "rating": 4.8,
+    "reviewCount": 230,
+    "stock": 60,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "탄탄한 800g 고중량 프렌치 테리 원단, 세탁 후에도 뒤틀림 없는 덤블 워싱",
+    "description": "<h3>사계절 데일리 에센셜</h3><p>밀도 높은 프리미엄 코튼 원단과 2Way 지퍼를 적용하여 다양한 연출이 가능합니다.</p>",
+    "options": [
+      {
+        "name": "멜란지 그레이 / L",
+        "stock": 25
+      },
+      {
+        "name": "멜란지 그레이 / XL",
+        "stock": 20
+      },
+      {
+        "name": "블랙 / L",
+        "stock": 15
+      }
+    ],
+    "specs": {
+      "제조국": "대한민국",
+      "소재": "면 100%",
+      "중량": "800g/yd"
+    }
+  },
+  {
+    "id": "prod-fashion-06",
+    "name": "소프트 모헤어 케이블 니트 가디건",
+    "category": "패션 / 의류",
+    "categoryId": "cat-fashion",
+    "price": 115000,
+    "originalPrice": 145000,
+    "discountRate": 20,
+    "rating": 4.9,
+    "reviewCount": 88,
+    "stock": 22,
+    "isBest": false,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "포근하고 부드러운 키드모헤어 블렌딩, 빈티지한 자개 단추 포인트",
+    "description": "<h3>따스한 무드의 모헤어 케이블 니트</h3><p>풍성한 볼륨감과 클래식한 케이블 짜임으로 로맨틱하고 따스한 겨울 코디를 완성합니다.</p>",
+    "options": [
+      {
+        "name": "크림 아이보리 / Free",
+        "stock": 12
+      },
+      {
+        "name": "더스티 핑크 / Free",
+        "stock": 10
+      }
+    ],
+    "specs": {
+      "소재": "키드모헤어 35%, 울 35%, 나일론 30%",
+      "제조국": "대한민국"
+    }
+  },
+  {
+    "id": "prod-fashion-07",
+    "name": "와이드 레그 테일러드 핀턱 슬랙스 팬츠",
+    "category": "패션 / 의류",
+    "categoryId": "cat-fashion",
+    "price": 68000,
+    "originalPrice": 89000,
+    "discountRate": 23,
+    "rating": 4.8,
+    "reviewCount": 165,
+    "stock": 50,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "다리가 길어 보이는 하이웨이스트 투핀턱 디테일과 찰랑거리는 프리미엄 핏",
+    "description": "<h3>완벽한 체형 커버 와이드 핏</h3><p>구김이 적고 텐션감이 좋은 고급 TR 원단으로 제작되어 하루 종일 편안하고 멋스럽습니다.</p>",
+    "options": [
+      {
+        "name": "딥 블랙 / S(26-27)",
+        "stock": 15
+      },
+      {
+        "name": "딥 블랙 / M(28-29)",
+        "stock": 20
+      },
+      {
+        "name": "모카 브라운 / M",
+        "stock": 15
+      }
+    ],
+    "specs": {
+      "소재": "폴리에스터 70%, 레이온 26%, 스판 4%",
+      "신축성": "보통"
+    }
+  },
+  {
+    "id": "prod-fashion-08",
+    "name": "이탈리안 카프스킨 미니멀 레더 크로스백",
+    "category": "패션 / 의류",
+    "categoryId": "cat-fashion",
+    "price": 185000,
+    "originalPrice": 240000,
+    "discountRate": 22,
+    "rating": 4.9,
+    "reviewCount": 140,
+    "stock": 18,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "이탈리아산 천연 송아지가죽 100%, 앤틱 골드 메탈 버클과 넉넉한 수납공간",
+    "description": "<h3>시간이 흐를수록 깊어지는 가죽의 가치</h3><p>숙련된 장인의 핸드메이드 스티치와 최고급 송아지가죽으로 완성된 타임리스 가방입니다.</p>",
+    "options": [
+      {
+        "name": "노체 브라운",
+        "stock": 8
+      },
+      {
+        "name": "클래식 블랙",
+        "stock": 10
+      }
+    ],
+    "specs": {
+      "가죽": "이탈리아 천연 카프스킨 100%",
+      "크기": "가로 22cm x 세로 16cm x 폭 7cm"
+    }
+  },
+  {
+    "id": "prod-fashion-09",
+    "name": "클래식 청키 로퍼 & 골드 버클 슈즈",
+    "category": "패션 / 의류",
+    "categoryId": "cat-fashion",
+    "price": 135000,
+    "originalPrice": 175000,
+    "discountRate": 22,
+    "rating": 4.8,
+    "reviewCount": 92,
+    "stock": 25,
+    "isBest": false,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "쿠션 인솔로 발이 편안한 4.5cm 청키 솔, 클래식한 유광 소가죽 로퍼",
+    "description": "<h3>스타일과 착화감을 모두 잡은 로퍼</h3><p>발목 라인을 슬림하게 연출하는 청키 아웃솔과 푹신한 메모리폼 인솔을 탑재했습니다.</p>",
+    "options": [
+      {
+        "name": "유광 블랙 / 235mm",
+        "stock": 8
+      },
+      {
+        "name": "유광 블랙 / 240mm",
+        "stock": 10
+      },
+      {
+        "name": "유광 블랙 / 245mm",
+        "stock": 7
+      }
+    ],
+    "specs": {
+      "소재": "천연 소가죽 100%",
+      "굽높이": "4.5cm"
+    }
+  },
+  {
+    "id": "prod-fashion-10",
+    "name": "100% 엑스트라파인 메리노 울 터틀넥 스웨터",
+    "category": "패션 / 의류",
+    "categoryId": "cat-fashion",
+    "price": 94000,
+    "originalPrice": 125000,
+    "discountRate": 24,
+    "rating": 4.9,
+    "reviewCount": 180,
+    "stock": 45,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "19.5마이크론 호주산 최고급 메리노울, 가려움 없는 극상의 부드러움",
+    "description": "<h3>피부에 닿는 순수한 울의 감촉</h3><p>피부 자극 없이 맨살에도 부드럽게 착용할 수 있는 홀가먼트 무봉제 메리노울 터틀넥 니트입니다.</p>",
+    "options": [
+      {
+        "name": "오트밀 멜란지 / M",
+        "stock": 15
+      },
+      {
+        "name": "오트밀 멜란지 / L",
+        "stock": 15
+      },
+      {
+        "name": "미드나잇 네이비 / L",
+        "stock": 15
+      }
+    ],
+    "specs": {
+      "소재": "호주산 메리노 울 100%",
+      "원사두께": "19.5 마이크론"
+    }
   },
   {
     "id": "prod-02",
@@ -82,13 +407,13 @@
     "category": "디지털 / 가전",
     "categoryId": "cat-digital",
     "price": 198000,
-    "originalPrice": 269000,
-    "discountRate": 26,
+    "originalPrice": 289000,
+    "discountRate": 31,
     "rating": 4.9,
-    "reviewCount": 328,
+    "reviewCount": 320,
     "stock": 42,
     "isBest": true,
-    "isNew": false,
+    "isNew": true,
     "isSale": true,
     "isFreeShipping": true,
     "thumbnail": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
@@ -96,176 +421,23 @@
       "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=80",
       "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=1000&q=80"
     ],
-    "summary": "하이브리드 ANC 45dB 노이즈 차단, 최대 60시간 연속 재생, 고해상도 Hi-Res 오디오",
-    "description": "<h3>압도적인 몰입감, 소음 없는 당신만의 사운드 스페이스</h3><p>40mm 티타늄 다이내믹 드라이버 탑재로 깊고 단단한 저음과 맑고 청량한 고음을 전달합니다. 첨단 듀얼 피드백 노이즈 캔슬링 칩셋으로 주변 소음을 실시간 45dB까지 감쇄합니다.</p>",
+    "summary": "하이브리드 액티브 노이즈 캔슬링(ANC) 40dB, 최대 65시간 연속 재생",
+    "description": "<h3>음악에 완전히 몰입하는 순간</h3><p>40mm 티타늄 드라이버가 선사하는 웅장한 공간 음향과 주변 소음을 완벽히 차단하는 차세대 ANC 기술이 적용되었습니다.</p>",
     "options": [
       {
-        "name": "스페이스 그레이",
+        "name": "매트 블랙",
+        "stock": 22
+      },
+      {
+        "name": "스노우 실버",
         "stock": 20
-      },
-      {
-        "name": "매트 실버",
-        "stock": 15
-      },
-      {
-        "name": "미드나잇 블루",
-        "stock": 7
       }
     ],
     "specs": {
-      "블루투스": "v5.4 최신 칩셋",
-      "배터리": "ANC 켜짐 시 최대 45시간, 꺼짐 시 60시간",
-      "충전": "USB-C 고속 충전 (10분 충전 시 5시간 재생)",
-      "무게": "245g 초경량 설계"
-    },
-    "reviews": [
-      {
-        "id": "rev-3",
-        "author": "최*혁",
-        "rating": 5,
-        "date": "2026-09-04",
-        "content": "카페에서 공부할 때 쓰는데 소음이 거짓말처럼 사라집니다. 착용감도 편해요.",
-        "likes": 31
-      }
-    ],
-    "qnas": []
-  },
-  {
-    "id": "prod-03",
-    "name": "글로우 리바이탈라이징 나이트 앰플 세럼 50ml",
-    "category": "뷰티 / 케어",
-    "categoryId": "cat-beauty",
-    "price": 46000,
-    "originalPrice": 68000,
-    "discountRate": 32,
-    "rating": 4.8,
-    "reviewCount": 215,
-    "stock": 80,
-    "isBest": true,
-    "isNew": true,
-    "isSale": true,
-    "isFreeShipping": false,
-    "thumbnail": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80",
-    "images": [
-      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1000&q=80"
-    ],
-    "summary": "8중 히알루론산 & 펩타이드 콤플렉스, 밤사이 되살아나는 탄력 수분 광채",
-    "description": "<h3>피부 깊숙이 채워지는 밤샘 수분 탄력 케어</h3><p>피부 장벽을 탄탄하게 가꿔주는 8중 복합 히알루론산과 콜라겐 생성에 도움을 주는 고농축 펩타이드 성분이 밤사이 지친 피부에 즉각적인 생기를 불어넣어 줍니다.</p>",
-    "options": [
-      {
-        "name": "단품 50ml",
-        "stock": 50
-      },
-      {
-        "name": "기획세트 (50ml + 미니어처 15ml 증정)",
-        "stock": 30
-      }
-    ],
-    "specs": {
-      "용량": "50ml",
-      "피부타입": "모든 피부용 (민감성 피부 자극 테스트 완료)",
-      "제조국": "대한민국"
-    },
-    "reviews": [
-      {
-        "id": "rev-4",
-        "author": "정*영",
-        "rating": 5,
-        "date": "2026-09-03",
-        "content": "끈적이지 않고 쏙 흡수되는데 다음날 아침 화장이 진짜 잘 먹어요!",
-        "likes": 12
-      }
-    ],
-    "qnas": []
-  },
-  {
-    "id": "prod-04",
-    "name": "미니멀 무선 마그네틱 터치 LED 무드등",
-    "category": "리빙 / 인테리어",
-    "categoryId": "cat-living",
-    "price": 38000,
-    "originalPrice": 55000,
-    "discountRate": 30,
-    "rating": 4.9,
-    "reviewCount": 89,
-    "stock": 55,
-    "isBest": false,
-    "isNew": true,
-    "isSale": true,
-    "isFreeShipping": false,
-    "thumbnail": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80",
-    "images": [
-      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1000&q=80"
-    ],
-    "summary": "3단계 색온도 조절, 무단계 디밍, 2000mAh 대용량 배터리 무선 인테리어 조명",
-    "description": "<h3>어느 공간에나 감성을 더하는 미니멀 조명</h3><p>알루미늄 바디와 부드러운 디퓨저 렌즈로 눈부심 없는 아늑한 빛을 연출합니다. 마그네틱 베이스로 각도 조절이 자유로우며 벽면, 테이블, 선반 어디에나 거치 가능합니다.</p>",
-    "options": [
-      {
-        "name": "샌드 베이지",
-        "stock": 30
-      },
-      {
-        "name": "매트 화이트",
-        "stock": 25
-      }
-    ],
-    "specs": {
-      "배터리": "2,000mAh 리튬이온",
-      "충전방식": "Type-C 포트",
-      "색온도": "3000K / 4000K / 5700K"
-    },
-    "reviews": [],
-    "qnas": []
-  },
-  {
-    "id": "prod-05",
-    "name": "스페셜티 드립백 커피 시그니처 4종 기프트 세트",
-    "category": "푸드 / 키친",
-    "categoryId": "cat-food",
-    "price": 28000,
-    "originalPrice": 35000,
-    "discountRate": 20,
-    "rating": 5,
-    "reviewCount": 164,
-    "stock": 90,
-    "isBest": true,
-    "isNew": false,
-    "isSale": true,
-    "isFreeShipping": false,
-    "thumbnail": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80",
-    "images": [
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=80"
-    ],
-    "summary": "에티오피아 예가체프, 과테말라 안티구아, 콜롬비아 수프리모 등 최고 등급 20개입",
-    "description": "<h3>집에서 즐기는 바리스타의 스페셜티 커피</h3><p>Q-Grader가 직접 엄선하고 당일 로스팅한 신선한 원두만을 질소 충전 드립백에 담았습니다. 간편하게 뜨거운 물만 부어 풍부한 크레마와 아로마를 느껴보세요.</p>",
-    "options": [
-      {
-        "name": "시그니처 버라이어티 20개입",
-        "stock": 60
-      },
-      {
-        "name": "다크 로스팅 에디션 20개입",
-        "stock": 30
-      }
-    ],
-    "specs": {
-      "구성": "드립백 10g x 20개",
-      "유통기한": "제조일로부터 1년 (최근 1개월 내 제조품 발송)",
-      "포장": "고급 선물용 하드케이스 & 쇼핑백 포함"
-    },
-    "reviews": [
-      {
-        "id": "rev-5",
-        "author": "한*숙",
-        "rating": 5,
-        "date": "2026-08-30",
-        "content": "선물용으로 샀는데 포장도 너무 예쁘고 커피 향이 집안 가득 퍼지네요.",
-        "likes": 15
-      }
-    ],
-    "qnas": []
+      "배터리": "최대 65시간 재생",
+      "블루투스": "v5.3",
+      "무게": "240g"
+    }
   },
   {
     "id": "prod-06",
@@ -273,85 +445,35 @@
     "category": "디지털 / 가전",
     "categoryId": "cat-digital",
     "price": 45000,
-    "originalPrice": 62000,
-    "discountRate": 27,
-    "rating": 4.9,
-    "reviewCount": 188,
+    "originalPrice": 59000,
+    "discountRate": 23,
+    "rating": 4.8,
+    "reviewCount": 215,
     "stock": 60,
-    "isBest": true,
+    "isBest": false,
     "isNew": false,
     "isSale": true,
-    "isFreeShipping": false,
+    "isFreeShipping": true,
     "thumbnail": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=800&q=80",
     "images": [
       "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=1000&q=80"
     ],
-    "summary": "풀 CNC 가공 항공 알루미늄, 360도 회전 및 무단 높이/각도 조절, 흔들림 없는 지지력",
-    "description": "<h3>바른 자세를 위한 프리미엄 데스크테리어 필수품</h3><p>맥북, 태블릿부터 17인치 대화면 게이밍 노트북까지 완벽 거치 가능한 듀얼 힌지 구조입니다. 열 방출 벤틸레이션 홀로 장시간 사용 시 발열을 효과적으로 낮춰줍니다.</p>",
+    "summary": "항공기 등급 알루미늄 합금, 6단계 각도 조절과 탁월한 방열 쿨링 구조",
+    "description": "<h3>거북목 완벽 예방, 바른 자세를 위한 스탠드</h3><p>최대 17인치 대화면 노트북까지 흔들림 없이 단단하게 지지해 주는 인체공학적 알루미늄 거치대입니다.</p>",
     "options": [
       {
-        "name": "실버",
+        "name": "스페이스 그레이",
         "stock": 35
       },
       {
-        "name": "스페이스 그레이",
+        "name": "실버",
         "stock": 25
       }
     ],
     "specs": {
-      "호환": "10인치 ~ 17.3인치 노트북 및 태블릿",
-      "재질": "항공 알루미늄 합금 + 실리콘 패드",
-      "최대하중": "최대 10kg 지지"
-    },
-    "reviews": [],
-    "qnas": []
-  },
-  {
-    "id": "prod-07",
-    "name": "프렌치 린넨 100% 루즈핏 스트라이프 셔츠",
-    "category": "패션 / 의류",
-    "categoryId": "cat-fashion",
-    "price": 79000,
-    "originalPrice": 119000,
-    "discountRate": 33,
-    "rating": 4.8,
-    "reviewCount": 94,
-    "stock": 48,
-    "isBest": false,
-    "isNew": true,
-    "isSale": true,
-    "isFreeShipping": true,
-    "thumbnail": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80",
-    "images": [
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=1000&q=80"
-    ],
-    "summary": "프랑스 노르망디산 프리미엄 린넨, 자연스러운 구김과 쾌적한 쿨링 터치",
-    "description": "<h3>자연을 닮은 편안함, 내추럴 프렌치 린넨</h3><p>피부에 닿는 순간 시원한 청량감을 주는 100% 최고급 프렌치 린넨으로 제작되었습니다. 여유 있는 오버핏 패턴으로 단독 착용은 물론 가벼운 아우터 셔츠로도 훌륭합니다.</p>",
-    "options": [
-      {
-        "name": "스카이블루 스트라이프 / M",
-        "stock": 18
-      },
-      {
-        "name": "스카이블루 스트라이프 / L",
-        "stock": 12
-      },
-      {
-        "name": "클래식 네이비 스트라이프 / M",
-        "stock": 10
-      },
-      {
-        "name": "클래식 네이비 스트라이프 / L",
-        "stock": 8
-      }
-    ],
-    "specs": {
-      "소재": "프렌치 린넨 100%",
-      "세탁": "찬물 단독 울코스 손세탁 권장",
-      "원산지": "대한민국"
-    },
-    "reviews": [],
-    "qnas": []
+      "소재": "알루미늄 100%",
+      "호환": "11~17인치 전 기종"
+    }
   },
   {
     "id": "prod-08",
@@ -359,10 +481,10 @@
     "category": "디지털 / 가전",
     "categoryId": "cat-digital",
     "price": 129000,
-    "originalPrice": 169000,
-    "discountRate": 23,
+    "originalPrice": 159000,
+    "discountRate": 18,
     "rating": 4.9,
-    "reviewCount": 240,
+    "reviewCount": 184,
     "stock": 38,
     "isBest": true,
     "isNew": true,
@@ -372,64 +494,305 @@
     "images": [
       "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1000&q=80"
     ],
-    "summary": "로우 프로파일 게이트론 적축/갈축, Mac/Windows 동시 지원 멀티페어링",
-    "description": "<h3>얇고 경쾌한 프리미엄 타건감</h3><p>두께 18mm의 초슬림 디자인으로 손목 받침대 없이도 장시간 편안한 타이핑을 제공합니다. 3개 기기 동시 연결 블루투스 5.1 및 유선 Type-C 모드를 모두 지원합니다.</p>",
+    "summary": "로우프로파일 게이트론 적축, Mac & Windows 완벽 호환, 3대 멀티페어링",
+    "description": "<h3>기분 좋은 타건감과 미니멀 데스크테리어</h3><p>슬림한 바디에 부드러운 타건감을 담아 손목의 피로를 최소화한 무선 기계식 키보드입니다.</p>",
     "options": [
       {
-        "name": "저소음 갈축 (부드러운 구분감)",
+        "name": "로우프로파일 적축 (리니어)",
         "stock": 20
       },
       {
-        "name": "리니어 적축 (조용하고 빠른 입력)",
+        "name": "로우프로파일 갈축 (택타일)",
         "stock": 18
       }
     ],
     "specs": {
-      "키 레이아웃": "84키 텐키리스 컴팩트",
-      "백라이트": "화이트 LED 15가지 이펙트",
-      "배터리": "4000mAh (최대 200시간 사용)"
-    },
-    "reviews": [],
-    "qnas": []
+      "연결": "블루투스 5.1 / 2.4Ghz / Type-C",
+      "배터리": "최대 180시간"
+    }
   },
   {
-    "id": "prod-09",
-    "name": "시그니처 우디 아로마 디퓨저 & 캔들 세트",
-    "category": "리빙 / 인테리어",
-    "categoryId": "cat-living",
-    "price": 52000,
-    "originalPrice": 75000,
-    "discountRate": 30,
+    "id": "prod-digital-04",
+    "name": "4K UHD 스마트 미니 빔프로젝터 안드로이드TV 탑재",
+    "category": "디지털 / 가전",
+    "categoryId": "cat-digital",
+    "price": 439000,
+    "originalPrice": 580000,
+    "discountRate": 24,
     "rating": 4.9,
-    "reviewCount": 112,
-    "stock": 70,
-    "isBest": false,
+    "reviewCount": 156,
+    "stock": 20,
+    "isBest": true,
     "isNew": true,
     "isSale": true,
     "isFreeShipping": true,
-    "thumbnail": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
+    "thumbnail": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80",
     "images": [
-      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1000&q=80"
+      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1000&q=80"
     ],
-    "summary": "프랑스 그라스 향료 조향, 시더우드와 은은한 샌달우드가 전하는 힐링의 숲",
-    "description": "<h3>지친 하루의 끝, 공간을 채우는 우아한 휴식</h3><p>천연 소이왁스와 식물성 디퓨저 베이스로 머리 아픔 없는 편안한 발향을 선사합니다. 고급스러운 앰버 글라스 보틀로 인테리어 오브제로도 손색없습니다.</p>",
+    "summary": "1200 안시루멘의 밝고 선명한 화질, 넷플릭스·유튜브 자체 재생 지원",
+    "description": "<h3>우리 집을 나만의 영화관으로</h3><p>오토 포커스와 키스톤 보정으로 벽이나 천장 어디든 120인치 초대형 스크린을 감상할 수 있습니다.</p>",
     "options": [
       {
-        "name": "포레스트 레스트 (시더우드 & 앰버)",
-        "stock": 40
+        "name": "미드나잇 블랙",
+        "stock": 12
       },
       {
-        "name": "모닝 미스트 (유칼립투스 & 베르가못)",
+        "name": "루나 화이트",
+        "stock": 8
+      }
+    ],
+    "specs": {
+      "해상도": "4K UHD 지원 (Native 1080P)",
+      "밝기": "1200 ANSI",
+      "스피커": "하만카돈 튜닝 10W"
+    }
+  },
+  {
+    "id": "prod-digital-05",
+    "name": "고속 마그네틱 3in1 접이식 무선 충전 스테이션",
+    "category": "디지털 / 가전",
+    "categoryId": "cat-digital",
+    "price": 49000,
+    "originalPrice": 69000,
+    "discountRate": 28,
+    "rating": 4.8,
+    "reviewCount": 280,
+    "stock": 75,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "스마트폰 + 스마트워치 + 무선이어폰 동시 15W 고속 맥세이프 충전",
+    "description": "<h3>지저분한 케이블 해방, 깔끔한 충전 라이프</h3><p>접이식 콤팩트 디자인으로 여행이나 출장 시에도 휴대하기 간편합니다.</p>",
+    "options": [
+      {
+        "name": "매트 블랙",
+        "stock": 45
+      },
+      {
+        "name": "세라믹 화이트",
         "stock": 30
       }
     ],
     "specs": {
-      "구성": "디퓨저 200ml + 리드스틱 6개 + 소이캔들 180g",
-      "사용기간": "디퓨저 약 2~3개월 지속",
-      "안전확인": "환경부 안전기준 적합확인 신고 완료"
-    },
-    "reviews": [],
-    "qnas": []
+      "출력": "최대 15W 고속",
+      "인증": "KC 안전인증 완료"
+    }
+  },
+  {
+    "id": "prod-digital-06",
+    "name": "스마트 AI 로봇청소기 자동 먼지비움 & 물걸레 세척",
+    "category": "디지털 / 가전",
+    "categoryId": "cat-digital",
+    "price": 689000,
+    "originalPrice": 890000,
+    "discountRate": 22,
+    "rating": 4.9,
+    "reviewCount": 145,
+    "stock": 15,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "6000Pa 강력 흡입, LiDAR 내비게이션, 온수 물걸레 세척 및 열풍 건조",
+    "description": "<h3>청소의 모든 과정을 완전 자동화</h3><p>스마트폰 앱으로 구역별 청소 예약과 금지구역 설정이 가능한 올인원 프리미엄 로봇청소기입니다.</p>",
+    "options": [
+      {
+        "name": "올인원 프리미엄 화이트",
+        "stock": 15
+      }
+    ],
+    "specs": {
+      "흡입력": "6,000Pa",
+      "배터리": "5200mAh 대용량",
+      "스테이션": "자동 세척&건조"
+    }
+  },
+  {
+    "id": "prod-digital-07",
+    "name": "프리미엄 음파 전동칫솔 & UV 살균 무선충전 트래블 케이스",
+    "category": "디지털 / 가전",
+    "categoryId": "cat-digital",
+    "price": 89000,
+    "originalPrice": 129000,
+    "discountRate": 31,
+    "rating": 4.8,
+    "reviewCount": 190,
+    "stock": 50,
+    "isBest": false,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1559591937-e1032a1ebcc5?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1559591937-e1032a1ebcc5?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "분당 42,000회 미세 음파 진동, 5가지 맞춤 양치 모드, IPX7 방수",
+    "description": "<h3>치과 스케일링을 받은 듯한 개운함</h3><p>잇몸 자극 없이 치석과 플라그를 정밀하게 제거해 주는 스마트 음파 전동칫솔입니다.</p>",
+    "options": [
+      {
+        "name": "매트 블랙 세트",
+        "stock": 25
+      },
+      {
+        "name": "펄 화이트 세트",
+        "stock": 25
+      }
+    ],
+    "specs": {
+      "방수등급": "IPX7 완전방수",
+      "진동수": "42,000회/분"
+    }
+  },
+  {
+    "id": "prod-digital-08",
+    "name": "스마트 홈 IoT 360도 원통형 공기청정기 H13 헤파",
+    "category": "디지털 / 가전",
+    "categoryId": "cat-digital",
+    "price": 159000,
+    "originalPrice": 219000,
+    "discountRate": 27,
+    "rating": 4.9,
+    "reviewCount": 240,
+    "stock": 30,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "H13 의료등급 트루 헤파필터, 초미세먼지 99.97% 제거, 초저소음 수면모드",
+    "description": "<h3>방 안 가득 맑고 신선한 숲속 공기</h3><p>레이저 미세먼지 센서로 공기질을 실시간 감지하여 자동 청정하는 프리미엄 공기청정기입니다.</p>",
+    "options": [
+      {
+        "name": "퓨어 화이트",
+        "stock": 30
+      }
+    ],
+    "specs": {
+      "청정면적": "약 40m² (12평형)",
+      "필터": "H13 트루 헤파+활성탄"
+    }
+  },
+  {
+    "id": "prod-digital-09",
+    "name": "초경량 저소음 BLDC 접이식 음이온 헤어드라이어",
+    "category": "디지털 / 가전",
+    "categoryId": "cat-digital",
+    "price": 99000,
+    "originalPrice": 139000,
+    "discountRate": 28,
+    "rating": 4.8,
+    "reviewCount": 310,
+    "stock": 65,
+    "isBest": true,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "11만 RPM 초고속 BLDC 모터, 2억 개 고농도 음이온으로 모발 손상 없는 고속 건조",
+    "description": "<h3>3분 만에 완성되는 손상 없는 빠른 건조</h3><p>가벼운 380g 무게와 지능형 열제어 센서로 두피와 모발 건강을 완벽히 지켜줍니다.</p>",
+    "options": [
+      {
+        "name": "메탈 그레이",
+        "stock": 35
+      },
+      {
+        "name": "로즈 골드",
+        "stock": 30
+      }
+    ],
+    "specs": {
+      "모터": "110,000 RPM BLDC",
+      "무게": "380g",
+      "풍속": "22m/s"
+    }
+  },
+  {
+    "id": "prod-digital-10",
+    "name": "노이즈캔슬링 무선 블루투스 이어버드 Spatial Audio",
+    "category": "디지털 / 가전",
+    "categoryId": "cat-digital",
+    "price": 89000,
+    "originalPrice": 129000,
+    "discountRate": 31,
+    "rating": 4.8,
+    "reviewCount": 420,
+    "stock": 80,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "풍부한 베이스 사운드, 4마이크 통화 소음제거, 무선충전 지원 케이스",
+    "description": "<h3>귀에 착 감기는 완벽한 피팅감</h3><p>주변 소음을 지우고 통화 음질은 선명하게 살리는 데일리 필수 무선 이어폰입니다.</p>",
+    "options": [
+      {
+        "name": "퓨어 화이트",
+        "stock": 45
+      },
+      {
+        "name": "미드나잇 블랙",
+        "stock": 35
+      }
+    ],
+    "specs": {
+      "재생시간": "최대 32시간(케이스 포함)",
+      "방수": "IPX5 생활방수"
+    }
+  },
+  {
+    "id": "prod-03",
+    "name": "글로우 리바이탈라이징 나이트 앰플 세럼 50ml",
+    "category": "뷰티 / 케어",
+    "categoryId": "cat-beauty",
+    "price": 46000,
+    "originalPrice": 68000,
+    "discountRate": 32,
+    "rating": 4.9,
+    "reviewCount": 215,
+    "stock": 80,
+    "isBest": true,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "8중 히알루론산 & 펩타이드 콤플렉스, 밤사이 되살아나는 탄력 수분 광채",
+    "description": "<h3>지친 피부를 위한 밤의 기적</h3><p>피부 장벽을 강화하고 피부 속 깊은 곳까지 촉촉한 수분과 영양을 촘촘히 채워줍니다.</p>",
+    "options": [
+      {
+        "name": "50ml 단품",
+        "stock": 50
+      },
+      {
+        "name": "50ml x 2개 듀오세트 (추가할인)",
+        "stock": 30
+      }
+    ],
+    "specs": {
+      "피부타입": "모든 피부용",
+      "기능성": "미백 / 주름개선 2중 기능성"
+    }
   },
   {
     "id": "prod-10",
@@ -440,84 +803,683 @@
     "originalPrice": 48000,
     "discountRate": 29,
     "rating": 4.8,
-    "reviewCount": 178,
+    "reviewCount": 190,
     "stock": 65,
     "isBest": false,
-    "isNew": false,
+    "isNew": true,
     "isSale": true,
-    "isFreeShipping": false,
+    "isFreeShipping": true,
     "thumbnail": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80",
     "images": [
       "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80"
     ],
-    "summary": "100시간 보습 지속력 임상 완료, 5종 세라마이드로 무너진 피부 장벽 급속 리셋",
-    "description": "<h3>속건조 완벽 해결, 순한 비건 보습막</h3><p>EWG 그린 등급 원료만을 사용하여 민감성 피부도 안심하고 사용할 수 있는 고보습 장벽 크림입니다. 번들거림 없이 실키하게 밀착됩니다.</p>",
+    "summary": "100시간 보습 지속 테스트 완료, 민감성 피부를 위한 저자극 비건 안심 포뮬러",
+    "description": "<h3>무너진 피부 장벽을 탄탄하게 복구</h3><p>끈적임 없이 피부에 부드럽게 밀착되어 오랜 시간 깊은 보습막을 형성해 줍니다.</p>",
     "options": [
       {
-        "name": "본품 100ml 튜브형",
-        "stock": 45
+        "name": "100ml 단품",
+        "stock": 65
+      }
+    ],
+    "specs": {
+      "인증": "EVE VEGAN 프랑스 비건 인증",
+      "용량": "100ml"
+    }
+  },
+  {
+    "id": "prod-beauty-03",
+    "name": "시그니처 로즈마리 리프레싱 스칼프 헤어오일 100ml",
+    "category": "뷰티 / 케어",
+    "categoryId": "cat-beauty",
+    "price": 29000,
+    "originalPrice": 38000,
+    "discountRate": 23,
+    "rating": 4.9,
+    "reviewCount": 145,
+    "stock": 55,
+    "isBest": true,
+    "isNew": false,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1608248597359-0a623719b0cf?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1608248597359-0a623719b0cf?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "유기농 로즈마리 잎 오일 추출물, 손상모 영양 공급 및 건강한 두피 케어",
+    "description": "<h3>찰랑이는 모발과 상쾌한 두피를 위한 오일 테라피</h3><p>끈적임 없이 빠르게 흡수되어 부스스한 모발 끝을 부드럽게 정돈해 줍니다.</p>",
+    "options": [
+      {
+        "name": "100ml 본품",
+        "stock": 55
+      }
+    ],
+    "specs": {
+      "주요성분": "로즈마리잎오일, 아르간커넬오일",
+      "제조국": "대한민국"
+    }
+  },
+  {
+    "id": "prod-beauty-04",
+    "name": "딥 클렌징 시카 마일드 약산성 클렌징 폼 150ml",
+    "category": "뷰티 / 케어",
+    "categoryId": "cat-beauty",
+    "price": 18000,
+    "originalPrice": 24000,
+    "discountRate": 25,
+    "rating": 4.8,
+    "reviewCount": 310,
+    "stock": 90,
+    "isBest": false,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1556228722-d0b5d120a8fb?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1556228722-d0b5d120a8fb?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "병풀추출물(CICA) 10,000ppm 함유, 당김 없는 촉촉한 약산성 마이크로 버블",
+    "description": "<h3>미세먼지까지 말끔하게 딥클렌징</h3><p>풍성하고 조밀한 거품이 모공 속 노폐물은 깨끗이 씻어내고 수분은 남겨줍니다.</p>",
+    "options": [
+      {
+        "name": "150ml 단품",
+        "stock": 50
       },
       {
-        "name": "대용량 200ml 펌프형 (+15,000원)",
+        "name": "150ml 1+1 기획세트",
+        "stock": 40
+      }
+    ],
+    "specs": {
+      "pH": "pH 5.5 약산성",
+      "용량": "150ml"
+    }
+  },
+  {
+    "id": "prod-beauty-05",
+    "name": "벨벳 매트 롱래스팅 립 틴트 5종 시그니처 컬렉션",
+    "category": "뷰티 / 케어",
+    "categoryId": "cat-beauty",
+    "price": 22000,
+    "originalPrice": 32000,
+    "discountRate": 31,
+    "rating": 4.9,
+    "reviewCount": 275,
+    "stock": 70,
+    "isBest": true,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "블러 필터를 씌운 듯 매끄러운 밀착, 하루 종일 유지되는 고발색 벨벳 텍스처",
+    "description": "<h3>입술 위에 가볍게 얹어지는 무드 있는 컬러</h3><p>각질 부각 없이 가볍고 부드럽게 발리는 감각적인 컬러 라인업입니다.</p>",
+    "options": [
+      {
+        "name": "01 로즈 뮬리 (MLBB)",
+        "stock": 25
+      },
+      {
+        "name": "02 브릭 코랄 (웜톤추천)",
+        "stock": 25
+      },
+      {
+        "name": "03 플럼 베리 (쿨톤추천)",
         "stock": 20
       }
     ],
     "specs": {
-      "용량": "100ml / 200ml",
-      "인증": "이탈리아 V-LABEL 비건 정식 인증",
-      "피부타입": "건성, 민감성, 수부지"
-    },
-    "reviews": [],
-    "qnas": []
+      "용량": "4.5g",
+      "발색지속력": "최대 12시간 지속"
+    }
+  },
+  {
+    "id": "prod-beauty-06",
+    "name": "저분자 콜라겐 펩타이드 탄력 아이크림 30ml 듀오세트",
+    "category": "뷰티 / 케어",
+    "categoryId": "cat-beauty",
+    "price": 38000,
+    "originalPrice": 56000,
+    "discountRate": 32,
+    "rating": 4.8,
+    "reviewCount": 160,
+    "stock": 40,
+    "isBest": false,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "300달톤 초저분자 콜라겐 함유, 눈가 및 팔자주름 집중 탄력 리프팅",
+    "description": "<h3>눈가 주름을 빈틈없이 팽팽하게</h3><p>미세 롤러 어플리케이터가 내장되어 눈가 붓기 완화와 쿨링 마사지를 동시에 선사합니다.</p>",
+    "options": [
+      {
+        "name": "30ml x 2개 듀오세트",
+        "stock": 40
+      }
+    ],
+    "specs": {
+      "기능성": "주름개선 기능성 화장품",
+      "용량": "30ml x 2"
+    }
+  },
+  {
+    "id": "prod-beauty-07",
+    "name": "선 프로텍트 워터프루프 무기자차 데일리 선크림 SPF50+",
+    "category": "뷰티 / 케어",
+    "categoryId": "cat-beauty",
+    "price": 24000,
+    "originalPrice": 32000,
+    "discountRate": 25,
+    "rating": 4.9,
+    "reviewCount": 220,
+    "stock": 85,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "백탁 없이 촉촉한 에센스 제형, 강력한 자외선 차단(PA++++)과 피부 진정",
+    "description": "<h3>눈시림 없는 순한 무기자차 자외선 차단제</h3><p>해양 생태계를 해치지 않는 리프 세이프(Reef Safe) 친환경 처방 선크림입니다.</p>",
+    "options": [
+      {
+        "name": "50ml 단품",
+        "stock": 50
+      },
+      {
+        "name": "50ml 1+1 기획세트",
+        "stock": 35
+      }
+    ],
+    "specs": {
+      "차단지수": "SPF50+ / PA++++",
+      "용량": "50ml"
+    }
+  },
+  {
+    "id": "prod-beauty-08",
+    "name": "유기농 비정제 골든 호호바 오일 100% 멀티 페이스오일 50ml",
+    "category": "뷰티 / 케어",
+    "categoryId": "cat-beauty",
+    "price": 27000,
+    "originalPrice": 36000,
+    "discountRate": 25,
+    "rating": 4.8,
+    "reviewCount": 130,
+    "stock": 50,
+    "isBest": false,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "냉압착 비정제 100% 골든 호호바오일, 피부 피지 구조와 유사해 산뜻한 보습",
+    "description": "<h3>페이스, 바디, 헤어까지 한 번에 케어</h3><p>속건조를 빠르게 해결하고 블랙헤드 피지 케어에도 탁월한 만능 천연 오일입니다.</p>",
+    "options": [
+      {
+        "name": "50ml 본품",
+        "stock": 50
+      }
+    ],
+    "specs": {
+      "성분": "유기농 호호바씨오일 100%",
+      "원산지": "이스라엘"
+    }
+  },
+  {
+    "id": "prod-beauty-09",
+    "name": "아하/바하/파하 각질 케어 마일드 토너 패드 80매",
+    "category": "뷰티 / 케어",
+    "categoryId": "cat-beauty",
+    "price": 21000,
+    "originalPrice": 28000,
+    "discountRate": 25,
+    "rating": 4.9,
+    "reviewCount": 340,
+    "stock": 95,
+    "isBest": true,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "엠보싱 면으로 묵은 각질 정돈, 매끈한 면으로 수분 진정 팩 활용",
+    "description": "<h3>매일 아침 매끈하고 투명한 깐달걀 피부결</h3><p>순한 각질 제거 성분과 티트리 추출물이 모공과 결을 깨끗하게 케어해 줍니다.</p>",
+    "options": [
+      {
+        "name": "80매 1통",
+        "stock": 55
+      },
+      {
+        "name": "80매 2통 더블세트",
+        "stock": 40
+      }
+    ],
+    "specs": {
+      "매수": "80매 (에센스 180ml 듬뿍)",
+      "패드재질": "100% 순면 비건 인증 패드"
+    }
+  },
+  {
+    "id": "prod-beauty-10",
+    "name": "프리미엄 럭셔리 퍼퓸 핸드크림 트리오 기프트 세트",
+    "category": "뷰티 / 케어",
+    "categoryId": "cat-beauty",
+    "price": 32000,
+    "originalPrice": 45000,
+    "discountRate": 29,
+    "rating": 4.9,
+    "reviewCount": 260,
+    "stock": 60,
+    "isBest": true,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "시더우드, 화이트로즈, 샌달우드 시그니처 향수 레벨 향조, 시어버터 20%",
+    "description": "<h3>은은하게 퍼지는 향기로운 손끝의 휴식</h3><p>고급스러운 선물 박스 포장으로 소중한 분께 마음을 전하기 완벽한 기프트 세트입니다.</p>",
+    "options": [
+      {
+        "name": "퍼퓸 트리오 세트 (3종 x 50ml)",
+        "stock": 60
+      }
+    ],
+    "specs": {
+      "구성": "우디 / 플로럴 / 머스크 3종 세트",
+      "용량": "50ml x 3"
+    }
+  },
+  {
+    "id": "prod-04",
+    "name": "미니멀 무선 마그네틱 터치 LED 감성 무드등",
+    "category": "리빙 / 인테리어",
+    "categoryId": "cat-living",
+    "price": 38000,
+    "originalPrice": 52000,
+    "discountRate": 27,
+    "rating": 4.9,
+    "reviewCount": 168,
+    "stock": 55,
+    "isBest": true,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "3단계 색온도 조절 및 무단 디밍, 마그네틱 탈부착 벽 조명 겸용",
+    "description": "<h3>공간에 온기를 더하는 감성 조명</h3><p>침실 헤드, 서재, 복도 등 원하는 곳 어디든 자석으로 간편하게 탈부착하여 사용하는 무선 조명입니다.</p>",
+    "options": [
+      {
+        "name": "웜 우드",
+        "stock": 30
+      },
+      {
+        "name": "매트 화이트",
+        "stock": 25
+      }
+    ],
+    "specs": {
+      "배터리": "2500mAh (최대 40시간)",
+      "충전": "Type-C"
+    }
+  },
+  {
+    "id": "prod-09",
+    "name": "시그니처 우디 아로마 소이 캔들 & 디퓨저 기프트 세트",
+    "category": "리빙 / 인테리어",
+    "categoryId": "cat-living",
+    "price": 52000,
+    "originalPrice": 68000,
+    "discountRate": 24,
+    "rating": 4.8,
+    "reviewCount": 115,
+    "stock": 70,
+    "isBest": false,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "100% 천연 소이왁스 캔들(220g) & 프리미엄 리드 디퓨저(150ml)",
+    "description": "<h3>지친 하루의 끝, 마음을 감싸는 깊은 숲의 향기</h3><p>스위스 고급 에센셜 오일과 천연 소이왁스로 제작되어 그을음 없이 안전하게 발향됩니다.</p>",
+    "options": [
+      {
+        "name": "포레스트 레인 (우디)",
+        "stock": 40
+      },
+      {
+        "name": "라벤더 가든 (플로럴)",
+        "stock": 30
+      }
+    ],
+    "specs": {
+      "구성": "소이캔들 220g + 디퓨저 150ml + 리드스틱",
+      "원산지": "대한민국"
+    }
   },
   {
     "id": "prod-11",
-    "name": "핸드메이드 세라믹 머그 & 우드 코스터 세트",
+    "name": "핸드메이드 세라믹 머그 & 우드 코스터 2인 세트",
     "category": "리빙 / 인테리어",
     "categoryId": "cat-living",
     "price": 24000,
     "originalPrice": 32000,
     "discountRate": 25,
-    "rating": 4.9,
-    "reviewCount": 76,
+    "rating": 4.8,
+    "reviewCount": 82,
     "stock": 40,
     "isBest": false,
     "isNew": true,
     "isSale": true,
-    "isFreeShipping": false,
+    "isFreeShipping": true,
     "thumbnail": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80",
     "images": [
       "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80"
     ],
     "summary": "도예 작가의 정성스런 손길로 빚은 질감, 월넛 천연목 코스터 포함",
-    "description": "<h3>따뜻한 온기를 전하는 테이블웨어</h3><p>1,250도 고온에서 구워내 내구성이 뛰어나며 전자레인지 및 식기세척기 사용이 가능합니다. 자연스러운 유약의 흐름이 멋스러운 나만의 컵입니다.</p>",
+    "description": "<h3>테이블 위의 작은 예술 작품</h3><p>따뜻한 커피와 차 한 잔의 여유를 선물하는 내추럴 감성 도자기 머그잔 세트입니다.</p>",
     "options": [
       {
-        "name": "아이보리 매트 (350ml)",
-        "stock": 20
-      },
-      {
-        "name": "테라코타 샌드 (350ml)",
-        "stock": 20
+        "name": "오트밀 & 차콜 2인 세트",
+        "stock": 40
       }
     ],
     "specs": {
-      "재질": "도자기 (머그), 북미산 월넛 (코스터)",
-      "원산지": "대한민국 여주"
-    },
-    "reviews": [],
-    "qnas": []
+      "재질": "도자기(도예토), 월넛 천연목",
+      "용량": "350ml"
+    }
+  },
+  {
+    "id": "prod-living-04",
+    "name": "호텔식 80수 고밀도 프리미엄 순면 침구 4종 풀세트 (Q)",
+    "category": "리빙 / 인테리어",
+    "categoryId": "cat-living",
+    "price": 149000,
+    "originalPrice": 198000,
+    "discountRate": 25,
+    "rating": 4.9,
+    "reviewCount": 290,
+    "stock": 35,
+    "isBest": true,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "5성급 호텔 베딩의 바스락거림, 먼지 없는 알러지 케어 80수 사틴 면 100%",
+    "description": "<h3>매일 밤 5성급 특급 호텔 스위트룸의 숙면</h3><p>피부에 닿는 순간 기분 좋은 실키한 촉감과 통기성으로 사계절 내내 쾌적합니다.</p>",
+    "options": [
+      {
+        "name": "퓨어 화이트 / 퀸(Q)",
+        "stock": 20
+      },
+      {
+        "name": "소프트 베이지 / 퀸(Q)",
+        "stock": 15
+      }
+    ],
+    "specs": {
+      "구성": "이불커버 1 + 매트리스커버 1 + 베개커버 2",
+      "원단": "80수 고밀도 순면 100%"
+    }
+  },
+  {
+    "id": "prod-living-05",
+    "name": "북유럽 모던 베이지 페르시안 패턴 거실 대형 러그 (200x250)",
+    "category": "리빙 / 인테리어",
+    "categoryId": "cat-living",
+    "price": 89000,
+    "originalPrice": 129000,
+    "discountRate": 31,
+    "rating": 4.8,
+    "reviewCount": 140,
+    "stock": 25,
+    "isBest": false,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "물세탁 가능한 워셔블 원단, 미끄럼 방지 논슬립 도트 백킹, 포근한 단모",
+    "description": "<h3>거실의 분위기를 단숨에 아늑하게</h3><p>먼지 날림이 없고 세탁기 울코스로 손쉽게 관리할 수 있는 프리미엄 감성 러그입니다.</p>",
+    "options": [
+      {
+        "name": "아이보리 베이지 / 대형(200x250cm)",
+        "stock": 25
+      }
+    ],
+    "specs": {
+      "크기": "200 x 250 cm (약 2.5평)",
+      "세탁": "세탁기 물세탁 가능"
+    }
+  },
+  {
+    "id": "prod-living-06",
+    "name": "천연 오크 원목 모듈러 3단 북쉘프 수납 선반",
+    "category": "리빙 / 인테리어",
+    "categoryId": "cat-living",
+    "price": 178000,
+    "originalPrice": 240000,
+    "discountRate": 26,
+    "rating": 4.9,
+    "reviewCount": 95,
+    "stock": 18,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "북미산 FAS등급 화이트 오크 원목, 친환경 오일 마감, 견고한 내구성",
+    "description": "<h3>자연의 나뭇결이 살아 숨 쉬는 원목 가구</h3><p>책과 인테리어 오브제를 감각적으로 진열할 수 있는 미니멀 오픈 수납장입니다.</p>",
+    "options": [
+      {
+        "name": "내추럴 오크 / 3단",
+        "stock": 18
+      }
+    ],
+    "specs": {
+      "목재": "화이트 오크 원목 100%",
+      "크기": "W800 x D300 x H1050 mm"
+    }
+  },
+  {
+    "id": "prod-living-07",
+    "name": "미니멀리스트 벽걸이 메탈 프레임 원형 대형 거울 60cm",
+    "category": "리빙 / 인테리어",
+    "categoryId": "cat-living",
+    "price": 49000,
+    "originalPrice": 69000,
+    "discountRate": 29,
+    "rating": 4.8,
+    "reviewCount": 160,
+    "stock": 40,
+    "isBest": false,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "왜곡 없는 무연 은경 거울, 슬림 알루미늄 블랙 프레임, 안전 비산 방지 필름",
+    "description": "<h3>공간을 더 넓고 화사하게</h3><p>현관, 거실, 욕실 어디에나 조화롭게 어울리는 모던 원형 거울입니다.</p>",
+    "options": [
+      {
+        "name": "매트 블랙 / 직경 60cm",
+        "stock": 25
+      },
+      {
+        "name": "샴페인 골드 / 직경 60cm",
+        "stock": 15
+      }
+    ],
+    "specs": {
+      "직경": "600 mm",
+      "프레임": "알루미늄 합금"
+    }
+  },
+  {
+    "id": "prod-living-08",
+    "name": "무소음 천연 월넛 원목 감성 벽시계 30cm",
+    "category": "리빙 / 인테리어",
+    "categoryId": "cat-living",
+    "price": 36000,
+    "originalPrice": 48000,
+    "discountRate": 25,
+    "rating": 4.9,
+    "reviewCount": 175,
+    "stock": 50,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "초정밀 스위프 무소음 무브먼트, 북미산 월넛 통원목, 째깍거림 없는 평온함",
+    "description": "<h3>조용히 흐르는 시간의 아름다움</h3><p>침실과 서재에 어울리는 완전 무소음 설계와 고급스러운 원목 질감의 벽시계입니다.</p>",
+    "options": [
+      {
+        "name": "월넛 브라운 / 30cm",
+        "stock": 50
+      }
+    ],
+    "specs": {
+      "무브먼트": "대만 오리지널 무소음 스위프 무브먼트",
+      "직경": "300 mm"
+    }
+  },
+  {
+    "id": "prod-living-09",
+    "name": "인체공학 C커브 슬립 메모리폼 경추 기능성 숙면 베개",
+    "category": "리빙 / 인테리어",
+    "categoryId": "cat-living",
+    "price": 48000,
+    "originalPrice": 72000,
+    "discountRate": 33,
+    "rating": 4.9,
+    "reviewCount": 380,
+    "stock": 65,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "목과 어깨를 편안하게 받쳐주는 인체공학 3D 입체 성형, 텐셀 겉커버 증정",
+    "description": "<h3>자고 일어나면 목이 개운한 기적의 베개</h3><p>고밀도 저반발 메모리폼이 수면 중 목뼈의 이상적인 C자 곡선을 자연스럽게 유지해 줍니다.</p>",
+    "options": [
+      {
+        "name": "경추 기능성 메모리폼 베개 + 텐셀커버",
+        "stock": 65
+      }
+    ],
+    "specs": {
+      "폼밀도": "60D 고밀도 저반발 메모리폼",
+      "크기": "60 x 38 x 11 cm"
+    }
+  },
+  {
+    "id": "prod-living-10",
+    "name": "프리미엄 스테인리스 슬림 센서 자동개폐 휴지통 20L",
+    "category": "리빙 / 인테리어",
+    "categoryId": "cat-living",
+    "price": 42000,
+    "originalPrice": 59000,
+    "discountRate": 29,
+    "rating": 4.8,
+    "reviewCount": 195,
+    "stock": 45,
+    "isBest": false,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "0.3초 스마트 모션 센서, 완벽 냄새 차단 밀폐 뚜껑, 지문 방지 무광 스테인리스",
+    "description": "<h3>손대지 않고 위생적으로 깔끔하게</h3><p>슬림한 타워형 디자인으로 좁은 틈새 공간에도 쏙 들어가는 자동 센서 휴지통입니다.</p>",
+    "options": [
+      {
+        "name": "매트 스테인리스 실버 20L",
+        "stock": 45
+      }
+    ],
+    "specs": {
+      "용량": "20L (종량제 봉투 호환)",
+      "센서반응속도": "0.3초"
+    }
+  },
+  {
+    "id": "prod-05",
+    "name": "스페셜티 드립백 커피 시그니처 4종 기프트 세트",
+    "category": "푸드 / 키친",
+    "categoryId": "cat-food",
+    "price": 28000,
+    "originalPrice": 35000,
+    "discountRate": 20,
+    "rating": 4.9,
+    "reviewCount": 198,
+    "stock": 90,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "에티오피아 게이샤, 콜롬비아 게이샤 블렌드 4종 20개입 고급 박스 포장",
+    "description": "<h3>바리스타가 갓 내린 핸드드립의 풍미 그대로</h3><p>질소 충전 포장으로 갓 볶은 원두의 신선한 아로마와 깊은 산미, 달콤한 바디감을 간직했습니다.</p>",
+    "options": [
+      {
+        "name": "시그니처 4종 20개입 세트",
+        "stock": 90
+      }
+    ],
+    "specs": {
+      "구성": "4종 x 5개 (총 20개입)",
+      "원산지": "에티오피아, 콜롬비아, 과테말라"
+    }
   },
   {
     "id": "prod-12",
-    "name": "유기농 프리미엄 마누카 꿀 UMF 15+ MGO 514",
+    "name": "유기농 프리미엄 마누카 꿀 UMF 15+ MGO 514 (250g)",
     "category": "푸드 / 키친",
     "categoryId": "cat-food",
     "price": 88000,
-    "originalPrice": 125000,
-    "discountRate": 29,
-    "rating": 5,
-    "reviewCount": 98,
+    "originalPrice": 115000,
+    "discountRate": 23,
+    "rating": 4.9,
+    "reviewCount": 110,
     "stock": 45,
     "isBest": true,
     "isNew": false,
@@ -528,23 +1490,273 @@
       "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=1000&q=80"
     ],
     "summary": "뉴질랜드 100% 정품 인증, 풍부한 항산화와 면역력을 챙기는 프리미엄 천연 꿀",
-    "description": "<h3>자연이 준 가장 순수한 선물</h3><p>뉴질랜드 청정 자연에서 채밀된 100% 생마누카 꿀입니다. UMF 협회 공식 인증을 받은 고등급 제품으로 매일 아침 공복 한 스푼으로 활력을 채워보세요.</p>",
+    "description": "<h3>자연이 선물한 강력한 항균 에너지</h3><p>뉴질랜드 청정 야생 마누카 숲에서 채밀한 최고 등급의 100% 순수 천연 마누카꿀입니다.</p>",
     "options": [
       {
-        "name": "마누카 UMF 15+ (250g)",
-        "stock": 25
-      },
-      {
-        "name": "마누카 UMF 15+ (500g)",
-        "stock": 20
+        "name": "UMF 15+ 250g 1병",
+        "stock": 45
       }
     ],
     "specs": {
-      "용량": "250g / 500g",
-      "원산지": "뉴질랜드 100% 직수입",
-      "보관": "직사광선을 피해 실온 보관"
-    },
-    "reviews": [],
-    "qnas": []
+      "등급": "UMF 15+ / MGO 514+",
+      "원산지": "뉴질랜드 100%"
+    }
+  },
+  {
+    "id": "prod-food-03",
+    "name": "지중해 프리미엄 냉압착 엑스트라 버진 올리브오일 500ml",
+    "category": "푸드 / 키친",
+    "categoryId": "cat-food",
+    "price": 36000,
+    "originalPrice": 48000,
+    "discountRate": 25,
+    "rating": 4.9,
+    "reviewCount": 145,
+    "stock": 60,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "산도 0.18% 미만의 최상급 피쿠알 품종, 풍부한 폴리페놀과 싱그러운 풀 향기",
+    "description": "<h3>요리의 품격을 높이는 황금빛 오일</h3><p>스페인 안달루시아 단일 농장에서 수확 후 4시간 이내 냉압착 추출한 엑스트라버진 올리브유입니다.</p>",
+    "options": [
+      {
+        "name": "500ml 1병 (다크 글래스)",
+        "stock": 60
+      }
+    ],
+    "specs": {
+      "산도": "0.18% 이하 (최상급)",
+      "원산지": "스페인 안달루시아"
+    }
+  },
+  {
+    "id": "prod-food-04",
+    "name": "스위스 수제 다크 초콜릿 프랄린 16구 셀렉션",
+    "category": "푸드 / 키친",
+    "categoryId": "cat-food",
+    "price": 32000,
+    "originalPrice": 42000,
+    "discountRate": 24,
+    "rating": 4.8,
+    "reviewCount": 170,
+    "stock": 50,
+    "isBest": false,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "100% 스위스 알프스 청정 밀크 & 에콰도르산 72% 카카오빈, 쇼콜라티에 수제 컬렉션",
+    "description": "<h3>입안 가득 퍼지는 달콤 쌉싸름한 행복</h3><p>카라멜, 헤이즐넛, 라즈베리 등 8가지 시그니처 가나슈를 채운 럭셔리 초콜릿 박스입니다.</p>",
+    "options": [
+      {
+        "name": "16구 기프트 에디션",
+        "stock": 50
+      }
+    ],
+    "specs": {
+      "구성": "16개입 수제 초콜릿",
+      "원산지": "스위스"
+    }
+  },
+  {
+    "id": "prod-food-05",
+    "name": "무가당 유기농 귀리 오트밀 시리얼 1kg 점보사이즈",
+    "category": "푸드 / 키친",
+    "categoryId": "cat-food",
+    "price": 16000,
+    "originalPrice": 22000,
+    "discountRate": 27,
+    "rating": 4.8,
+    "reviewCount": 390,
+    "stock": 80,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "풍부한 식이섬유와 베타글루칸, 혈당 관리 및 다이어트 건강 아침식사",
+    "description": "<h3>건강하고 든든한 하루의 시작</h3><p>첨가물과 설탕 없이 유기농 귀리만을 얇게 롤드 가공하여 오버나이트 오트밀로 간편하게 즐깁니다.</p>",
+    "options": [
+      {
+        "name": "1kg 점보팩",
+        "stock": 80
+      }
+    ],
+    "specs": {
+      "성분": "유기농 롤드 오트 100%",
+      "원산지": "핀란드"
+    }
+  },
+  {
+    "id": "prod-food-06",
+    "name": "영국 정통 클래식 얼그레이 & 다즐링 프리미엄 티 세트 30T",
+    "category": "푸드 / 키친",
+    "categoryId": "cat-food",
+    "price": 26000,
+    "originalPrice": 34000,
+    "discountRate": 24,
+    "rating": 4.9,
+    "reviewCount": 130,
+    "stock": 65,
+    "isBest": false,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "천연 베르가못 오일 착향 얼그레이 & 히말라야 다즐링 홍차 티백 틴케이스 세트",
+    "description": "<h3>오후의 티타임을 빛내주는 영국 정통 홍차</h3><p>생분해 친환경 피라미드 티백에 담겨 찻잎의 깊은 향과 풍미가 우아하게 우러납니다.</p>",
+    "options": [
+      {
+        "name": "클래식 틴케이스 (30티백)",
+        "stock": 65
+      }
+    ],
+    "specs": {
+      "구성": "얼그레이 15T + 다즐링 15T",
+      "원산지": "영국 블렌딩"
+    }
+  },
+  {
+    "id": "prod-food-07",
+    "name": "숙성 프리미엄 이베리코 베요타 100% 하몽 슬라이스 100g",
+    "category": "푸드 / 키친",
+    "categoryId": "cat-food",
+    "price": 38000,
+    "originalPrice": 49000,
+    "discountRate": 22,
+    "rating": 4.9,
+    "reviewCount": 95,
+    "stock": 40,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "스페인 최고등급 블랙 라벨(100% Pata Negra), 36개월 자연 숙성 하몽",
+    "description": "<h3>와인 페어링을 위한 최고의 미식 경험</h3><p>도토리만을 먹고 자란 순종 이베리코 돼지를 장인이 손으로 정밀 슬라이스하여 포장했습니다.</p>",
+    "options": [
+      {
+        "name": "베요타 100% 슬라이스 100g",
+        "stock": 40
+      }
+    ],
+    "specs": {
+      "등급": "이베리코 데 베요타 (최고등급)",
+      "원산지": "스페인 하부고"
+    }
+  },
+  {
+    "id": "prod-food-08",
+    "name": "제주 유기농 말차 파우더 100g & 전용 대나무 차선 키트",
+    "category": "푸드 / 키친",
+    "categoryId": "cat-food",
+    "price": 31000,
+    "originalPrice": 40000,
+    "discountRate": 23,
+    "rating": 4.8,
+    "reviewCount": 160,
+    "stock": 55,
+    "isBest": false,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "제주 화산토 다원에서 첫물 찻잎만을 곱게 갈아낸 프리미엄 세레모니얼 등급",
+    "description": "<h3>집에서 즐기는 깊고 진한 말차 라떼와 티 세레모니</h3><p>선명한 초록빛과 떫지 않고 부드러운 감칠맛이 일품인 100% 유기농 말차 키트입니다.</p>",
+    "options": [
+      {
+        "name": "말차 파우더 100g + 대나무 차선 세트",
+        "stock": 55
+      }
+    ],
+    "specs": {
+      "원료": "유기농 녹차 100%",
+      "원산지": "대한민국 제주도"
+    }
+  },
+  {
+    "id": "prod-food-09",
+    "name": "논스틱 세라믹 코팅 인덕션 프라이팬 & 웍 3종 세트",
+    "category": "푸드 / 키친",
+    "categoryId": "cat-food",
+    "price": 99000,
+    "originalPrice": 145000,
+    "discountRate": 32,
+    "rating": 4.9,
+    "reviewCount": 280,
+    "stock": 45,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "PFAS/PFOA Free 친환경 세라믹 코팅, 기름 없이도 눌어붙지 않는 완벽한 넌스틱",
+    "description": "<h3>안심하고 요리하는 프리미엄 쿡웨어</h3><p>인덕션, 하이라이트, 가스레인지 모든 열원에서 빠르고 고르게 열이 전달되는 주방 필수 세트입니다.</p>",
+    "options": [
+      {
+        "name": "20cm 팬 + 28cm 팬 + 28cm 웍 3종",
+        "stock": 45
+      }
+    ],
+    "specs": {
+      "구성": "프라이팬 2종 + 궁중팬 1종",
+      "열원": "인덕션 포함 전 열원 사용 가능"
+    }
+  },
+  {
+    "id": "prod-food-10",
+    "name": "프리미엄 67층 다마스커스 셰프 나이프 8인치 주방칼",
+    "category": "푸드 / 키친",
+    "categoryId": "cat-food",
+    "price": 119000,
+    "originalPrice": 169000,
+    "discountRate": 30,
+    "rating": 4.9,
+    "reviewCount": 150,
+    "stock": 35,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1593618998160-e34014e67546?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1593618998160-e34014e67546?auto=format&fit=crop&w=1000&q=80"
+    ],
+    "summary": "VG-10 고탄소강 67층 다마스커스 공법, 에르고노믹 파카우드 손잡이",
+    "description": "<h3>셰프의 손끝에서 탄생하는 예술적인 절삭력</h3><p>칼날의 유려한 물결무늬와 오랜 시간 무뎌지지 않는 극상의 절삭력을 자랑하는 명품 주방칼입니다.</p>",
+    "options": [
+      {
+        "name": "8인치 셰프 나이프 (20cm)",
+        "stock": 35
+      }
+    ],
+    "specs": {
+      "칼날": "VG-10 다마스커스 67층",
+      "경도": "HRC 60±2",
+      "핸들": "천연 파카우드"
+    }
   }
 ]
