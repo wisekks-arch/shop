@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Continue'
 $port = 4000
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { (Get-Location).Path }
-$publicDir = Join-Path $scriptDir 'public'
+$publicDir = if (Test-Path (Join-Path $scriptDir 'index.html')) { $scriptDir } else { Join-Path $scriptDir 'public' }
 $dataDir = Join-Path $scriptDir 'data'
 
 if (-not (Test-Path $dataDir)) {
