@@ -333,12 +333,13 @@
               <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
               <input type="text" id="product-search-input" onkeyup="filterAdminProducts()" placeholder="상품명 또는 카테고리 검색..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
             </div>
-            <select id="product-category-filter" onchange="filterAdminProducts()" class="py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
-              <option value="ALL">전체 카테고리</option>
-              <option value="specialty">지역 특산품</option>
-              <option value="gear">여행 장비/캐리어</option>
-              <option value="food">간편식/디저트</option>
-              <option value="living">생활/수면용품</option>
+            <select id="product-category-filter" onchange="filterAdminProducts()" class="py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-xs focus:outline-none focus:bg-white focus:border-indigo-500 font-medium">
+              <option value="ALL">전체 카테고리 (전체보기)</option>
+              <option value="패션 / 의류">패션 / 의류</option>
+              <option value="디지털 / 가전">디지털 / 가전</option>
+              <option value="뷰티 / 케어">뷰티 / 케어</option>
+              <option value="리빙 / 인테리어">리빙 / 인테리어</option>
+              <option value="푸드 / 키친">푸드 / 키친</option>
             </select>
           </div>
 
@@ -589,6 +590,9 @@
     document.addEventListener('DOMContentLoaded', async () => {
       await loadAllAdminData();
       renderDashboard();
+      renderAdminProductsTable(adminProducts);
+      renderAdminOrdersTable(adminOrders);
+      renderAdminInquiriesTable(adminInquiries);
       if (window.lucide) window.lucide.createIcons();
     });
 
@@ -764,44 +768,53 @@
       const tbody = document.getElementById('admin-products-tbody');
       if (!tbody) return;
 
-      if (products.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400 text-xs">등록된 상품이 없습니다.</td></tr>`;
+      const prodsToRender = products || adminProducts;
+      if (!prodsToRender || prodsToRender.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-400 text-xs font-medium">등록된 상품이 없습니다.</td></tr>';
         return;
       }
 
-      tbody.innerHTML = products.map(p => `
-        <tr class="hover:bg-slate-50/80 transition">
-          <td class="p-4 pl-6">
-            <img src="${p.image}" alt="${p.name}" class="w-12 h-12 object-cover rounded-xl border border-slate-200 bg-slate-100 shadow-sm" onerror="this.src='images/placeholder.jpg'">
-          </td>
-          <td class="p-4">
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100 mr-1">${p.category}</span>
-            <p class="font-bold text-slate-900 mt-1">${p.name}</p>
-            <p class="text-[11px] text-slate-500 truncate max-w-xs">${p.description || ''}</p>
-          </td>
-          <td class="p-4 text-right font-extrabold text-slate-900">${ShopUI.formatPrice(p.price)}</td>
-          <td class="p-4 text-center">
-            <span class="font-bold ${p.stock < 10 ? 'text-amber-600 font-extrabold' : 'text-slate-700'}">${p.stock}개</span>
-          </td>
-          <td class="p-4 text-center">
-            <div class="flex items-center justify-center gap-1 flex-wrap">
-              ${p.isNew ? '<span class="px-1.5 py-0.5 bg-teal-50 border border-teal-200 text-teal-700 rounded text-[10px] font-bold">NEW</span>' : ''}
-              ${p.isBest ? '<span class="px-1.5 py-0.5 bg-rose-50 border border-rose-200 text-rose-700 rounded text-[10px] font-bold">BEST</span>' : ''}
-              ${p.stock === 0 ? '<span class="px-1.5 py-0.5 bg-rose-100 text-rose-700 rounded text-[10px] font-bold">품절</span>' : ''}
-            </div>
-          </td>
-          <td class="p-4 pr-6 text-center">
-            <div class="flex items-center justify-center gap-2">
-              <a href="product-edit.html?id=${p.id}" class="px-3 py-1 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 text-indigo-700 rounded-lg text-xs font-bold transition flex items-center gap-1">
-    <i data-lucide="edit-3" class="w-3 h-3"></i> 수정
-  </a>
-              <button onclick="deleteAdminProduct('${p.id}')" class="px-3 py-1 bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-700 rounded-lg text-xs font-bold transition cursor-pointer">
-                삭제
-              </button>
-            </div>
-          </td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = prodsToRender.map(p => {
+        const thumb = p.thumbnail || p.image || (p.images && p.images[0]) || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80';
+        const summary = p.summary || p.description || '';
+        return `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="p-4 pl-6">
+              <img src="${thumb}" alt="${p.name}" class="w-14 h-14 object-cover rounded-2xl border border-slate-200 bg-slate-100 shadow-xs" onerror="this.src='https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80'">
+            </td>
+            <td class="p-4">
+              <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 mr-1">${p.category}</span>
+              <p class="font-black text-slate-900 mt-1 text-sm">${p.name}</p>
+              <p class="text-[11px] text-slate-500 truncate max-w-xs mt-0.5">${summary}</p>
+            </td>
+            <td class="p-4 text-right font-black text-indigo-600 text-sm">${ShopUI.formatPrice(p.price)}</td>
+            <td class="p-4 text-center">
+              <span class="font-bold ${p.stock < 10 ? 'text-amber-600 font-extrabold' : 'text-slate-700'}">${p.stock}개</span>
+            </td>
+            <td class="p-4 text-center">
+              <div class="flex items-center justify-center gap-1 flex-wrap">
+                ${p.isNew ? '<span class="px-2 py-0.5 bg-teal-50 border border-teal-200 text-teal-700 rounded-full text-[10px] font-extrabold">NEW</span>' : ''}
+                ${p.isBest ? '<span class="px-2 py-0.5 bg-rose-50 border border-rose-200 text-rose-700 rounded-full text-[10px] font-extrabold">BEST</span>' : ''}
+                ${p.isSale ? '<span class="px-2 py-0.5 bg-amber-50 border border-amber-200 text-amber-700 rounded-full text-[10px] font-extrabold">SALE</span>' : ''}
+                ${p.stock === 0 ? '<span class="px-2 py-0.5 bg-rose-100 text-rose-700 rounded-full text-[10px] font-extrabold">품절</span>' : ''}
+              </div>
+            </td>
+            <td class="p-4 pr-6 text-center">
+              <div class="flex items-center justify-center gap-2">
+                <a href="product-edit.html?id=${p.id}" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-xs transition flex items-center gap-1">
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> 수정
+                </a>
+                <a href="product-detail.html?id=${p.id}" target="_blank" class="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1">
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i> 보기
+                </a>
+                <button onclick="deleteAdminProduct('${p.id}')" class="px-2.5 py-1.5 bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-700 rounded-xl text-xs font-bold transition cursor-pointer">
+                  삭제
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
 
       if (window.lucide) window.lucide.createIcons();
     }

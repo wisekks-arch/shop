@@ -52,7 +52,7 @@ const ShopAPI = {
       if (endpoint.startsWith('/api/products')) {
         let list = [];
         const stored = localStorage.getItem('easyshop_products');
-        if (stored) {
+        if (stored && JSON.parse(stored).length > 0) {
           list = JSON.parse(stored);
         } else {
           const res = await fetch('data/products.json');
