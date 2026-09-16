@@ -30,45 +30,45 @@
     }
   </script>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 
-  <!-- ==================== TOP NAVIGATION BAR (와이드 상단 메뉴) ==================== -->
-  <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 shadow-xl">
+  <!-- ==================== TOP NAVIGATION BAR (화이트 & 모던 인디고) ==================== -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         
         <!-- Left: Brand Logo & Mode Badge -->
         <div class="flex items-center gap-6">
           <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
               <i data-lucide="shield-check" class="w-6 h-6"></i>
             </div>
             <div>
               <div class="flex items-center gap-2">
-                <span class="text-xl font-black tracking-tight text-white">EASY<span class="text-indigo-400">ADMIN</span></span>
-                <span class="px-2 py-0.5 text-[11px] font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full">v2.0 Wide</span>
+                <span class="text-xl font-black tracking-tight text-slate-900">EASY<span class="text-indigo-600">ADMIN</span></span>
+                <span class="px-2 py-0.5 text-[11px] font-extrabold bg-indigo-50 text-indigo-600 border border-indigo-200/80 rounded-full">v2.0 Clean</span>
               </div>
-              <p class="text-[11px] text-slate-400 font-medium">이지샵 통합 관리 및 운영 센터</p>
+              <p class="text-[11px] text-slate-500 font-medium">이지샵 통합 관리 및 운영 센터</p>
             </div>
           </div>
 
-          <div class="hidden lg:block h-6 w-[1px] bg-slate-800"></div>
+          <div class="hidden lg:block h-6 w-[1px] bg-slate-200"></div>
 
           <!-- Top Navigation Menu (Horizontal) -->
           <nav class="hidden md:flex items-center gap-1.5" id="top-nav-menu">
-            <button onclick="switchAdminTab('dashboard')" id="nav-btn-dashboard" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition cursor-pointer font-bold">
+            <button onclick="switchAdminTab('dashboard')" id="nav-btn-dashboard" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white shadow-md shadow-indigo-600/20 transition cursor-pointer font-bold text-xs">
               <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
               <span>통합 대시보드</span>
             </button>
-            <button onclick="switchAdminTab('products')" id="nav-btn-products" class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 transition cursor-pointer font-bold">
+            <button onclick="switchAdminTab('products')" id="nav-btn-products" class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer font-bold text-xs">
               <i data-lucide="package" class="w-4 h-4"></i>
               <span>상품 관리 (CRUD)</span>
             </button>
-            <button onclick="switchAdminTab('orders')" id="nav-btn-orders" class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 transition cursor-pointer font-bold">
+            <button onclick="switchAdminTab('orders')" id="nav-btn-orders" class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer font-bold text-xs">
               <i data-lucide="shopping-bag" class="w-4 h-4"></i>
               <span>주문 & 배송 관리</span>
             </button>
-            <button onclick="switchAdminTab('inquiries')" id="nav-btn-inquiries" class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 transition cursor-pointer font-bold">
+            <button onclick="switchAdminTab('inquiries')" id="nav-btn-inquiries" class="flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer font-bold text-xs">
               <i data-lucide="message-square" class="w-4 h-4"></i>
               <span>고객 문의 / Q&A</span>
             </button>
@@ -78,31 +78,31 @@
         <!-- Right: Actions & User Info -->
         <div class="flex items-center gap-3">
           <!-- Add Product Quick Button -->
-          <button onclick="openProductModal()" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-900/20 transition cursor-pointer">
+          <button onclick="openProductModal()" class="hidden sm:flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition cursor-pointer">
             <i data-lucide="plus-circle" class="w-4 h-4"></i>
             <span>새 상품 등록</span>
           </button>
 
           <!-- Refresh Data Button -->
-          <button onclick="refreshCurrentTab()" title="데이터 새로고침" class="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-700 transition cursor-pointer">
+          <button onclick="refreshCurrentTab()" title="데이터 새로고침" class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-indigo-600 hover:border-indigo-300 hover:bg-slate-50 transition cursor-pointer shadow-sm">
             <i data-lucide="rotate-cw" class="w-4 h-4"></i>
           </button>
 
           <!-- Store Link -->
-          <a href="index.html" target="_blank" class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-slate-200 hover:text-indigo-300 hover:border-indigo-500/50 transition">
+          <a href="index.html" target="_blank" class="hidden sm:flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 hover:text-indigo-600 hover:border-indigo-300 transition">
             <i data-lucide="external-link" class="w-4 h-4"></i>
             <span>쇼핑몰 바로가기</span>
           </a>
 
           <!-- Admin Profile Badge -->
-          <div class="flex items-center gap-3 pl-2 sm:border-l sm:border-slate-800">
-            <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-300 font-bold text-xs">
+          <div class="flex items-center gap-3 pl-2 sm:border-l sm:border-slate-200">
+            <div class="w-9 h-9 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-700 font-black text-xs shadow-sm">
               AD
             </div>
             <div class="hidden xl:block text-left">
-              <p class="text-xs font-bold text-white leading-tight">최고관리자</p>
-              <p class="text-[10px] text-emerald-400 font-medium flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 시스템 온라인
+              <p class="text-xs font-bold text-slate-900 leading-tight">최고관리자</p>
+              <p class="text-[10px] text-emerald-600 font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> 시스템 온라인
               </p>
             </div>
           </div>
@@ -111,28 +111,28 @@
       </div>
 
       <!-- Mobile Top Navigation Strip -->
-      <div class="md:hidden flex items-center gap-2 py-2.5 border-t border-slate-800/80 overflow-x-auto text-xs">
+      <div class="md:hidden flex items-center gap-2 py-2.5 border-t border-slate-200 overflow-x-auto text-xs">
         <button onclick="switchAdminTab('dashboard')" id="m-nav-btn-dashboard" class="flex-1 min-w-[85px] py-1.5 px-2.5 rounded-lg bg-indigo-600 text-white text-center font-bold">대시보드</button>
-        <button onclick="switchAdminTab('products')" id="m-nav-btn-products" class="flex-1 min-w-[85px] py-1.5 px-2.5 rounded-lg text-slate-400 hover:bg-slate-800 text-center font-bold">상품관리</button>
-        <button onclick="switchAdminTab('orders')" id="m-nav-btn-orders" class="flex-1 min-w-[85px] py-1.5 px-2.5 rounded-lg text-slate-400 hover:bg-slate-800 text-center font-bold">주문배송</button>
-        <button onclick="switchAdminTab('inquiries')" id="m-nav-btn-inquiries" class="flex-1 min-w-[85px] py-1.5 px-2.5 rounded-lg text-slate-400 hover:bg-slate-800 text-center font-bold">고객문의</button>
+        <button onclick="switchAdminTab('products')" id="m-nav-btn-products" class="flex-1 min-w-[85px] py-1.5 px-2.5 rounded-lg text-slate-600 hover:bg-slate-100 text-center font-bold">상품관리</button>
+        <button onclick="switchAdminTab('orders')" id="m-nav-btn-orders" class="flex-1 min-w-[85px] py-1.5 px-2.5 rounded-lg text-slate-600 hover:bg-slate-100 text-center font-bold">주문배송</button>
+        <button onclick="switchAdminTab('inquiries')" id="m-nav-btn-inquiries" class="flex-1 min-w-[85px] py-1.5 px-2.5 rounded-lg text-slate-600 hover:bg-slate-100 text-center font-bold">고객문의</button>
       </div>
 
     </div>
   </header>
 
-  <!-- ==================== MAIN CONTENT AREA (와이드 본문) ==================== -->
+  <!-- ==================== MAIN CONTENT AREA (화이트 & 와이드 본문) ==================== -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
     
     <!-- Tab Header Banner -->
-    <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950/40 p-6 rounded-3xl border border-slate-800/80 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="bg-gradient-to-r from-indigo-50/90 via-white to-purple-50/50 p-6 sm:p-8 rounded-3xl border border-indigo-100/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div>
-        <h1 id="current-tab-title" class="text-2xl sm:text-3xl font-black text-white tracking-tight">통합 대시보드</h1>
-        <p id="current-tab-subtitle" class="text-slate-400 text-sm mt-1">이지샵의 실시간 매출 통계, 상품 및 주문 배송 현황을 종합 관리합니다.</p>
+        <h1 id="current-tab-title" class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">통합 대시보드</h1>
+        <p id="current-tab-subtitle" class="text-slate-500 text-sm mt-1 font-medium">이지샵의 실시간 매출 통계, 상품 및 주문 배송 현황을 종합 관리합니다.</p>
       </div>
       <div class="flex items-center gap-3">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 text-xs font-semibold">
-          <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-400"></i>
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-600 text-xs font-semibold shadow-sm">
+          <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-600"></i>
           <span>실시간 동기화 완료</span>
         </span>
       </div>
@@ -140,19 +140,19 @@
 
     <!-- 1. TAB: DASHBOARD -->
     <section id="tab-dashboard" class="space-y-8">
-      <!-- KPI Top Summary Grid -->
+      <!-- KPI Top Summary Grid (Clean White Cards) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <!-- KPI 1 -->
-        <div class="bg-slate-950/70 backdrop-blur border border-slate-800/90 rounded-2xl p-6 shadow-xl relative overflow-hidden group hover:border-indigo-500/40 transition">
+        <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm relative overflow-hidden group hover:border-indigo-400 hover:shadow-md transition">
           <div class="flex items-center justify-between">
             <span class="text-xs font-extrabold text-slate-400 tracking-wider uppercase">총 누적 매출액</span>
-            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition">
+            <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover:scale-110 transition">
               <i data-lucide="krw" class="w-5 h-5"></i>
             </div>
           </div>
           <div class="mt-4">
-            <h3 id="kpi-month-sales" class="text-2xl sm:text-3xl font-black text-white">0원</h3>
-            <p class="text-xs text-emerald-400 font-bold mt-2 flex items-center gap-1">
+            <h3 id="kpi-month-sales" class="text-2xl sm:text-3xl font-black text-slate-900">0원</h3>
+            <p class="text-xs text-emerald-600 font-bold mt-2 flex items-center gap-1">
               <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
               <span>정상 집계 완료</span>
             </p>
@@ -160,16 +160,16 @@
         </div>
 
         <!-- KPI 2 -->
-        <div class="bg-slate-950/70 backdrop-blur border border-slate-800/90 rounded-2xl p-6 shadow-xl relative overflow-hidden group hover:border-amber-500/40 transition">
+        <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm relative overflow-hidden group hover:border-amber-400 hover:shadow-md transition">
           <div class="flex items-center justify-between">
             <span class="text-xs font-extrabold text-slate-400 tracking-wider uppercase">처리 대기 주문</span>
-            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:scale-110 transition">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 group-hover:scale-110 transition">
               <i data-lucide="clock" class="w-5 h-5"></i>
             </div>
           </div>
           <div class="mt-4">
-            <h3 id="kpi-pending-orders" class="text-2xl sm:text-3xl font-black text-white">0건</h3>
-            <p class="text-xs text-amber-300 font-bold mt-2 flex items-center gap-1">
+            <h3 id="kpi-pending-orders" class="text-2xl sm:text-3xl font-black text-slate-900">0건</h3>
+            <p class="text-xs text-amber-600 font-bold mt-2 flex items-center gap-1">
               <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
               <span>결제완료 / 상품준비</span>
             </p>
@@ -177,16 +177,16 @@
         </div>
 
         <!-- KPI 3 -->
-        <div class="bg-slate-950/70 backdrop-blur border border-slate-800/90 rounded-2xl p-6 shadow-xl relative overflow-hidden group hover:border-blue-500/40 transition">
+        <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm relative overflow-hidden group hover:border-blue-400 hover:shadow-md transition">
           <div class="flex items-center justify-between">
             <span class="text-xs font-extrabold text-slate-400 tracking-wider uppercase">등록 상품 / 재고경고</span>
-            <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:scale-110 transition">
               <i data-lucide="boxes" class="w-5 h-5"></i>
             </div>
           </div>
           <div class="mt-4">
-            <h3 id="kpi-total-products" class="text-2xl sm:text-3xl font-black text-white">0개</h3>
-            <p class="text-xs text-blue-300 font-bold mt-2 flex items-center gap-1">
+            <h3 id="kpi-total-products" class="text-2xl sm:text-3xl font-black text-slate-900">0개</h3>
+            <p class="text-xs text-blue-600 font-bold mt-2 flex items-center gap-1">
               <i data-lucide="check" class="w-3.5 h-3.5"></i>
               <span>카테고리별 정상 진열</span>
             </p>
@@ -194,16 +194,16 @@
         </div>
 
         <!-- KPI 4 -->
-        <div class="bg-slate-950/70 backdrop-blur border border-slate-800/90 rounded-2xl p-6 shadow-xl relative overflow-hidden group hover:border-purple-500/40 transition">
+        <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm relative overflow-hidden group hover:border-purple-400 hover:shadow-md transition">
           <div class="flex items-center justify-between">
             <span class="text-xs font-extrabold text-slate-400 tracking-wider uppercase">고객 문의 / 답변대기</span>
-            <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-110 transition">
+            <div class="w-10 h-10 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 group-hover:scale-110 transition">
               <i data-lucide="help-circle" class="w-5 h-5"></i>
             </div>
           </div>
           <div class="mt-4">
-            <h3 id="kpi-pending-inquiries" class="text-2xl sm:text-3xl font-black text-white">0건</h3>
-            <p class="text-xs text-purple-300 font-bold mt-2 flex items-center gap-1">
+            <h3 id="kpi-pending-inquiries" class="text-2xl sm:text-3xl font-black text-slate-900">0건</h3>
+            <p class="text-xs text-purple-600 font-bold mt-2 flex items-center gap-1">
               <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
               <span>1:1 상담 신규 문의</span>
             </p>
@@ -214,16 +214,16 @@
       <!-- Charts & Tables Layout Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Sales Trend Chart (2 Cols) -->
-        <div class="lg:col-span-2 bg-slate-950/70 backdrop-blur border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div class="lg:col-span-2 bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
           <div class="flex items-center justify-between mb-6">
             <div>
-              <h2 class="text-lg font-bold text-white flex items-center gap-2">
-                <i data-lucide="bar-chart-3" class="w-5 h-5 text-indigo-400"></i>
-                <span>주요 상품별 매출 및 주문 분석</span>
+              <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <i data-lucide="bar-chart-3" class="w-5 h-5 text-indigo-600"></i>
+                <span>주요 상품별 매출 및 단가 분석</span>
               </h2>
-              <p class="text-xs text-slate-400 mt-0.5">상위 인기 품목 실시간 판매 금액</p>
+              <p class="text-xs text-slate-500 mt-0.5">상위 인기 품목 실시간 판매 현황</p>
             </div>
-            <span class="text-xs px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 rounded-full font-bold">Chart.js Live</span>
+            <span class="text-xs px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-600 rounded-full font-bold">Chart.js Live</span>
           </div>
           <div class="h-72 w-full">
             <canvas id="salesChart"></canvas>
@@ -231,82 +231,82 @@
         </div>
 
         <!-- Quick Status Notice & Shortcut (1 Col) -->
-        <div class="bg-slate-950/70 backdrop-blur border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col justify-between">
+        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col justify-between">
           <div>
-            <h2 class="text-lg font-bold text-white flex items-center gap-2">
-              <i data-lucide="zap" class="w-5 h-5 text-amber-400"></i>
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="zap" class="w-5 h-5 text-amber-500"></i>
               <span>빠른 관리 액션</span>
             </h2>
-            <p class="text-xs text-slate-400 mt-1">자주 사용하는 운영 작업을 바로 실행하세요.</p>
+            <p class="text-xs text-slate-500 mt-1">자주 사용하는 운영 작업을 바로 실행하세요.</p>
 
             <div class="mt-6 space-y-3">
-              <button onclick="openProductModal()" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:bg-slate-800/80 transition text-left cursor-pointer group">
+              <button onclick="openProductModal()" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/40 transition text-left cursor-pointer group">
                 <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">
+                  <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
                     <i data-lucide="plus" class="w-4 h-4"></i>
                   </div>
                   <div>
-                    <p class="text-xs font-bold text-white group-hover:text-indigo-300 transition">새 상품 등록</p>
-                    <p class="text-[11px] text-slate-400">이미지, 가격, 재고 실시간 반영</p>
+                    <p class="text-xs font-bold text-slate-900 group-hover:text-indigo-600 transition">새 상품 등록</p>
+                    <p class="text-[11px] text-slate-500">이미지, 가격, 재고 실시간 반영</p>
                   </div>
                 </div>
-                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-white transition"></i>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition"></i>
               </button>
 
-              <button onclick="switchAdminTab('orders')" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:bg-slate-800/80 transition text-left cursor-pointer group">
+              <button onclick="switchAdminTab('orders')" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/40 transition text-left cursor-pointer group">
                 <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
+                  <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
                     <i data-lucide="truck" class="w-4 h-4"></i>
                   </div>
                   <div>
-                    <p class="text-xs font-bold text-white group-hover:text-indigo-300 transition">운송장 번호 입력 및 배송처리</p>
-                    <p class="text-[11px] text-slate-400">결제완료 건 배송중 전환</p>
+                    <p class="text-xs font-bold text-slate-900 group-hover:text-indigo-600 transition">운송장 번호 입력 및 배송처리</p>
+                    <p class="text-[11px] text-slate-500">결제완료 건 배송중 전환</p>
                   </div>
                 </div>
-                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-white transition"></i>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition"></i>
               </button>
 
-              <button onclick="switchAdminTab('inquiries')" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:bg-slate-800/80 transition text-left cursor-pointer group">
+              <button onclick="switchAdminTab('inquiries')" class="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/40 transition text-left cursor-pointer group">
                 <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold">
+                  <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
                     <i data-lucide="message-square" class="w-4 h-4"></i>
                   </div>
                   <div>
-                    <p class="text-xs font-bold text-white group-hover:text-indigo-300 transition">고객 문의 답변 작성</p>
-                    <p class="text-[11px] text-slate-400">1:1 고객 문의 실시간 응대</p>
+                    <p class="text-xs font-bold text-slate-900 group-hover:text-indigo-600 transition">고객 문의 답변 작성</p>
+                    <p class="text-[11px] text-slate-500">1:1 고객 문의 실시간 응대</p>
                   </div>
                 </div>
-                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-white transition"></i>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition"></i>
               </button>
             </div>
           </div>
 
-          <div class="mt-6 pt-5 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-            <span>서버 포트: <strong class="text-indigo-400 font-bold">4000</strong></span>
-            <span>데이터 경로: <strong class="text-slate-300">D:\92.SW\shop</strong></span>
+          <div class="mt-6 pt-5 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+            <span>서버 포트: <strong class="text-indigo-600 font-bold">4000</strong></span>
+            <span>데이터 경로: <strong class="text-slate-700">D:\92.SW\shop</strong></span>
           </div>
         </div>
       </div>
 
-      <!-- Recent Orders Table Preview -->
-      <div class="bg-slate-950/70 backdrop-blur border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+      <!-- Recent Orders Table Preview (White & Clean) -->
+      <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
         <div class="flex items-center justify-between mb-6">
           <div>
-            <h2 class="text-lg font-bold text-white flex items-center gap-2">
-              <i data-lucide="shopping-cart" class="w-5 h-5 text-indigo-400"></i>
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="shopping-cart" class="w-5 h-5 text-indigo-600"></i>
               <span>최근 접수된 주문 내역</span>
             </h2>
-            <p class="text-xs text-slate-400 mt-0.5">실시간 쇼핑몰 주문 현황</p>
+            <p class="text-xs text-slate-500 mt-0.5">실시간 쇼핑몰 주문 현황</p>
           </div>
-          <button onclick="switchAdminTab('orders')" class="text-xs text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1 cursor-pointer">
+          <button onclick="switchAdminTab('orders')" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1 cursor-pointer">
             <span>전체 주문 관리로 이동</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </button>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto rounded-2xl border border-slate-200">
           <table class="w-full text-left text-sm">
-            <thead class="bg-slate-900/80 text-slate-400 text-xs uppercase tracking-wider border-y border-slate-800">
+            <thead class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider border-b border-slate-200">
               <tr>
                 <th class="p-4 pl-6">주문번호 / 일시</th>
                 <th class="p-4">주문자 / 연락처</th>
@@ -315,7 +315,7 @@
                 <th class="p-4">주문 상태</th>
               </tr>
             </thead>
-            <tbody id="dashboard-recent-orders-tbody" class="divide-y divide-slate-800/60">
+            <tbody id="dashboard-recent-orders-tbody" class="divide-y divide-slate-100 bg-white">
               <!-- Rendered via JS -->
             </tbody>
           </table>
@@ -325,15 +325,15 @@
 
     <!-- 2. TAB: PRODUCTS (CRUD) -->
     <section id="tab-products" class="hidden space-y-6">
-      <div class="bg-slate-950/70 backdrop-blur border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+      <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
         <!-- Controls: Filter & Search & Add Button -->
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
           <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
             <div class="relative flex-1 sm:w-72">
               <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-              <input type="text" id="product-search-input" onkeyup="filterAdminProducts()" placeholder="상품명 또는 카테고리 검색..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500">
+              <input type="text" id="product-search-input" onkeyup="filterAdminProducts()" placeholder="상품명 또는 카테고리 검색..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
             </div>
-            <select id="product-category-filter" onchange="filterAdminProducts()" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500">
+            <select id="product-category-filter" onchange="filterAdminProducts()" class="py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
               <option value="ALL">전체 카테고리</option>
               <option value="specialty">지역 특산품</option>
               <option value="gear">여행 장비/캐리어</option>
@@ -342,16 +342,16 @@
             </select>
           </div>
 
-          <button onclick="openProductModal()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-indigo-600/25 transition cursor-pointer">
+          <button onclick="openProductModal()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 transition cursor-pointer">
             <i data-lucide="plus-circle" class="w-4 h-4"></i>
             <span>신규 상품 등록</span>
           </button>
         </div>
 
         <!-- Products Table -->
-        <div class="overflow-x-auto rounded-2xl border border-slate-800">
+        <div class="overflow-x-auto rounded-2xl border border-slate-200">
           <table class="w-full text-left text-sm">
-            <thead class="bg-slate-900 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-800">
+            <thead class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider border-b border-slate-200">
               <tr>
                 <th class="p-4 pl-6">상품 이미지</th>
                 <th class="p-4">상품명 / 카테고리</th>
@@ -361,7 +361,7 @@
                 <th class="p-4 pr-6 text-center">관리 액션</th>
               </tr>
             </thead>
-            <tbody id="admin-products-tbody" class="divide-y divide-slate-800/60 bg-slate-950/40">
+            <tbody id="admin-products-tbody" class="divide-y divide-slate-100 bg-white">
               <!-- Rendered via JS -->
             </tbody>
           </table>
@@ -371,27 +371,27 @@
 
     <!-- 3. TAB: ORDERS & SHIPPING -->
     <section id="tab-orders" class="hidden space-y-6">
-      <div class="bg-slate-950/70 backdrop-blur border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+      <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
         <!-- Filter Controls -->
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
           <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto" id="order-status-tabs">
-            <button onclick="filterOrdersByStatus('ALL')" class="order-tab-btn px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold transition cursor-pointer" data-status="ALL">전체보기</button>
-            <button onclick="filterOrdersByStatus('결제완료')" class="order-tab-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer" data-status="결제완료">결제완료</button>
-            <button onclick="filterOrdersByStatus('상품준비중')" class="order-tab-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer" data-status="상품준비중">상품준비중</button>
-            <button onclick="filterOrdersByStatus('배송중')" class="order-tab-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer" data-status="배송중">배송중</button>
-            <button onclick="filterOrdersByStatus('배송완료')" class="order-tab-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer" data-status="배송완료">배송완료</button>
+            <button onclick="filterOrdersByStatus('ALL')" class="order-tab-btn px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold transition cursor-pointer shadow-sm shadow-indigo-600/20" data-status="ALL">전체보기</button>
+            <button onclick="filterOrdersByStatus('결제완료')" class="order-tab-btn px-4 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 text-xs font-bold transition cursor-pointer" data-status="결제완료">결제완료</button>
+            <button onclick="filterOrdersByStatus('상품준비중')" class="order-tab-btn px-4 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 text-xs font-bold transition cursor-pointer" data-status="상품준비중">상품준비중</button>
+            <button onclick="filterOrdersByStatus('배송중')" class="order-tab-btn px-4 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 text-xs font-bold transition cursor-pointer" data-status="배송중">배송중</button>
+            <button onclick="filterOrdersByStatus('배송완료')" class="order-tab-btn px-4 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 text-xs font-bold transition cursor-pointer" data-status="배송완료">배송완료</button>
           </div>
 
           <div class="relative w-full sm:w-64">
             <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-            <input type="text" id="order-search-input" onkeyup="filterOrdersSearch()" placeholder="주문자명, 주문번호 검색..." class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500">
+            <input type="text" id="order-search-input" onkeyup="filterOrdersSearch()" placeholder="주문자명, 주문번호 검색..." class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
           </div>
         </div>
 
         <!-- Orders Table -->
-        <div class="overflow-x-auto rounded-2xl border border-slate-800">
+        <div class="overflow-x-auto rounded-2xl border border-slate-200">
           <table class="w-full text-left text-sm">
-            <thead class="bg-slate-900 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-800">
+            <thead class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider border-b border-slate-200">
               <tr>
                 <th class="p-4 pl-6">주문번호 / 일시</th>
                 <th class="p-4">주문자 / 수령인 정보</th>
@@ -401,7 +401,7 @@
                 <th class="p-4 pr-6 text-center">상태 변경 & 처리</th>
               </tr>
             </thead>
-            <tbody id="admin-orders-tbody" class="divide-y divide-slate-800/60 bg-slate-950/40">
+            <tbody id="admin-orders-tbody" class="divide-y divide-slate-100 bg-white">
               <!-- Rendered via JS -->
             </tbody>
           </table>
@@ -411,20 +411,20 @@
 
     <!-- 4. TAB: INQUIRIES & Q&A -->
     <section id="tab-inquiries" class="hidden space-y-6">
-      <div class="bg-slate-950/70 backdrop-blur border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+      <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
         <div class="flex items-center justify-between mb-6">
           <div>
-            <h2 class="text-lg font-bold text-white flex items-center gap-2">
-              <i data-lucide="message-square" class="w-5 h-5 text-indigo-400"></i>
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="message-square" class="w-5 h-5 text-indigo-600"></i>
               <span>고객 1:1 상담 및 상품 문의</span>
             </h2>
-            <p class="text-xs text-slate-400 mt-0.5">답변 대기 중인 문의에 실시간으로 답변을 작성하세요.</p>
+            <p class="text-xs text-slate-500 mt-0.5">답변 대기 중인 문의에 실시간으로 답변을 작성하세요.</p>
           </div>
         </div>
 
-        <div class="overflow-x-auto rounded-2xl border border-slate-800">
+        <div class="overflow-x-auto rounded-2xl border border-slate-200">
           <table class="w-full text-left text-sm">
-            <thead class="bg-slate-900 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-800">
+            <thead class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider border-b border-slate-200">
               <tr>
                 <th class="p-4 pl-6">분류 / 문의 제목</th>
                 <th class="p-4">작성자 / 연락처</th>
@@ -433,7 +433,7 @@
                 <th class="p-4 pr-6 text-center">답변작성</th>
               </tr>
             </thead>
-            <tbody id="admin-inquiries-tbody" class="divide-y divide-slate-800/60 bg-slate-950/40">
+            <tbody id="admin-inquiries-tbody" class="divide-y divide-slate-100 bg-white">
               <!-- Rendered via JS -->
             </tbody>
           </table>
@@ -443,29 +443,29 @@
 
   </main>
 
-  <!-- ==================== MODALS ==================== -->
+  <!-- ==================== MODALS (White Modern Design) ==================== -->
   
   <!-- PRODUCT ADD/EDIT MODAL -->
-  <div id="product-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-      <button onclick="closeProductModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white transition cursor-pointer">
+  <div id="product-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeProductModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 transition cursor-pointer">
         <i data-lucide="x" class="w-6 h-6"></i>
       </button>
 
-      <h3 id="product-modal-title" class="text-xl font-bold text-white mb-6">신규 상품 등록</h3>
+      <h3 id="product-modal-title" class="text-xl font-bold text-slate-900 mb-6">신규 상품 등록</h3>
 
       <form id="product-form" onsubmit="handleProductSubmit(event)" class="space-y-4">
         <input type="hidden" id="prod-form-id">
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">상품명 *</label>
-          <input type="text" id="prod-form-name" required class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500">
+          <label class="block text-xs font-bold text-slate-700 mb-1">상품명 *</label>
+          <input type="text" id="prod-form-name" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">카테고리 *</label>
-            <select id="prod-form-category" required class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500">
+            <label class="block text-xs font-bold text-slate-700 mb-1">카테고리 *</label>
+            <select id="prod-form-category" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
               <option value="specialty">지역 특산품</option>
               <option value="gear">여행 장비/캐리어</option>
               <option value="food">간편식/디저트</option>
@@ -473,108 +473,108 @@
             </select>
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">재고 수량 *</label>
-            <input type="number" id="prod-form-stock" required min="0" value="50" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500">
+            <label class="block text-xs font-bold text-slate-700 mb-1">재고 수량 *</label>
+            <input type="number" id="prod-form-stock" required min="0" value="50" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">정상 판매가 (원) *</label>
-            <input type="number" id="prod-form-price" required min="100" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500">
+            <label class="block text-xs font-bold text-slate-700 mb-1">정상 판매가 (원) *</label>
+            <input type="number" id="prod-form-price" required min="100" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">원래 가격/할인전 (원)</label>
-            <input type="number" id="prod-form-origin-price" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500">
+            <label class="block text-xs font-bold text-slate-700 mb-1">원래 가격/할인전 (원)</label>
+            <input type="number" id="prod-form-origin-price" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">상품 이미지 URL *</label>
-          <input type="text" id="prod-form-image" required placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500">
+          <label class="block text-xs font-bold text-slate-700 mb-1">상품 이미지 URL *</label>
+          <input type="text" id="prod-form-image" required placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">상품 상세 설명</label>
-          <textarea id="prod-form-description" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500"></textarea>
+          <label class="block text-xs font-bold text-slate-700 mb-1">상품 상세 설명</label>
+          <textarea id="prod-form-description" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-indigo-500"></textarea>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-2">뱃지 & 플래그</label>
-          <div class="flex items-center gap-6 text-xs text-slate-300">
+          <label class="block text-xs font-bold text-slate-700 mb-2">뱃지 & 플래그</label>
+          <div class="flex items-center gap-6 text-xs text-slate-700">
             <label class="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" id="prod-form-isnew" class="rounded bg-slate-950 border-slate-700 text-indigo-600 focus:ring-0">
-              <span>신상품 (NEW)</span>
+              <input type="checkbox" id="prod-form-isnew" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+              <span class="font-medium">신상품 (NEW)</span>
             </label>
             <label class="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" id="prod-form-isbest" class="rounded bg-slate-950 border-slate-700 text-indigo-600 focus:ring-0">
-              <span>베스트셀러 (BEST)</span>
+              <input type="checkbox" id="prod-form-isbest" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+              <span class="font-medium">베스트셀러 (BEST)</span>
             </label>
           </div>
         </div>
 
-        <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-800">
-          <button type="button" onclick="closeProductModal()" class="px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:bg-slate-700 transition cursor-pointer">취소</button>
-          <button type="submit" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/25 transition cursor-pointer">저장 완료</button>
+        <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100">
+          <button type="button" onclick="closeProductModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold hover:bg-slate-200 transition cursor-pointer">취소</button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md shadow-indigo-600/20 transition cursor-pointer">저장 완료</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- ORDER TRACKING MODAL -->
-  <div id="order-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
-      <button onclick="closeOrderModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white transition cursor-pointer">
+  <div id="order-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
+      <button onclick="closeOrderModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 transition cursor-pointer">
         <i data-lucide="x" class="w-6 h-6"></i>
       </button>
 
-      <h3 class="text-lg font-bold text-white mb-2">운송장 번호 입력 및 배송</h3>
-      <p id="modal-order-id-label" class="text-xs text-indigo-400 mb-6 font-mono"></p>
+      <h3 class="text-lg font-bold text-slate-900 mb-2">운송장 번호 입력 및 배송</h3>
+      <p id="modal-order-id-label" class="text-xs text-indigo-600 mb-6 font-mono font-bold"></p>
 
       <div class="space-y-4">
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">택배사</label>
-          <input type="text" value="CJ대한통운" readonly class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-400 text-xs cursor-not-allowed">
+          <label class="block text-xs font-bold text-slate-700 mb-1">택배사</label>
+          <input type="text" value="CJ대한통운" readonly class="w-full px-4 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-500 text-xs cursor-not-allowed">
         </div>
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">운송장 번호 *</label>
-          <input type="text" id="modal-tracking-num" placeholder="예: 6543-9821-0012" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500">
+          <label class="block text-xs font-bold text-slate-700 mb-1">운송장 번호 *</label>
+          <input type="text" id="modal-tracking-num" placeholder="예: 6543-9821-0012" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
         </div>
-        <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-800">
-          <button type="button" onclick="closeOrderModal()" class="px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:bg-slate-700 transition cursor-pointer">취소</button>
-          <button type="button" id="modal-save-tracking-btn" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition cursor-pointer">저장 및 배송중 변경</button>
+        <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100">
+          <button type="button" onclick="closeOrderModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold hover:bg-slate-200 transition cursor-pointer">취소</button>
+          <button type="button" id="modal-save-tracking-btn" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md shadow-indigo-600/20 transition cursor-pointer">저장 및 배송중 변경</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- INQUIRY ANSWER MODAL -->
-  <div id="inquiry-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative">
-      <button onclick="closeInquiryModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white transition cursor-pointer">
+  <div id="inquiry-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative">
+      <button onclick="closeInquiryModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-700 transition cursor-pointer">
         <i data-lucide="x" class="w-6 h-6"></i>
       </button>
 
-      <h3 class="text-lg font-bold text-white mb-2">고객 문의 답변 작성</h3>
-      <p id="inq-detail-title" class="text-sm font-bold text-indigo-300 mb-2"></p>
-      <div id="inq-detail-content" class="text-xs text-slate-300 bg-slate-950 p-3.5 rounded-xl border border-slate-800 mb-4 whitespace-pre-line leading-relaxed"></div>
+      <h3 class="text-lg font-bold text-slate-900 mb-2">고객 문의 답변 작성</h3>
+      <p id="inq-detail-title" class="text-sm font-bold text-indigo-600 mb-2"></p>
+      <div id="inq-detail-content" class="text-xs text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200 mb-4 whitespace-pre-line leading-relaxed"></div>
 
       <input type="hidden" id="inq-edit-id">
       <div>
-        <label class="block text-xs font-bold text-slate-300 mb-1">관리자 답변 내용 *</label>
-        <textarea id="inq-form-answer" rows="4" placeholder="고객님께 전달할 정성스러운 답변을 입력해주세요..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500"></textarea>
+        <label class="block text-xs font-bold text-slate-700 mb-1">관리자 답변 내용 *</label>
+        <textarea id="inq-form-answer" rows="4" placeholder="고객님께 전달할 정성스러운 답변을 입력해주세요..." class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-indigo-500"></textarea>
       </div>
 
-      <div class="pt-4 mt-4 flex items-center justify-end gap-3 border-t border-slate-800">
-        <button type="button" onclick="closeInquiryModal()" class="px-5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:bg-slate-700 transition cursor-pointer">취소</button>
-        <button type="button" onclick="saveInquiryAnswer()" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition cursor-pointer">답변 등록 완료</button>
+      <div class="pt-4 mt-4 flex items-center justify-end gap-3 border-t border-slate-100">
+        <button type="button" onclick="closeInquiryModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold hover:bg-slate-200 transition cursor-pointer">취소</button>
+        <button type="button" onclick="saveInquiryAnswer()" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md shadow-indigo-600/20 transition cursor-pointer">답변 등록 완료</button>
       </div>
     </div>
   </div>
 
   <!-- Toast Notification Container -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 border border-indigo-500/40 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-bold">
-    <i data-lucide="check-circle" class="w-4 h-4 text-indigo-400"></i>
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-bold">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
     <span id="toast-message">알림</span>
   </div>
 
@@ -613,9 +613,9 @@
         const btn = document.getElementById(`nav-btn-${t}`);
         if (btn) {
           if (t === tab) {
-            btn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition cursor-pointer font-bold';
+            btn.className = 'flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white shadow-md shadow-indigo-600/20 transition cursor-pointer font-bold text-xs';
           } else {
-            btn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 transition cursor-pointer font-bold';
+            btn.className = 'flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition cursor-pointer font-bold text-xs';
           }
         }
         const mBtn = document.getElementById(`m-nav-btn-${t}`);
@@ -623,7 +623,7 @@
           if (t === tab) {
             mBtn.className = 'flex-1 min-w-[85px] py-1.5 px-2.5 rounded-lg bg-indigo-600 text-white text-center font-bold';
           } else {
-            mBtn.className = 'flex-1 min-w-[85px] py-1.5 px-2.5 rounded-lg text-slate-400 hover:bg-slate-800 text-center font-bold';
+            mBtn.className = 'flex-1 min-w-[85px] py-1.5 px-2.5 rounded-lg text-slate-600 hover:bg-slate-100 text-center font-bold';
           }
         }
       });
@@ -675,20 +675,20 @@
       if (recentTbody) {
         const recentOrders = adminOrders.slice(0, 5);
         if (recentOrders.length === 0) {
-          recentTbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-500 text-xs">최근 주문 내역이 없습니다.</td></tr>`;
+          recentTbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-400 text-xs">최근 주문 내역이 없습니다.</td></tr>`;
         } else {
           recentTbody.innerHTML = recentOrders.map(o => {
             const firstItem = o.items && o.items[0] ? o.items[0].productName : '상품';
             const extraCount = o.items && o.items.length > 1 ? ` 외 ${o.items.length - 1}건` : '';
             return `
-              <tr class="hover:bg-slate-900/50 transition">
+              <tr class="hover:bg-slate-50/80 transition">
                 <td class="p-4 pl-6">
-                  <span class="font-mono text-xs font-bold text-indigo-400">${o.orderId}</span>
+                  <span class="font-mono text-xs font-bold text-indigo-600">${o.orderId}</span>
                   <p class="text-[11px] text-slate-400 mt-0.5">${o.createdAt}</p>
                 </td>
-                <td class="p-4 font-medium text-slate-200">${o.buyer ? o.buyer.name : '-'} (${o.buyer ? o.buyer.phone : '-'})</td>
-                <td class="p-4 text-slate-300">${firstItem}${extraCount}</td>
-                <td class="p-4 text-right font-bold text-white">${ShopUI.formatPrice(o.totalAmount)}</td>
+                <td class="p-4 font-medium text-slate-800">${o.buyer ? o.buyer.name : '-'} (${o.buyer ? o.buyer.phone : '-'})</td>
+                <td class="p-4 text-slate-600">${firstItem}${extraCount}</td>
+                <td class="p-4 text-right font-extrabold text-slate-900">${ShopUI.formatPrice(o.totalAmount)}</td>
                 <td class="p-4">
                   <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${getStatusBadgeClass(o.status)}">
                     ${o.status}
@@ -724,26 +724,27 @@
           datasets: [{
             label: '판매 단가 (천원)',
             data: prices,
-            backgroundColor: 'rgba(99, 102, 241, 0.7)',
-            borderColor: 'rgba(99, 102, 241, 1)',
-            borderWidth: 1.5,
+            backgroundColor: 'rgba(99, 102, 241, 0.85)',
+            borderColor: 'rgba(79, 70, 229, 1)',
+            borderWidth: 1,
             borderRadius: 8,
+            hoverBackgroundColor: 'rgba(79, 70, 229, 1)'
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            legend: { labels: { color: '#94a3b8', font: { size: 11, weight: 'bold' } } }
+            legend: { labels: { color: '#475569', font: { size: 11, weight: 'bold' } } }
           },
           scales: {
             x: {
-              grid: { color: 'rgba(51, 65, 85, 0.3)' },
-              ticks: { color: '#94a3b8', font: { size: 10 } }
+              grid: { color: 'rgba(226, 232, 240, 0.6)' },
+              ticks: { color: '#64748b', font: { size: 11 } }
             },
             y: {
-              grid: { color: 'rgba(51, 65, 85, 0.3)' },
-              ticks: { color: '#94a3b8', font: { size: 10 } }
+              grid: { color: 'rgba(226, 232, 240, 0.6)' },
+              ticks: { color: '#64748b', font: { size: 11 } }
             }
           }
         }
@@ -751,11 +752,11 @@
     }
 
     function getStatusBadgeClass(status) {
-      if (status === '결제완료' || status === 'PAID') return 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/30';
-      if (status === '상품준비중' || status === 'PREPARING') return 'bg-amber-500/10 text-amber-300 border border-amber-500/30';
-      if (status === '배송중' || status === 'SHIPPING') return 'bg-blue-500/10 text-blue-300 border border-blue-500/30';
-      if (status === '배송완료' || status === 'DELIVERED') return 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/30';
-      return 'bg-slate-800 text-slate-400';
+      if (status === '결제완료' || status === 'PAID') return 'bg-indigo-50 text-indigo-700 border border-indigo-200';
+      if (status === '상품준비중' || status === 'PREPARING') return 'bg-amber-50 text-amber-700 border border-amber-200';
+      if (status === '배송중' || status === 'SHIPPING') return 'bg-blue-50 text-blue-700 border border-blue-200';
+      if (status === '배송완료' || status === 'DELIVERED') return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
+      return 'bg-slate-100 text-slate-600 border border-slate-200';
     }
 
     // Product Management Table
@@ -764,37 +765,37 @@
       if (!tbody) return;
 
       if (products.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500 text-xs">등록된 상품이 없습니다.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400 text-xs">등록된 상품이 없습니다.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = products.map(p => `
-        <tr class="hover:bg-slate-900/50 transition">
+        <tr class="hover:bg-slate-50/80 transition">
           <td class="p-4 pl-6">
-            <img src="${p.image}" alt="${p.name}" class="w-12 h-12 object-cover rounded-xl border border-slate-800 bg-slate-900" onerror="this.src='images/placeholder.jpg'">
+            <img src="${p.image}" alt="${p.name}" class="w-12 h-12 object-cover rounded-xl border border-slate-200 bg-slate-100 shadow-sm" onerror="this.src='images/placeholder.jpg'">
           </td>
           <td class="p-4">
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-indigo-300 mr-1">${p.category}</span>
-            <p class="font-bold text-white mt-1">${p.name}</p>
-            <p class="text-[11px] text-slate-400 truncate max-w-xs">${p.description || ''}</p>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100 mr-1">${p.category}</span>
+            <p class="font-bold text-slate-900 mt-1">${p.name}</p>
+            <p class="text-[11px] text-slate-500 truncate max-w-xs">${p.description || ''}</p>
           </td>
-          <td class="p-4 text-right font-bold text-white">${ShopUI.formatPrice(p.price)}</td>
+          <td class="p-4 text-right font-extrabold text-slate-900">${ShopUI.formatPrice(p.price)}</td>
           <td class="p-4 text-center">
-            <span class="font-bold ${p.stock < 10 ? 'text-amber-400 font-extrabold' : 'text-slate-200'}">${p.stock}개</span>
+            <span class="font-bold ${p.stock < 10 ? 'text-amber-600 font-extrabold' : 'text-slate-700'}">${p.stock}개</span>
           </td>
           <td class="p-4 text-center">
             <div class="flex items-center justify-center gap-1 flex-wrap">
-              ${p.isNew ? '<span class="px-1.5 py-0.5 bg-teal-500/10 border border-teal-500/30 text-teal-300 rounded text-[10px] font-bold">NEW</span>' : ''}
-              ${p.isBest ? '<span class="px-1.5 py-0.5 bg-rose-500/10 border border-rose-500/30 text-rose-300 rounded text-[10px] font-bold">BEST</span>' : ''}
-              ${p.stock === 0 ? '<span class="px-1.5 py-0.5 bg-rose-500/20 text-rose-400 rounded text-[10px] font-bold">품절</span>' : ''}
+              ${p.isNew ? '<span class="px-1.5 py-0.5 bg-teal-50 border border-teal-200 text-teal-700 rounded text-[10px] font-bold">NEW</span>' : ''}
+              ${p.isBest ? '<span class="px-1.5 py-0.5 bg-rose-50 border border-rose-200 text-rose-700 rounded text-[10px] font-bold">BEST</span>' : ''}
+              ${p.stock === 0 ? '<span class="px-1.5 py-0.5 bg-rose-100 text-rose-700 rounded text-[10px] font-bold">품절</span>' : ''}
             </div>
           </td>
           <td class="p-4 pr-6 text-center">
             <div class="flex items-center justify-center gap-2">
-              <button onclick="openProductModal('${p.id}')" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold transition cursor-pointer">
+              <button onclick="openProductModal('${p.id}')" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition cursor-pointer border border-slate-200">
                 수정
               </button>
-              <button onclick="deleteAdminProduct('${p.id}')" class="px-3 py-1 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-300 rounded-lg text-xs font-bold transition cursor-pointer">
+              <button onclick="deleteAdminProduct('${p.id}')" class="px-3 py-1 bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-700 rounded-lg text-xs font-bold transition cursor-pointer">
                 삭제
               </button>
             </div>
@@ -890,43 +891,43 @@
       if (!tbody) return;
 
       if (orders.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500 text-xs">주문 내역이 없습니다.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400 text-xs">주문 내역이 없습니다.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = orders.map(o => {
         const itemsList = (o.items || []).map(i => `${i.productName} (${i.quantity}개)`).join(', ');
         return `
-          <tr class="hover:bg-slate-900/50 transition">
+          <tr class="hover:bg-slate-50/80 transition">
             <td class="p-4 pl-6">
-              <span class="font-mono text-xs font-bold text-indigo-400">${o.orderId}</span>
+              <span class="font-mono text-xs font-bold text-indigo-600">${o.orderId}</span>
               <p class="text-[11px] text-slate-400 mt-0.5">${o.createdAt}</p>
             </td>
             <td class="p-4">
-              <p class="font-bold text-white">${o.buyer ? o.buyer.name : '-'}</p>
-              <p class="text-[11px] text-slate-400">${o.buyer ? o.buyer.phone : '-'}</p>
-              <p class="text-[11px] text-slate-500 truncate max-w-xs">${o.buyer ? o.buyer.address : ''}</p>
+              <p class="font-bold text-slate-900">${o.buyer ? o.buyer.name : '-'}</p>
+              <p class="text-[11px] text-slate-500">${o.buyer ? o.buyer.phone : '-'}</p>
+              <p class="text-[11px] text-slate-400 truncate max-w-xs">${o.buyer ? o.buyer.address : ''}</p>
             </td>
             <td class="p-4">
-              <p class="text-xs text-slate-200 line-clamp-2">${itemsList}</p>
+              <p class="text-xs text-slate-700 line-clamp-2">${itemsList}</p>
             </td>
-            <td class="p-4 text-right font-bold text-white">${ShopUI.formatPrice(o.totalAmount)}</td>
+            <td class="p-4 text-right font-extrabold text-slate-900">${ShopUI.formatPrice(o.totalAmount)}</td>
             <td class="p-4">
               <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${getStatusBadgeClass(o.status)}">
                 ${o.status}
               </span>
-              ${o.trackingNumber ? `<p class="text-[11px] font-mono text-indigo-300 mt-1">CJ: ${o.trackingNumber}</p>` : ''}
+              ${o.trackingNumber ? `<p class="text-[11px] font-mono text-indigo-600 font-bold mt-1">CJ: ${o.trackingNumber}</p>` : ''}
             </td>
             <td class="p-4 pr-6 text-center">
               <div class="flex items-center justify-center gap-2">
-                <select onchange="updateAdminOrderStatus('${o.orderId}', this.value)" class="py-1 px-2 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-500">
+                <select onchange="updateAdminOrderStatus('${o.orderId}', this.value)" class="py-1.5 px-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-800 text-xs focus:outline-none focus:bg-white focus:border-indigo-500">
                   <option value="결제완료" ${o.status === '결제완료' ? 'selected' : ''}>결제완료</option>
                   <option value="상품준비중" ${o.status === '상품준비중' ? 'selected' : ''}>상품준비중</option>
                   <option value="배송중" ${o.status === '배송중' ? 'selected' : ''}>배송중</option>
                   <option value="배송완료" ${o.status === '배송완료' ? 'selected' : ''}>배송완료</option>
                   <option value="주문취소" ${o.status === '주문취소' ? 'selected' : ''}>주문취소</option>
                 </select>
-                <button onclick="openTrackingModal('${o.orderId}', '${o.trackingNumber || ''}')" title="운송장 입력" class="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs transition cursor-pointer">
+                <button onclick="openTrackingModal('${o.orderId}', '${o.trackingNumber || ''}')" title="운송장 입력" class="p-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 rounded-lg text-xs transition cursor-pointer">
                   <i data-lucide="truck" class="w-3.5 h-3.5"></i>
                 </button>
               </div>
@@ -941,9 +942,9 @@
     function filterOrdersByStatus(status) {
       document.querySelectorAll('.order-tab-btn').forEach(btn => {
         if (btn.dataset.status === status) {
-          btn.className = 'order-tab-btn px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold transition cursor-pointer';
+          btn.className = 'order-tab-btn px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold transition cursor-pointer shadow-sm shadow-indigo-600/20';
         } else {
-          btn.className = 'order-tab-btn px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white text-xs font-bold transition cursor-pointer';
+          btn.className = 'order-tab-btn px-4 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 text-xs font-bold transition cursor-pointer';
         }
       });
 
@@ -997,26 +998,26 @@
       if (!tbody) return;
 
       if (inquiries.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-500 text-xs">문의 내역이 없습니다.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-400 text-xs">문의 내역이 없습니다.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = inquiries.map(inq => `
-        <tr class="hover:bg-slate-900/50 transition">
+        <tr class="hover:bg-slate-50/80 transition">
           <td class="p-4 pl-6">
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-slate-800 text-indigo-300 mr-1">${inq.type}</span>
-            <p class="font-bold text-white mt-1">${inq.title}</p>
-            <p class="text-[11px] text-slate-400">${inq.productName || '일반상담'}</p>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-50 border border-indigo-100 text-indigo-700 mr-1">${inq.type}</span>
+            <p class="font-bold text-slate-900 mt-1">${inq.title}</p>
+            <p class="text-[11px] text-slate-500">${inq.productName || '일반상담'}</p>
           </td>
-          <td class="p-4 text-slate-300">${inq.author} (${inq.phone})</td>
+          <td class="p-4 text-slate-700">${inq.author} (${inq.phone})</td>
           <td class="p-4 text-slate-400">${inq.createdAt}</td>
           <td class="p-4">
-            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${inq.status === '답변완료' ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-300' : 'bg-amber-500/10 border border-amber-500/30 text-amber-300'}">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${inq.status === '답변완료' ? 'bg-emerald-50 border border-emerald-200 text-emerald-700' : 'bg-amber-50 border border-amber-200 text-amber-700'}">
               ${inq.status}
             </span>
           </td>
           <td class="p-4 pr-6 text-center">
-            <button onclick="openInquiryModal('${inq.id}')" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold transition cursor-pointer">
+            <button onclick="openInquiryModal('${inq.id}')" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold shadow-sm shadow-indigo-600/20 transition cursor-pointer">
               답변작성
             </button>
           </td>
