@@ -51,13 +51,13 @@ const ShopAPI = {
       // 2. Products
       if (endpoint.startsWith('/api/products')) {
         let list = [];
-        const stored = localStorage.getItem('easyshop_products');
+        const stored = localStorage.getItem('easyshop_products_v3');
         if (stored && JSON.parse(stored).length > 0) {
           list = JSON.parse(stored);
         } else {
           const res = await fetch('data/products.json');
           list = await res.json();
-          localStorage.setItem('easyshop_products', JSON.stringify(list));
+          localStorage.setItem('easyshop_products_v3', JSON.stringify(list));
         }
 
         const urlObj = new URL('http://dummy.com' + endpoint);
@@ -77,7 +77,7 @@ const ShopAPI = {
           newProd.id = 'prod-' + Date.now();
           newProd.createdAt = new Date().toISOString();
           list.unshift(newProd);
-          localStorage.setItem('easyshop_products', JSON.stringify(list));
+          localStorage.setItem('easyshop_products_v3', JSON.stringify(list));
           return { success: true, product: newProd };
         }
 
@@ -86,14 +86,14 @@ const ShopAPI = {
           const idx = list.findIndex(p => p.id === id);
           if (idx > -1) {
             list[idx] = { ...list[idx], ...updateData };
-            localStorage.setItem('easyshop_products', JSON.stringify(list));
+            localStorage.setItem('easyshop_products_v3', JSON.stringify(list));
           }
           return { success: true };
         }
 
         if (method === 'DELETE') {
           list = list.filter(p => p.id !== id);
-          localStorage.setItem('easyshop_products', JSON.stringify(list));
+          localStorage.setItem('easyshop_products_v3', JSON.stringify(list));
           return { success: true };
         }
       }
@@ -188,7 +188,7 @@ const ShopAPI = {
 
       // 5. Stats
       if (endpoint.startsWith('/api/stats')) {
-        const prods = JSON.parse(localStorage.getItem('easyshop_products') || '[]');
+        const prods = JSON.parse(localStorage.getItem('easyshop_products_v3') || '[]');
         const orders = JSON.parse(localStorage.getItem('easyshop_orders') || '[]');
         const inqs = JSON.parse(localStorage.getItem('easyshop_inquiries') || '[]');
         const totalSales = orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);

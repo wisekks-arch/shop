@@ -239,7 +239,7 @@
     function renderProductDetails(p) {
       document.title = `${p.name} - EASYSHOP`;
       document.getElementById('breadcrumb-category').innerText = p.category;
-      document.getElementById('breadcrumb-category').href = `/products.html?category=${encodeURIComponent(p.category)}`;
+      document.getElementById('breadcrumb-category').href = `products.html?category=${encodeURIComponent(p.category)}`;
       document.getElementById('breadcrumb-title').innerText = p.name;
 
       document.getElementById('main-product-image').src = p.thumbnail;
