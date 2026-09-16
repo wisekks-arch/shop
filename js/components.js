@@ -55,7 +55,7 @@ const ShopUI = {
 
             <!-- Search Bar -->
             <div class="flex-1 max-w-xl hidden md:block">
-              <form id="global-search-form" action="/products.html" method="GET" class="relative">
+              <form id="global-search-form" action="products.html" method="GET" class="relative">
                 <input 
                   type="text" 
                   name="search"
@@ -78,7 +78,7 @@ const ShopUI = {
               </a>
 
               <!-- Wishlist -->
-              <a href="/products.html?filter=wishlist" class="p-2.5 text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-full transition relative group" title="위시리스트">
+              <a href="products.html?filter=wishlist" class="p-2.5 text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-full transition relative group" title="위시리스트">
                 <i data-lucide="heart" class="w-5 h-5"></i>
                 <span id="nav-wishlist-badge" class="absolute top-1 right-1 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center ${wishlistCount > 0 ? '' : 'hidden'}">
                   ${wishlistCount}
@@ -113,16 +113,16 @@ const ShopUI = {
             <a href="products.html" class="flex items-center gap-2 text-slate-900 font-bold hover:text-indigo-600 transition ${active === 'all' ? 'text-indigo-600' : ''}">
               <i data-lucide="layout-grid" class="w-4 h-4 text-indigo-500"></i> 전체 카테고리
             </a>
-            <a href="/products.html?category=패션 / 의류" class="text-slate-600 hover:text-indigo-600 transition ${active === 'fashion' ? 'text-indigo-600 font-bold' : ''}">패션 / 의류</a>
-            <a href="/products.html?category=디지털 / 가전" class="text-slate-600 hover:text-indigo-600 transition ${active === 'digital' ? 'text-indigo-600 font-bold' : ''}">디지털 / 가전</a>
-            <a href="/products.html?category=뷰티 / 케어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'beauty' ? 'text-indigo-600 font-bold' : ''}">뷰티 / 케어</a>
-            <a href="/products.html?category=리빙 / 인테리어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'living' ? 'text-indigo-600 font-bold' : ''}">리빙 / 인테리어</a>
-            <a href="/products.html?category=푸드 / 키친" class="text-slate-600 hover:text-indigo-600 transition ${active === 'food' ? 'text-indigo-600 font-bold' : ''}">푸드 / 키친</a>
+            <a href="products.html?category=패션 / 의류" class="text-slate-600 hover:text-indigo-600 transition ${active === 'fashion' ? 'text-indigo-600 font-bold' : ''}">패션 / 의류</a>
+            <a href="products.html?category=디지털 / 가전" class="text-slate-600 hover:text-indigo-600 transition ${active === 'digital' ? 'text-indigo-600 font-bold' : ''}">디지털 / 가전</a>
+            <a href="products.html?category=뷰티 / 케어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'beauty' ? 'text-indigo-600 font-bold' : ''}">뷰티 / 케어</a>
+            <a href="products.html?category=리빙 / 인테리어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'living' ? 'text-indigo-600 font-bold' : ''}">리빙 / 인테리어</a>
+            <a href="products.html?category=푸드 / 키친" class="text-slate-600 hover:text-indigo-600 transition ${active === 'food' ? 'text-indigo-600 font-bold' : ''}">푸드 / 키친</a>
             <div class="ml-auto flex items-center gap-4">
-              <a href="/products.html?isBest=true" class="text-amber-600 font-bold flex items-center gap-1 hover:text-amber-700 transition">
+              <a href="products.html?isBest=true" class="text-amber-600 font-bold flex items-center gap-1 hover:text-amber-700 transition">
                 <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i> 베스트 랭킹
               </a>
-              <a href="/products.html?isSale=true" class="text-rose-600 font-bold flex items-center gap-1 hover:text-rose-700 transition">
+              <a href="products.html?isSale=true" class="text-rose-600 font-bold flex items-center gap-1 hover:text-rose-700 transition">
                 <i data-lucide="tag" class="w-4 h-4 text-rose-500"></i> 타임세일 특가
               </a>
             </div>
@@ -132,11 +132,11 @@ const ShopUI = {
         <!-- Mobile Drawer Menu -->
         <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-2">
           <a href="products.html" class="block py-2 text-slate-800 font-bold">전체 상품 탐색</a>
-          <a href="/products.html?category=패션 / 의류" class="block py-2 text-slate-600">패션 / 의류</a>
-          <a href="/products.html?category=디지털 / 가전" class="block py-2 text-slate-600">디지털 / 가전</a>
-          <a href="/products.html?category=뷰티 / 케어" class="block py-2 text-slate-600">뷰티 / 케어</a>
-          <a href="/products.html?category=리빙 / 인테리어" class="block py-2 text-slate-600">리빙 / 인테리어</a>
-          <a href="/products.html?category=푸드 / 키친" class="block py-2 text-slate-600">푸드 / 키친</a>
+          <a href="products.html?category=패션 / 의류" class="block py-2 text-slate-600">패션 / 의류</a>
+          <a href="products.html?category=디지털 / 가전" class="block py-2 text-slate-600">디지털 / 가전</a>
+          <a href="products.html?category=뷰티 / 케어" class="block py-2 text-slate-600">뷰티 / 케어</a>
+          <a href="products.html?category=리빙 / 인테리어" class="block py-2 text-slate-600">리빙 / 인테리어</a>
+          <a href="products.html?category=푸드 / 키친" class="block py-2 text-slate-600">푸드 / 키친</a>
           <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
             <a href="cart.html" class="py-2 text-indigo-600 font-semibold flex items-center gap-2">
               <i data-lucide="shopping-cart" class="w-4 h-4"></i> 장바구니 바로가기

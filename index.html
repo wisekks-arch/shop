@@ -234,6 +234,7 @@
   <div id="footer-root"></div>
 
   <!-- Scripts -->
+  <script src="js/auth-store.js"></script>
   <script src="js/cart-store.js"></script>
   <script src="js/api.js"></script>
   <script src="js/components.js"></script>
@@ -290,7 +291,7 @@
             <span class="text-[11px] text-slate-400 line-through">${ShopUI.formatPrice(p.originalPrice)}</span>
           </div>
           <div class="mt-auto pt-3">
-            <a href="/product-detail.html?id=${p.id}" class="block w-full py-2 bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 rounded-xl text-xs font-bold text-center transition">
+            <a href="product-detail.html?id=${p.id}" class="block w-full py-2 bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 rounded-xl text-xs font-bold text-center transition">
               특가 구매하기
             </a>
           </div>
@@ -310,7 +311,7 @@
       container.innerHTML = filtered.map(p => `
         <div class="product-card bg-white rounded-3xl border border-slate-200/80 overflow-hidden flex flex-col group">
           <!-- Thumbnail -->
-          <a href="/product-detail.html?id=${p.id}" class="zoom-container relative aspect-square bg-slate-100">
+          <a href="product-detail.html?id=${p.id}" class="zoom-container relative aspect-square bg-slate-100">
             <img src="${p.thumbnail}" alt="${p.name}" class="w-full h-full object-cover" />
             <!-- Badges -->
             <div class="absolute top-3 left-3 flex flex-col gap-1 z-10">
@@ -329,7 +330,7 @@
           <!-- Info -->
           <div class="p-4 sm:p-5 flex flex-col flex-1">
             <div class="text-[11px] font-bold text-indigo-600 uppercase mb-1">${p.category}</div>
-            <a href="/product-detail.html?id=${p.id}" class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition line-clamp-2 leading-snug">
+            <a href="product-detail.html?id=${p.id}" class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition line-clamp-2 leading-snug">
               ${p.name}
             </a>
 
