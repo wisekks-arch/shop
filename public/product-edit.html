@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품 정보 수정 - EASYADMIN</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Left: Brand & Page Mode Title -->
+        <div class="flex items-center gap-4">
+          <a href="admin.html" class="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>어드민으로 복귀</span>
+          </a>
+          <div class="h-6 w-[1px] bg-slate-200"></div>
+          <div>
+            <h1 id="page-heading-title" class="text-lg font-black text-slate-900 tracking-tight flex items-center gap-2">
+              <i data-lucide="edit-3" class="w-5 h-5 text-indigo-600"></i>
+              <span>상품 정보 수정</span>
+            </h1>
+            <p id="page-heading-id" class="text-[11px] text-slate-500 font-mono">ID: 로딩중...</p>
+          </div>
+        </div>
+
+        <!-- Right: Actions -->
+        <div class="flex items-center gap-3">
+          <a id="btn-view-live-product" href="products.html" target="_blank" class="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 hover:text-indigo-600 transition">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+            <span>쇼핑몰 상세페이지 확인</span>
+          </a>
+          <button onclick="submitProductForm()" class="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 transition cursor-pointer">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span>수정 사항 저장 완료</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <form id="edit-product-form" onsubmit="event.preventDefault(); submitProductForm();" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- ==================== LEFT COLUMN: MAIN FORM (8 cols) ==================== -->
+      <div class="lg:col-span-8 space-y-6">
+        
+        <!-- 1. Basic Info Card -->
+        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+            <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="info" class="w-4 h-4 text-indigo-600"></i>
+              <span>기본 정보 설정</span>
+            </h2>
+            <span class="text-[11px] text-slate-400">* 표시는 필수 입력 항목입니다.</span>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">상품명 *</label>
+              <input type="text" id="edit-name" required oninput="updateLivePreview()" placeholder="상품명을 입력하세요" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:bg-white focus:border-indigo-500 transition">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">카테고리 *</label>
+                <select id="edit-category" required onchange="updateLivePreview()" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs font-medium focus:outline-none focus:bg-white focus:border-indigo-500 transition">
+                  <option value="패션 / 의류">패션 / 의류</option>
+                  <option value="디지털 / 가전">디지털 / 가전</option>
+                  <option value="뷰티 / 케어">뷰티 / 케어</option>
+                  <option value="리빙 / 인테리어">리빙 / 인테리어</option>
+                  <option value="푸드 / 키친">푸드 / 키친</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">한줄 요약 설명</label>
+                <input type="text" id="edit-summary" oninput="updateLivePreview()" placeholder="상품을 돋보이게 하는 핵심 특징 요약" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:bg-white focus:border-indigo-500 transition">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Price, Discount & Stock Card -->
+        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+            <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="tag" class="w-4 h-4 text-emerald-600"></i>
+              <span>가격 및 재고 관리</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">실제 판매가 (원) *</label>
+              <input type="number" id="edit-price" required min="100" oninput="calculateDiscount(); updateLivePreview();" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-bold focus:outline-none focus:bg-white focus:border-indigo-500 transition">
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">원래 가격 / 할인 전 (원)</label>
+              <input type="number" id="edit-original-price" min="0" oninput="calculateDiscount(); updateLivePreview();" placeholder="미입력 시 할인 미적용" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:bg-white focus:border-indigo-500 transition">
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">자동 계산 할인율</label>
+              <div class="flex items-center h-[46px] px-4 rounded-xl bg-slate-100 border border-slate-200 text-rose-600 font-black text-sm">
+                <span id="label-discount-rate">0% OFF</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">재고 수량 (개) *</label>
+              <input type="number" id="edit-stock" required min="0" oninput="updateLivePreview()" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-bold focus:outline-none focus:bg-white focus:border-indigo-500 transition">
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">배송비 설정</label>
+              <label class="flex items-center gap-2 h-[46px] px-4 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer">
+                <input type="checkbox" id="edit-is-freeshipping" onchange="updateLivePreview()" class="rounded border-slate-300 text-indigo-600 focus:ring-0">
+                <span class="font-bold text-slate-800">무료배송 혜택 적용</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Badges & Marketing Card -->
+        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+            <span>추천 및 마케팅 뱃지</span>
+          </h2>
+
+          <div class="grid grid-cols-3 gap-4 text-xs">
+            <label class="flex items-center gap-2.5 p-3.5 rounded-2xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+              <input type="checkbox" id="edit-is-new" onchange="updateLivePreview()" class="rounded border-slate-300 text-teal-600 focus:ring-0">
+              <span class="font-bold text-slate-800">신상품 (NEW)</span>
+            </label>
+            <label class="flex items-center gap-2.5 p-3.5 rounded-2xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+              <input type="checkbox" id="edit-is-best" onchange="updateLivePreview()" class="rounded border-slate-300 text-rose-600 focus:ring-0">
+              <span class="font-bold text-slate-800">베스트셀러 (BEST)</span>
+            </label>
+            <label class="flex items-center gap-2.5 p-3.5 rounded-2xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition">
+              <input type="checkbox" id="edit-is-sale" onchange="updateLivePreview()" class="rounded border-slate-300 text-amber-600 focus:ring-0">
+              <span class="font-bold text-slate-800">타임세일 특가 (SALE)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 4. Description Detail Card -->
+        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
+            <i data-lucide="file-text" class="w-4 h-4 text-purple-600"></i>
+            <span>상세 페이지 설명 본문 (HTML 지원)</span>
+          </h2>
+
+          <textarea id="edit-description" rows="6" placeholder="상품 상세 정보를 자세히 작성해 주세요..." class="w-full p-4 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-xs leading-relaxed focus:outline-none focus:bg-white focus:border-indigo-500 transition"></textarea>
+        </div>
+
+      </div>
+
+      <!-- ==================== RIGHT COLUMN: PREVIEW & MEDIA (4 cols) ==================== -->
+      <div class="lg:col-span-4 space-y-6">
+        
+        <!-- Live Storefront Preview Card -->
+        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 shadow-sm space-y-4 sticky top-24">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 class="text-xs font-bold text-slate-900 flex items-center gap-1.5 uppercase tracking-wider">
+              <i data-lucide="eye" class="w-4 h-4 text-indigo-600"></i>
+              <span>실시간 쇼핑몰 카드 미리보기</span>
+            </h3>
+            <span class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 text-[10px] font-black">Live Preview</span>
+          </div>
+
+          <!-- Card Mockup -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 shadow-xs space-y-3">
+            <div class="aspect-square rounded-xl overflow-hidden bg-slate-200 relative">
+              <img id="preview-image" src="" alt="미리보기" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80'" />
+              
+              <!-- Badges Container -->
+              <div id="preview-badges" class="absolute top-2 left-2 flex flex-wrap gap-1"></div>
+            </div>
+
+            <div>
+              <span id="preview-category" class="text-[10px] font-bold text-indigo-600 uppercase">패션 / 의류</span>
+              <h4 id="preview-title" class="text-sm font-bold text-slate-900 line-clamp-1 mt-0.5">상품명</h4>
+              <p id="preview-summary" class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">요약 설명</p>
+            </div>
+
+            <div class="flex items-baseline justify-between pt-1 border-t border-slate-200/60">
+              <div class="flex items-baseline gap-1.5">
+                <span id="preview-discount" class="text-sm font-black text-rose-600">25%</span>
+                <span id="preview-price" class="text-base font-black text-slate-900">0원</span>
+              </div>
+              <span id="preview-origin-price" class="text-[11px] text-slate-400 line-through">0원</span>
+            </div>
+          </div>
+
+          <!-- Image URL Input -->
+          <div class="text-xs space-y-2 pt-2">
+            <label class="block font-bold text-slate-700">대표 썸네일 이미지 URL *</label>
+            <input type="text" id="edit-thumbnail" required oninput="updateLivePreview()" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:bg-white focus:border-indigo-500 transition">
+          </div>
+
+          <!-- Save Button (Bottom of Column) -->
+          <button type="button" onclick="submitProductForm()" class="w-full py-3.5 px-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/25 transition cursor-pointer flex items-center justify-center gap-2">
+            <i data-lucide="save" class="w-4 h-4"></i>
+            <span>수정 사항 저장 완료</span>
+          </button>
+        </div>
+
+      </div>
+
+    </form>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/auth-store.js"></script>
+  <script src="js/cart-store.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/components.js"></script>
+
+  <script>
+    let currentProductId = null;
+    let originalProduct = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      currentProductId = urlParams.get('id') || 'prod-01';
+
+      await loadProductData(currentProductId);
+      if (window.lucide) window.lucide.createIcons();
+    });
+
+    async function loadProductData(id) {
+      try {
+        const products = await ShopAPI.getProducts();
+        originalProduct = products.find(p => p.id === id) || products[0];
+
+        if (originalProduct) {
+          currentProductId = originalProduct.id;
+          document.getElementById('page-heading-id').innerText = `상품 고유 ID: ${originalProduct.id}`;
+          document.getElementById('btn-view-live-product').href = `product-detail.html?id=${encodeURIComponent(originalProduct.id)}`;
+
+          // Fill Form Fields
+          document.getElementById('edit-name').value = originalProduct.name || '';
+          document.getElementById('edit-category').value = originalProduct.category || '패션 / 의류';
+          document.getElementById('edit-summary').value = originalProduct.summary || '';
+          document.getElementById('edit-price').value = originalProduct.price || 0;
+          document.getElementById('edit-original-price').value = originalProduct.originalPrice || '';
+          document.getElementById('edit-stock').value = originalProduct.stock !== undefined ? originalProduct.stock : 50;
+          document.getElementById('edit-is-freeshipping').checked = !!originalProduct.isFreeShipping;
+          document.getElementById('edit-is-new').checked = !!originalProduct.isNew;
+          document.getElementById('edit-is-best').checked = !!originalProduct.isBest;
+          document.getElementById('edit-is-sale').checked = !!originalProduct.isSale;
+          document.getElementById('edit-description').value = originalProduct.description || '';
+          document.getElementById('edit-thumbnail').value = originalProduct.thumbnail || (originalProduct.images && originalProduct.images[0]) || '';
+
+          calculateDiscount();
+          updateLivePreview();
+        }
+      } catch (err) {
+        console.error('Failed to load product data:', err);
+        ShopUI.showToast('상품 정보를 불러오지 못했습니다.', 'error');
+      }
+    }
+
+    function calculateDiscount() {
+      const price = parseInt(document.getElementById('edit-price').value) || 0;
+      const origin = parseInt(document.getElementById('edit-original-price').value) || 0;
+      const label = document.getElementById('label-discount-rate');
+
+      if (origin > price && price > 0) {
+        const rate = Math.round(((origin - price) / origin) * 100);
+        label.innerText = `${rate}% OFF 할인`;
+      } else {
+        label.innerText = '0% OFF (정상가)';
+      }
+    }
+
+    function updateLivePreview() {
+      const name = document.getElementById('edit-name').value || '상품명 미리보기';
+      const cat = document.getElementById('edit-category').value;
+      const summary = document.getElementById('edit-summary').value || '요약 설명이 표시됩니다.';
+      const price = parseInt(document.getElementById('edit-price').value) || 0;
+      const origin = parseInt(document.getElementById('edit-original-price').value) || 0;
+      const thumb = document.getElementById('edit-thumbnail').value.trim() || 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80';
+
+      const isNew = document.getElementById('edit-is-new').checked;
+      const isBest = document.getElementById('edit-is-best').checked;
+      const isSale = document.getElementById('edit-is-sale').checked;
+
+      document.getElementById('preview-image').src = thumb;
+      document.getElementById('preview-title').innerText = name;
+      document.getElementById('preview-category').innerText = cat;
+      document.getElementById('preview-summary').innerText = summary;
+      document.getElementById('preview-price').innerText = ShopUI.formatPrice(price);
+
+      const discountEl = document.getElementById('preview-discount');
+      const originEl = document.getElementById('preview-origin-price');
+
+      if (origin > price && price > 0) {
+        const rate = Math.round(((origin - price) / origin) * 100);
+        discountEl.innerText = `${rate}%`;
+        discountEl.style.display = 'inline';
+        originEl.innerText = ShopUI.formatPrice(origin);
+        originEl.style.display = 'inline';
+      } else {
+        discountEl.style.display = 'none';
+        originEl.style.display = 'none';
+      }
+
+      // Badges
+      const badgesContainer = document.getElementById('preview-badges');
+      let badgesHtml = '';
+      if (isNew) badgesHtml += '<span class="px-1.5 py-0.5 bg-teal-500 text-white rounded text-[10px] font-black">NEW</span>';
+      if (isBest) badgesHtml += '<span class="px-1.5 py-0.5 bg-rose-500 text-white rounded text-[10px] font-black">BEST</span>';
+      if (isSale) badgesHtml += '<span class="px-1.5 py-0.5 bg-amber-500 text-white rounded text-[10px] font-black">SALE</span>';
+      badgesContainer.innerHTML = badgesHtml;
+    }
+
+    async function submitProductForm() {
+      const name = document.getElementById('edit-name').value.trim();
+      if (!name) {
+        alert('상품명을 입력해 주세요.');
+        return;
+      }
+
+      const price = parseInt(document.getElementById('edit-price').value);
+      if (isNaN(price) || price < 100) {
+        alert('올바른 판매 가격을 입력해 주세요.');
+        return;
+      }
+
+      const originalPriceVal = document.getElementById('edit-original-price').value;
+      const originalPrice = originalPriceVal ? parseInt(originalPriceVal) : null;
+      const discountRate = (originalPrice && originalPrice > price) ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
+
+      const updatedData = {
+        name: name,
+        category: document.getElementById('edit-category').value,
+        summary: document.getElementById('edit-summary').value.trim(),
+        price: price,
+        originalPrice: originalPrice,
+        discountRate: discountRate,
+        stock: parseInt(document.getElementById('edit-stock').value) || 0,
+        isFreeShipping: document.getElementById('edit-is-freeshipping').checked,
+        isNew: document.getElementById('edit-is-new').checked,
+        isBest: document.getElementById('edit-is-best').checked,
+        isSale: document.getElementById('edit-is-sale').checked,
+        description: document.getElementById('edit-description').value,
+        thumbnail: document.getElementById('edit-thumbnail').value.trim(),
+        image: document.getElementById('edit-thumbnail').value.trim()
+      };
+
+      try {
+        await ShopAPI.updateProduct(currentProductId, updatedData);
+        ShopUI.showToast(`[${name}] 상품 정보가 성공적으로 수정되었습니다!`);
+        setTimeout(() => {
+          window.location.href = 'admin.html';
+        }, 1200);
+      } catch (err) {
+        console.error('Update failed:', err);
+        ShopUI.showToast('상품 수정 중 오류가 발생했습니다.', 'error');
+      }
+    }
+  </script>
+</body>
+</html>

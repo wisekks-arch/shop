@@ -46,7 +46,12 @@
       <div class="lg:col-span-6 flex flex-col justify-between space-y-6">
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <span id="product-category-tag" class="text-xs font-bold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-3 py-1 rounded-full">카테고리</span>
+            <div class="flex items-center gap-2">
+      <span id="product-category-tag" class="text-xs font-bold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-3 py-1 rounded-full">카테고리</span>
+      <a id="btn-admin-edit-prod" href="product-edit.html" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 text-[11px] font-bold transition flex items-center gap-1">
+        <i data-lucide="settings" class="w-3 h-3"></i> 상품정보 수정
+      </a>
+    </div>
             <button onclick="toggleDetailWish()" class="p-2.5 rounded-full bg-slate-100 hover:bg-rose-50 text-slate-400 hover:text-rose-500 transition">
               <i id="wish-heart-icon" data-lucide="heart" class="w-5 h-5"></i>
             </button>
@@ -239,6 +244,9 @@
 
       document.getElementById('main-product-image').src = p.thumbnail;
       document.getElementById('product-category-tag').innerText = p.category;
+      if (document.getElementById('btn-admin-edit-prod')) {
+        document.getElementById('btn-admin-edit-prod').href = `product-edit.html?id=${encodeURIComponent(p.id)}`;
+      }
       document.getElementById('product-title').innerText = p.name;
       document.getElementById('product-summary').innerText = p.summary || '';
       document.getElementById('product-rating').innerText = p.rating || 5.0;
