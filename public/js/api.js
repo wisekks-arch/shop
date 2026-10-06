@@ -12865,232 +12865,251 @@ const DEFAULT_USERS = [
   }
 ];
 
-const DEFAULT_ORDERS = [
-  {
-    "orderId": "ORD-20261006-9921",
-    "orderDate": "2026-10-06 17:15:30",
-    "customerName": "김민준",
-    "customerPhone": "010-3849-1928",
-    "customerEmail": "kim.minjun@gmail.com",
-    "shippingAddress": "서울특별시 강남구 테헤란로 152 강남파이낸스센터 12층",
-    "shippingNote": "부재 시 경비실에 맡겨주세요.",
-    "paymentMethod": "신용카드 (현대카드)",
-    "totalAmount": 289000,
-    "shippingFee": 0,
-    "discountAmount": 100000,
-    "status": "결제완료",
-    "trackingNumber": "",
-    "items": [
-      {
-        "productId": "prod-01",
-        "name": "프리미엄 캐시미어 블렌드 오버핏 코트",
-        "option": "오트밀 베이지 / L(105)",
-        "quantity": 1,
-        "price": 289000,
-        "thumbnail": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    "orderId": "ORD-20261006-8412",
-    "orderDate": "2026-10-06 14:30:15",
-    "customerName": "이서연",
-    "customerPhone": "010-9281-4710",
-    "customerEmail": "lee.seoyeon@naver.com",
-    "shippingAddress": "경기도 성남시 분당구 판교역로 235 에이치스퀘어 N동 801호",
-    "shippingNote": "배송 전 연락 부탁드립니다.",
-    "paymentMethod": "카카오페이",
-    "totalAmount": 168000,
-    "shippingFee": 0,
-    "discountAmount": 20000,
-    "status": "결제완료",
-    "trackingNumber": "",
-    "items": [
-      {
-        "productId": "prod-03",
-        "name": "엑스트라 파인 메리노울 터틀넥 니트",
-        "option": "오트밀 베이지 / M(95-100)",
-        "quantity": 1,
-        "price": 89000,
-        "thumbnail": "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        "productId": "prod-02",
-        "name": "프렌치 린넨 100% 루즈핏 스트라이프 셔츠",
-        "option": "스카이블루 / M(95-100)",
-        "quantity": 1,
-        "price": 79000,
-        "thumbnail": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    "orderId": "ORD-20261006-7103",
-    "orderDate": "2026-10-06 11:20:00",
-    "customerName": "박도현",
-    "customerPhone": "010-7712-3948",
-    "customerEmail": "park.dohyun@kakao.com",
-    "shippingAddress": "부산광역시 해운대구 센텀중앙로 78 센텀타워 1503호",
-    "shippingNote": "문 앞에 놓아주세요.",
-    "paymentMethod": "네이버페이",
-    "totalAmount": 249000,
-    "shippingFee": 0,
-    "discountAmount": 30000,
-    "status": "상품준비",
-    "trackingNumber": "",
-    "items": [
-      {
-        "productId": "prod-13",
-        "name": "에어사운드 노이즈캔슬링 무선 헤드폰 프로",
-        "option": "미드나잇 블랙",
-        "quantity": 1,
-        "price": 249000,
-        "thumbnail": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    "orderId": "ORD-20261005-6541",
-    "orderDate": "2026-10-05 18:45:20",
-    "customerName": "정지우",
-    "customerPhone": "010-4491-8273",
-    "customerEmail": "jung.jiwoo@daum.net",
-    "shippingAddress": "인천광역시 연수구 송도과학로 32 송도테크노파크 IT센터 502호",
-    "shippingNote": "부재 시 연락주세요.",
-    "paymentMethod": "신용카드 (삼성카드)",
-    "totalAmount": 128000,
-    "shippingFee": 0,
-    "discountAmount": 15000,
-    "status": "배송중",
-    "trackingNumber": "CJ68291039841",
-    "items": [
-      {
-        "productId": "prod-14",
-        "name": "울트라 슬림 기계식 무선 블루투스 키보드",
-        "option": "화이트 / 적축(리니어)",
-        "quantity": 1,
-        "price": 128000,
-        "thumbnail": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    "orderId": "ORD-20261005-5920",
-    "orderDate": "2026-10-05 15:10:40",
-    "customerName": "최유진",
-    "customerPhone": "010-6102-9938",
-    "customerEmail": "choi.yujin@gmail.com",
-    "shippingAddress": "대구광역시 수성구 달구벌대로 2450 수성빌딩 4층",
-    "shippingNote": "문 앞 배송",
-    "paymentMethod": "토스페이",
-    "totalAmount": 88000,
-    "shippingFee": 0,
-    "discountAmount": 10000,
-    "status": "배송중",
-    "trackingNumber": "CJ59182930129",
-    "items": [
-      {
-        "productId": "prod-25",
-        "name": "글로우 리바이탈라이징 나이트 앰플 세럼 50ml",
-        "option": "기본",
-        "quantity": 2,
-        "price": 44000,
-        "thumbnail": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    "orderId": "ORD-20261004-4819",
-    "orderDate": "2026-10-04 20:15:10",
-    "customerName": "강현우",
-    "customerPhone": "010-8831-2049",
-    "customerEmail": "kang.hyunwoo@naver.com",
-    "shippingAddress": "대전광역시 유성구 대학로 99 카이스트 창업원 201호",
-    "shippingNote": "경비실 보관 부탁드립니다.",
-    "paymentMethod": "신용카드 (KB국민카드)",
-    "totalAmount": 178000,
-    "shippingFee": 0,
-    "discountAmount": 25000,
-    "status": "배송완료",
-    "trackingNumber": "CJ91823019283",
-    "items": [
-      {
-        "productId": "prod-40",
-        "name": "호텔식 60수 고밀도 프리미엄 순면 차렵이불 세트 (Q/K)",
-        "option": "크림 아이보리 / 퀸(Q)",
-        "quantity": 1,
-        "price": 178000,
-        "thumbnail": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    "orderId": "ORD-20261004-3921",
-    "orderDate": "2026-10-04 13:05:00",
-    "customerName": "한소희",
-    "customerPhone": "010-9948-1234",
-    "customerEmail": "han.sohee@naver.com",
-    "shippingAddress": "서울특별시 용산구 한남대로 91 나인원한남 105동 801호",
-    "shippingNote": "도착 전 연락 주세요.",
-    "paymentMethod": "신용카드 (신한카드)",
-    "totalAmount": 215000,
-    "shippingFee": 0,
-    "discountAmount": 30000,
-    "status": "배송완료",
-    "trackingNumber": "CJ48192039182",
-    "items": [
-      {
-        "productId": "prod-49",
-        "name": "스페셜티 드립백 커피 시그니처 4종 기프트 세트",
-        "option": "기본",
-        "quantity": 2,
-        "price": 45000,
-        "thumbnail": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        "productId": "prod-50",
-        "name": "유기농 프리미엄 마누카 꿀 UMF 15+ MGO 514 (250g/500g)",
-        "option": "500g 대용량",
-        "quantity": 1,
-        "price": 125000,
-        "thumbnail": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    "orderId": "ORD-20261003-2810",
-    "orderDate": "2026-10-03 16:22:45",
-    "customerName": "윤채원",
-    "customerPhone": "010-5592-1847",
-    "customerEmail": "yoon.chaewon@gmail.com",
-    "shippingAddress": "광주광역시 서구 상무중앙로 110 상무타워 11층",
-    "shippingNote": "문 앞 보관",
-    "paymentMethod": "카카오페이",
-    "totalAmount": 142000,
-    "shippingFee": 0,
-    "discountAmount": 18000,
-    "status": "배송완료",
-    "trackingNumber": "CJ38192048192",
-    "items": [
-      {
-        "productId": "prod-04",
-        "name": "컴포트 올데이 4방향 스트레치 테이퍼드 슬랙스",
-        "option": "차콜 그레이 / M(30-31)",
-        "quantity": 1,
-        "price": 64000,
-        "thumbnail": "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        "productId": "prod-05",
-        "name": "헤비웨이트 950g 프렌치테리 오버핏 후드 집업",
-        "option": "멜란지 그레이 / L(105)",
-        "quantity": 1,
-        "price": 78000,
-        "thumbnail": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  }
-];
+function getRelativeOrderDate(daysAgo, timeStr = '12:00:00') {
+  const d = new Date();
+  d.setDate(d.getDate() - daysAgo);
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd} ${timeStr}`;
+}
+
+function getAdaptiveDefaultOrders() {
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+  const ymd = `${yyyy}${mm}${dd}`;
+
+  return [
+    {
+      "orderId": `ORD-${ymd}-9921`,
+      "orderDate": getRelativeOrderDate(0, "17:15:30"),
+      "customerName": "김민준",
+      "customerPhone": "010-3849-1928",
+      "customerEmail": "kim.minjun@gmail.com",
+      "shippingAddress": "서울특별시 강남구 테헤란로 152 강남파이낸스센터 12층",
+      "shippingNote": "부재 시 경비실에 맡겨주세요.",
+      "paymentMethod": "신용카드 (현대카드)",
+      "totalAmount": 289000,
+      "shippingFee": 0,
+      "discountAmount": 100000,
+      "status": "결제완료",
+      "trackingNumber": "",
+      "items": [
+        {
+          "productId": "prod-01",
+          "name": "프리미엄 캐시미어 블렌드 오버핏 코트",
+          "option": "오트밀 베이지 / L(105)",
+          "quantity": 1,
+          "price": 289000,
+          "thumbnail": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "orderId": `ORD-${ymd}-8412`,
+      "orderDate": getRelativeOrderDate(0, "14:30:15"),
+      "customerName": "이서연",
+      "customerPhone": "010-9281-4710",
+      "customerEmail": "lee.seoyeon@naver.com",
+      "shippingAddress": "경기도 성남시 분당구 판교역로 235 에이치스퀘어 N동 801호",
+      "shippingNote": "배송 전 연락 부탁드립니다.",
+      "paymentMethod": "카카오페이",
+      "totalAmount": 168000,
+      "shippingFee": 0,
+      "discountAmount": 20000,
+      "status": "결제완료",
+      "trackingNumber": "",
+      "items": [
+        {
+          "productId": "prod-03",
+          "name": "엑스트라 파인 메리노울 터틀넥 니트",
+          "option": "오트밀 베이지 / M(95-100)",
+          "quantity": 1,
+          "price": 89000,
+          "thumbnail": "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "productId": "prod-02",
+          "name": "프렌치 린넨 100% 루즈핏 스트라이프 셔츠",
+          "option": "스카이블루 / M(95-100)",
+          "quantity": 1,
+          "price": 79000,
+          "thumbnail": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "orderId": `ORD-${ymd}-7103`,
+      "orderDate": getRelativeOrderDate(0, "11:20:00"),
+      "customerName": "박도현",
+      "customerPhone": "010-7712-3948",
+      "customerEmail": "park.dohyun@kakao.com",
+      "shippingAddress": "부산광역시 해운대구 센텀중앙로 78 센텀타워 1503호",
+      "shippingNote": "문 앞에 놓아주세요.",
+      "paymentMethod": "네이버페이",
+      "totalAmount": 249000,
+      "shippingFee": 0,
+      "discountAmount": 30000,
+      "status": "상품준비",
+      "trackingNumber": "",
+      "items": [
+        {
+          "productId": "prod-13",
+          "name": "에어사운드 노이즈캔슬링 무선 헤드폰 프로",
+          "option": "미드나잇 블랙",
+          "quantity": 1,
+          "price": 249000,
+          "thumbnail": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "orderId": `ORD-${ymd}-6541`,
+      "orderDate": getRelativeOrderDate(1, "18:45:20"),
+      "customerName": "정지우",
+      "customerPhone": "010-4491-8273",
+      "customerEmail": "jung.jiwoo@daum.net",
+      "shippingAddress": "인천광역시 연수구 송도과학로 32 송도테크노파크 IT센터 502호",
+      "shippingNote": "부재 시 연락주세요.",
+      "paymentMethod": "신용카드 (삼성카드)",
+      "totalAmount": 128000,
+      "shippingFee": 0,
+      "discountAmount": 15000,
+      "status": "배송중",
+      "trackingNumber": "CJ68291039841",
+      "items": [
+        {
+          "productId": "prod-14",
+          "name": "울트라 슬림 기계식 무선 블루투스 키보드",
+          "option": "화이트 / 적축(리니어)",
+          "quantity": 1,
+          "price": 128000,
+          "thumbnail": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "orderId": `ORD-${ymd}-5920`,
+      "orderDate": getRelativeOrderDate(1, "15:10:40"),
+      "customerName": "최유진",
+      "customerPhone": "010-8823-1194",
+      "customerEmail": "choi.yujin@naver.com",
+      "shippingAddress": "대구광역시 수성구 달구벌대로 2450 범어스퀘어 7층",
+      "shippingNote": "택배함에 넣어주세요.",
+      "paymentMethod": "토스페이",
+      "totalAmount": 88000,
+      "shippingFee": 0,
+      "discountAmount": 10000,
+      "status": "배송중",
+      "trackingNumber": "HJ99201847120",
+      "items": [
+        {
+          "productId": "prod-04",
+          "name": "미니멀 레귤러 스트레이트 로우 데님 팬츠",
+          "option": "딥 인디고 / 30(M)",
+          "quantity": 1,
+          "price": 88000,
+          "thumbnail": "https://images.unsplash.com/photo-1542272604-780c96856592?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "orderId": `ORD-${ymd}-4819`,
+      "orderDate": getRelativeOrderDate(2, "20:15:10"),
+      "customerName": "강현우",
+      "customerPhone": "010-3329-8761",
+      "customerEmail": "kang.hw@gmail.com",
+      "shippingAddress": "대전광역시 유성구 대덕대로 512 신세계 엑스포타워 1102호",
+      "shippingNote": "문 앞 배송",
+      "paymentMethod": "신용카드 (KB국민카드)",
+      "totalAmount": 178000,
+      "shippingFee": 0,
+      "discountAmount": 20000,
+      "status": "배송완료",
+      "trackingNumber": "LOTTE481920391",
+      "items": [
+        {
+          "productId": "prod-15",
+          "name": "인체공학 버티컬 무선 마우스 마스터 에디션",
+          "option": "스페이스 그레이",
+          "quantity": 1,
+          "price": 89000,
+          "thumbnail": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "productId": "prod-03",
+          "name": "엑스트라 파인 메리노울 터틀넥 니트",
+          "option": "오트밀 베이지 / L(105)",
+          "quantity": 1,
+          "price": 89000,
+          "thumbnail": "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "orderId": `ORD-${ymd}-3921`,
+      "orderDate": getRelativeOrderDate(2, "13:05:00"),
+      "customerName": "한소희",
+      "customerPhone": "010-5561-2290",
+      "customerEmail": "han.sohee@kakao.com",
+      "shippingAddress": "광주광역시 서구 상무중앙로 45 상무타워 804호",
+      "shippingNote": "부재 시 경비실에 보관",
+      "paymentMethod": "카카오페이",
+      "totalAmount": 215000,
+      "shippingFee": 0,
+      "discountAmount": 25000,
+      "status": "배송완료",
+      "trackingNumber": "CJ39210948271",
+      "items": [
+        {
+          "productId": "prod-08",
+          "name": "타임리스 미니멀 실크 플리츠 롱 스커트",
+          "option": "샴페인 베이지 / Free",
+          "quantity": 1,
+          "price": 115000,
+          "thumbnail": "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "productId": "prod-05",
+          "name": "모던 클래식 블레이저 & 슬랙스 셋업 슈트",
+          "option": "차콜 그레이 / M(95-100)",
+          "quantity": 1,
+          "price": 100000,
+          "thumbnail": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "orderId": `ORD-${ymd}-2810`,
+      "orderDate": getRelativeOrderDate(3, "16:22:45"),
+      "customerName": "윤채원",
+      "customerPhone": "010-7782-9913",
+      "customerEmail": "yoon.cw@gmail.com",
+      "shippingAddress": "울산광역시 남구 삼산로 182 삼산하이츠 1401호",
+      "shippingNote": "배송 후 문자 부탁드립니다.",
+      "paymentMethod": "신용카드 (신한카드)",
+      "totalAmount": 142000,
+      "shippingFee": 0,
+      "discountAmount": 10000,
+      "status": "배송완료",
+      "trackingNumber": "POST2810938472",
+      "items": [
+        {
+          "productId": "prod-25",
+          "name": "천연 소가죽 클래식 브리프케이스 서류가방",
+          "option": "빈티지 브라운",
+          "quantity": 1,
+          "price": 142000,
+          "thumbnail": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    }
+  ];
+}
+
+const DEFAULT_ORDERS = getAdaptiveDefaultOrders();
 
 const ShopAPI = {
   BASE_URL: window.location.origin,
@@ -13238,13 +13257,19 @@ const ShopAPI = {
         try {
           const localOrders = localStorage.getItem('easyshop_orders');
           if (localOrders) {
-            orderList = JSON.parse(localOrders);
+            const parsed = JSON.parse(localOrders);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              orderList = parsed;
+            } else {
+              orderList = getAdaptiveDefaultOrders();
+              localStorage.setItem('easyshop_orders', JSON.stringify(orderList));
+            }
           } else {
-            orderList = [...DEFAULT_ORDERS];
+            orderList = getAdaptiveDefaultOrders();
             localStorage.setItem('easyshop_orders', JSON.stringify(orderList));
           }
         } catch {
-          orderList = [...DEFAULT_ORDERS];
+          orderList = getAdaptiveDefaultOrders();
         }
 
         const method = (options.method || 'GET').toUpperCase();
