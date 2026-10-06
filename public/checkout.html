@@ -190,7 +190,7 @@
       summary = CartStore.getSummary(couponDiscount);
       if (summary.selectedItems.length === 0) {
         alert('주문할 상품이 없습니다.');
-        window.location.href = '/cart.html';
+        window.location.href = 'cart.html';
         return;
       }
 
@@ -240,7 +240,7 @@
         CartStore.removeSelected();
         const orderId = result.order ? result.order.orderId : ('ORD-' + Date.now().toString().slice(-8));
         sessionStorage.setItem('latest_order', JSON.stringify(result.order || orderData));
-        window.location.href = `/order-complete.html?orderId=${encodeURIComponent(orderId)}`;
+        window.location.href = `order-complete.html?orderId=${encodeURIComponent(orderId)}`;
       } catch (err) {
         alert('주문 처리 중 오류가 발생했습니다.');
         console.error(err);

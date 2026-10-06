@@ -26,11 +26,11 @@ const ShopUI = {
             <span class="text-slate-300 sm:hidden">5만원 이상 무료배송 혜택</span>
           </div>
           <div class="flex items-center gap-4 text-slate-300 text-[11px]">
-            <a href="/order-lookup.html" class="hover:text-white transition flex items-center gap-1">
+            <a href="order-lookup.html" class="hover:text-white transition flex items-center gap-1">
               <i data-lucide="truck" class="w-3.5 h-3.5 text-indigo-400"></i> 주문/배송 조회
             </a>
             <span class="text-slate-600">|</span>
-            <a href="/admin.html" class="hover:text-amber-300 font-semibold text-amber-400 transition flex items-center gap-1">
+            <a href="admin.html" class="hover:text-amber-300 font-semibold text-amber-400 transition flex items-center gap-1">
               <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> 관리자 어드민
             </a>
           </div>
@@ -43,7 +43,7 @@ const ShopUI = {
           <div class="flex items-center justify-between h-20 gap-4">
             
             <!-- Logo -->
-            <a href="/index.html" class="flex items-center gap-3 shrink-0 group">
+            <a href="index.html" class="flex items-center gap-3 shrink-0 group">
               <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition">
                 <i data-lucide="shopping-bag" class="w-6 h-6"></i>
               </div>
@@ -55,7 +55,7 @@ const ShopUI = {
 
             <!-- Search Bar -->
             <div class="flex-1 max-w-xl hidden md:block">
-              <form id="global-search-form" action="/products.html" method="GET" class="relative">
+              <form id="global-search-form" action="products.html" method="GET" class="relative">
                 <input 
                   type="text" 
                   name="search"
@@ -73,12 +73,12 @@ const ShopUI = {
             <!-- Action Icons -->
             <div class="flex items-center gap-2 sm:gap-4">
               <!-- Search (Mobile) -->
-              <a href="/products.html" class="p-2 text-slate-600 hover:text-indigo-600 hover:bg-slate-100 rounded-full md:hidden" title="검색">
+              <a href="products.html" class="p-2 text-slate-600 hover:text-indigo-600 hover:bg-slate-100 rounded-full md:hidden" title="검색">
                 <i data-lucide="search" class="w-5 h-5"></i>
               </a>
 
               <!-- Wishlist -->
-              <a href="/products.html?filter=wishlist" class="p-2.5 text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-full transition relative group" title="위시리스트">
+              <a href="products.html?filter=wishlist" class="p-2.5 text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-full transition relative group" title="위시리스트">
                 <i data-lucide="heart" class="w-5 h-5"></i>
                 <span id="nav-wishlist-badge" class="absolute top-1 right-1 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center ${wishlistCount > 0 ? '' : 'hidden'}">
                   ${wishlistCount}
@@ -110,19 +110,19 @@ const ShopUI = {
 
           <!-- Secondary Category Nav -->
           <nav class="hidden lg:flex items-center gap-8 py-3 text-sm font-medium border-t border-slate-100">
-            <a href="/products.html" class="flex items-center gap-2 text-slate-900 font-bold hover:text-indigo-600 transition ${active === 'all' ? 'text-indigo-600' : ''}">
+            <a href="products.html" class="flex items-center gap-2 text-slate-900 font-bold hover:text-indigo-600 transition ${active === 'all' ? 'text-indigo-600' : ''}">
               <i data-lucide="layout-grid" class="w-4 h-4 text-indigo-500"></i> 전체 카테고리
             </a>
-            <a href="/products.html?category=패션 / 의류" class="text-slate-600 hover:text-indigo-600 transition ${active === 'fashion' ? 'text-indigo-600 font-bold' : ''}">패션 / 의류</a>
-            <a href="/products.html?category=디지털 / 가전" class="text-slate-600 hover:text-indigo-600 transition ${active === 'digital' ? 'text-indigo-600 font-bold' : ''}">디지털 / 가전</a>
-            <a href="/products.html?category=뷰티 / 케어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'beauty' ? 'text-indigo-600 font-bold' : ''}">뷰티 / 케어</a>
-            <a href="/products.html?category=리빙 / 인테리어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'living' ? 'text-indigo-600 font-bold' : ''}">리빙 / 인테리어</a>
-            <a href="/products.html?category=푸드 / 키친" class="text-slate-600 hover:text-indigo-600 transition ${active === 'food' ? 'text-indigo-600 font-bold' : ''}">푸드 / 키친</a>
+            <a href="products.html?category=패션 / 의류" class="text-slate-600 hover:text-indigo-600 transition ${active === 'fashion' ? 'text-indigo-600 font-bold' : ''}">패션 / 의류</a>
+            <a href="products.html?category=디지털 / 가전" class="text-slate-600 hover:text-indigo-600 transition ${active === 'digital' ? 'text-indigo-600 font-bold' : ''}">디지털 / 가전</a>
+            <a href="products.html?category=뷰티 / 케어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'beauty' ? 'text-indigo-600 font-bold' : ''}">뷰티 / 케어</a>
+            <a href="products.html?category=리빙 / 인테리어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'living' ? 'text-indigo-600 font-bold' : ''}">리빙 / 인테리어</a>
+            <a href="products.html?category=푸드 / 키친" class="text-slate-600 hover:text-indigo-600 transition ${active === 'food' ? 'text-indigo-600 font-bold' : ''}">푸드 / 키친</a>
             <div class="ml-auto flex items-center gap-4">
-              <a href="/products.html?isBest=true" class="text-amber-600 font-bold flex items-center gap-1 hover:text-amber-700 transition">
+              <a href="products.html?isBest=true" class="text-amber-600 font-bold flex items-center gap-1 hover:text-amber-700 transition">
                 <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i> 베스트 랭킹
               </a>
-              <a href="/products.html?isSale=true" class="text-rose-600 font-bold flex items-center gap-1 hover:text-rose-700 transition">
+              <a href="products.html?isSale=true" class="text-rose-600 font-bold flex items-center gap-1 hover:text-rose-700 transition">
                 <i data-lucide="tag" class="w-4 h-4 text-rose-500"></i> 타임세일 특가
               </a>
             </div>
@@ -131,20 +131,20 @@ const ShopUI = {
 
         <!-- Mobile Drawer Menu -->
         <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-2">
-          <a href="/products.html" class="block py-2 text-slate-800 font-bold">전체 상품 탐색</a>
-          <a href="/products.html?category=패션 / 의류" class="block py-2 text-slate-600">패션 / 의류</a>
-          <a href="/products.html?category=디지털 / 가전" class="block py-2 text-slate-600">디지털 / 가전</a>
-          <a href="/products.html?category=뷰티 / 케어" class="block py-2 text-slate-600">뷰티 / 케어</a>
-          <a href="/products.html?category=리빙 / 인테리어" class="block py-2 text-slate-600">리빙 / 인테리어</a>
-          <a href="/products.html?category=푸드 / 키친" class="block py-2 text-slate-600">푸드 / 키친</a>
+          <a href="products.html" class="block py-2 text-slate-800 font-bold">전체 상품 탐색</a>
+          <a href="products.html?category=패션 / 의류" class="block py-2 text-slate-600">패션 / 의류</a>
+          <a href="products.html?category=디지털 / 가전" class="block py-2 text-slate-600">디지털 / 가전</a>
+          <a href="products.html?category=뷰티 / 케어" class="block py-2 text-slate-600">뷰티 / 케어</a>
+          <a href="products.html?category=리빙 / 인테리어" class="block py-2 text-slate-600">리빙 / 인테리어</a>
+          <a href="products.html?category=푸드 / 키친" class="block py-2 text-slate-600">푸드 / 키친</a>
           <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
-            <a href="/cart.html" class="py-2 text-indigo-600 font-semibold flex items-center gap-2">
+            <a href="cart.html" class="py-2 text-indigo-600 font-semibold flex items-center gap-2">
               <i data-lucide="shopping-cart" class="w-4 h-4"></i> 장바구니 바로가기
             </a>
-            <a href="/order-lookup.html" class="py-2 text-slate-700 font-medium flex items-center gap-2">
+            <a href="order-lookup.html" class="py-2 text-slate-700 font-medium flex items-center gap-2">
               <i data-lucide="truck" class="w-4 h-4"></i> 주문 및 배송조회
             </a>
-            <a href="/admin.html" class="py-2 text-amber-600 font-bold flex items-center gap-2">
+            <a href="admin.html" class="py-2 text-amber-600 font-bold flex items-center gap-2">
               <i data-lucide="shield-check" class="w-4 h-4"></i> 관리자 어드민 대시보드
             </a>
           </div>
@@ -197,10 +197,10 @@ const ShopUI = {
           </div>
 
           <div class="grid grid-cols-2 gap-2 pt-2">
-            <a href="/cart.html" class="py-3 px-4 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-center rounded-xl transition text-sm">
+            <a href="cart.html" class="py-3 px-4 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-center rounded-xl transition text-sm">
               장바구니 가기
             </a>
-            <a href="/checkout.html" class="py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-center rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
+            <a href="checkout.html" class="py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-center rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
               바로 주문하기
             </a>
           </div>
@@ -314,7 +314,7 @@ const ShopUI = {
           <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto stroke-1 mb-3 text-slate-300"></i>
           <p class="font-medium text-slate-600">장바구니가 비어 있습니다.</p>
           <p class="text-xs text-slate-400 mt-1">마음에 드는 상품을 담아보세요!</p>
-          <a href="/products.html" onclick="ShopUI.closeCartDrawer()" class="inline-block mt-4 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-bold hover:bg-indigo-100 transition">
+          <a href="products.html" onclick="ShopUI.closeCartDrawer()" class="inline-block mt-4 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-bold hover:bg-indigo-100 transition">
             상품 둘러보기
           </a>
         </div>
@@ -423,10 +423,10 @@ const ShopUI = {
             <div>
               <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-4">쇼핑 가이드</h4>
               <ul class="space-y-2 text-xs">
-                <li><a href="/products.html" class="hover:text-white transition">카테고리 전체보기</a></li>
-                <li><a href="/order-lookup.html" class="hover:text-white transition">주문 / 배송 실시간 조회</a></li>
-                <li><a href="/cart.html" class="hover:text-white transition">장바구니 관리</a></li>
-                <li><a href="/admin.html" class="hover:text-amber-400 transition font-semibold text-amber-400">관리자 대시보드</a></li>
+                <li><a href="products.html" class="hover:text-white transition">카테고리 전체보기</a></li>
+                <li><a href="order-lookup.html" class="hover:text-white transition">주문 / 배송 실시간 조회</a></li>
+                <li><a href="cart.html" class="hover:text-white transition">장바구니 관리</a></li>
+                <li><a href="admin.html" class="hover:text-amber-400 transition font-semibold text-amber-400">관리자 대시보드</a></li>
               </ul>
             </div>
 
