@@ -12670,6 +12670,201 @@ const DEFAULT_PRODUCTS = [
   }
 ];
 
+const DEFAULT_USERS = [
+  {
+    "id": "usr-1001",
+    "email": "kim.minjun@gmail.com",
+    "name": "김민준",
+    "phone": "010-3849-1928",
+    "grade": "VIP",
+    "points": 45000,
+    "orderCount": 18,
+    "totalSpent": 2450000,
+    "status": "정상",
+    "device": "Mobile (iOS)",
+    "lastLogin": "2026-10-06 17:35:12",
+    "joinedAt": "2026-03-15",
+    "address": "서울특별시 강남구 테헤란로 152",
+    "addressDetail": "강남파이낸스센터 12층"
+  },
+  {
+    "id": "usr-1002",
+    "email": "lee.seoyeon@naver.com",
+    "name": "이서연",
+    "phone": "010-9281-4710",
+    "grade": "GOLD",
+    "points": 21000,
+    "orderCount": 9,
+    "totalSpent": 1120000,
+    "status": "정상",
+    "device": "Mobile (Android)",
+    "lastLogin": "2026-10-06 16:50:20",
+    "joinedAt": "2026-04-02",
+    "address": "경기도 성남시 분당구 판교역로 235",
+    "addressDetail": "에이치스퀘어 N동 801호"
+  },
+  {
+    "id": "usr-1003",
+    "email": "park.dohyun@kakao.com",
+    "name": "박도현",
+    "phone": "010-7712-3948",
+    "grade": "VIP",
+    "points": 68000,
+    "orderCount": 24,
+    "totalSpent": 3890000,
+    "status": "정상",
+    "device": "PC (Windows)",
+    "lastLogin": "2026-10-06 17:42:05",
+    "joinedAt": "2026-02-10",
+    "address": "부산광역시 해운대구 센텀중앙로 78",
+    "addressDetail": "센텀타워 1503호"
+  },
+  {
+    "id": "usr-1004",
+    "email": "jung.jiwoo@daum.net",
+    "name": "정지우",
+    "phone": "010-4491-8273",
+    "grade": "SILVER",
+    "points": 8500,
+    "orderCount": 4,
+    "totalSpent": 430000,
+    "status": "정상",
+    "device": "Mobile (iOS)",
+    "lastLogin": "2026-10-06 14:20:11",
+    "joinedAt": "2026-06-18",
+    "address": "인천광역시 연수구 송도과학로 32",
+    "addressDetail": "송도테크노파크 IT센터 502호"
+  },
+  {
+    "id": "usr-1005",
+    "email": "choi.yujin@gmail.com",
+    "name": "최유진",
+    "phone": "010-6102-9938",
+    "grade": "GOLD",
+    "points": 18200,
+    "orderCount": 7,
+    "totalSpent": 890000,
+    "status": "정상",
+    "device": "PC (Mac)",
+    "lastLogin": "2026-10-06 15:10:45",
+    "joinedAt": "2026-05-11",
+    "address": "대구광역시 수성구 달구벌대로 2450",
+    "addressDetail": "수성빌딩 4층"
+  },
+  {
+    "id": "usr-1006",
+    "email": "kang.hyunwoo@naver.com",
+    "name": "강현우",
+    "phone": "010-8831-2049",
+    "grade": "일반",
+    "points": 3000,
+    "orderCount": 1,
+    "totalSpent": 79000,
+    "status": "정상",
+    "device": "Mobile (Android)",
+    "lastLogin": "2026-10-06 17:15:30",
+    "joinedAt": "2026-09-28",
+    "address": "대전광역시 유성구 대학로 99",
+    "addressDetail": "카이스트 창업원 201호"
+  },
+  {
+    "id": "usr-1007",
+    "email": "yoon.chaewon@gmail.com",
+    "name": "윤채원",
+    "phone": "010-5592-1847",
+    "grade": "SILVER",
+    "points": 12000,
+    "orderCount": 5,
+    "totalSpent": 560000,
+    "status": "정상",
+    "device": "Mobile (iOS)",
+    "lastLogin": "2026-10-05 21:40:18",
+    "joinedAt": "2026-07-04",
+    "address": "광주광역시 서구 상무중앙로 110",
+    "addressDetail": "상무타워 11층"
+  },
+  {
+    "id": "usr-1008",
+    "email": "jang.minseok@kakao.com",
+    "name": "장민석",
+    "phone": "010-3329-8172",
+    "grade": "일반",
+    "points": 1500,
+    "orderCount": 0,
+    "totalSpent": 0,
+    "status": "신규",
+    "device": "Mobile (iOS)",
+    "lastLogin": "2026-10-06 17:40:02",
+    "joinedAt": "2026-10-06",
+    "address": "울산광역시 남구 삼산로 217",
+    "addressDetail": "삼산현대아파트 102동 504호"
+  },
+  {
+    "id": "usr-1009",
+    "email": "han.sohee@naver.com",
+    "name": "한소희",
+    "phone": "010-9948-1234",
+    "grade": "VIP",
+    "points": 92000,
+    "orderCount": 31,
+    "totalSpent": 5120000,
+    "status": "정상",
+    "device": "PC (Windows)",
+    "lastLogin": "2026-10-06 16:25:50",
+    "joinedAt": "2026-01-20",
+    "address": "서울특별시 용산구 한남대로 91",
+    "addressDetail": "나인원한남 105동 801호"
+  },
+  {
+    "id": "usr-1010",
+    "email": "oh.seungjin@gmail.com",
+    "name": "오승진",
+    "phone": "010-1284-9023",
+    "grade": "일반",
+    "points": 0,
+    "orderCount": 2,
+    "totalSpent": 149000,
+    "status": "휴면",
+    "device": "PC (Windows)",
+    "lastLogin": "2026-07-12 09:15:00",
+    "joinedAt": "2026-04-19",
+    "address": "세종특별자치시 한누리대로 411",
+    "addressDetail": "행정프라자 3층"
+  },
+  {
+    "id": "usr-1011",
+    "email": "shin.haerim@daum.net",
+    "name": "신해림",
+    "phone": "010-6729-3810",
+    "grade": "GOLD",
+    "points": 34000,
+    "orderCount": 12,
+    "totalSpent": 1680000,
+    "status": "정상",
+    "device": "Mobile (iOS)",
+    "lastLogin": "2026-10-06 11:30:19",
+    "joinedAt": "2026-03-30",
+    "address": "경기도 수원시 영통구 광교중앙로 170",
+    "addressDetail": "광교효성해링턴타워 702호"
+  },
+  {
+    "id": "usr-1012",
+    "email": "kwon.taewon@naver.com",
+    "name": "권태원",
+    "phone": "010-4820-1948",
+    "grade": "일반",
+    "points": 500,
+    "orderCount": 1,
+    "totalSpent": 49000,
+    "status": "정지",
+    "device": "Mobile (Android)",
+    "lastLogin": "2026-09-14 18:02:11",
+    "joinedAt": "2026-08-01",
+    "address": "충청북도 청주시 흥덕구 직지대로 436",
+    "addressDetail": "청주지웰시티몰 2층"
+  }
+];
+
 const ShopAPI = {
   BASE_URL: window.location.origin,
 
@@ -12845,6 +13040,84 @@ const ShopAPI = {
         return orderList;
       }
 
+      // 5. Users
+      if (endpoint.startsWith('/api/users')) {
+        let userList = [];
+        try {
+          const stored = localStorage.getItem('easyshop_users_v3');
+          if (stored) {
+            userList = JSON.parse(stored);
+          } else {
+            userList = [...DEFAULT_USERS];
+            localStorage.setItem('easyshop_users_v3', JSON.stringify(userList));
+          }
+        } catch {
+          userList = [...DEFAULT_USERS];
+        }
+
+        const method = (options.method || 'GET').toUpperCase();
+        const urlObj = new URL('http://dummy.com' + endpoint);
+        const id = urlObj.searchParams.get('id');
+
+        if (method === 'GET') {
+          if (id) {
+            return userList.find(u => u.id === id) || null;
+          }
+          const search = urlObj.searchParams.get('search');
+          const grade = urlObj.searchParams.get('grade');
+          const status = urlObj.searchParams.get('status');
+
+          let filtered = [...userList];
+          if (search) {
+            const q = search.toLowerCase();
+            filtered = filtered.filter(u =>
+              (u.name && u.name.toLowerCase().includes(q)) ||
+              (u.email && u.email.toLowerCase().includes(q)) ||
+              (u.phone && u.phone.includes(q))
+            );
+          }
+          if (grade && grade !== '전체') {
+            filtered = filtered.filter(u => u.grade === grade);
+          }
+          if (status && status !== '전체') {
+            filtered = filtered.filter(u => u.status === status);
+          }
+          return filtered;
+        }
+
+        if (method === 'POST') {
+          const newUser = JSON.parse(options.body || '{}');
+          newUser.id = newUser.id || 'usr-' + Date.now().toString().slice(-4);
+          newUser.joinedAt = newUser.joinedAt || new Date().toISOString().slice(0, 10);
+          newUser.lastLogin = newUser.lastLogin || new Date().toISOString().replace('T', ' ').slice(0, 19);
+          newUser.status = newUser.status || '정상';
+          newUser.grade = newUser.grade || '일반';
+          newUser.points = parseInt(newUser.points) || 0;
+          newUser.orderCount = parseInt(newUser.orderCount) || 0;
+          newUser.totalSpent = parseInt(newUser.totalSpent) || 0;
+          userList.unshift(newUser);
+          localStorage.setItem('easyshop_users_v3', JSON.stringify(userList));
+          return { success: true, user: newUser };
+        }
+
+        if (method === 'PUT') {
+          const updateData = JSON.parse(options.body || '{}');
+          const idx = userList.findIndex(u => u.id === id);
+          if (idx >= 0) {
+            userList[idx] = { ...userList[idx], ...updateData };
+            localStorage.setItem('easyshop_users_v3', JSON.stringify(userList));
+            return { success: true, user: userList[idx] };
+          }
+          return { success: false, message: 'User not found' };
+        }
+
+        if (method === 'DELETE') {
+          userList = userList.filter(u => u.id !== id);
+          localStorage.setItem('easyshop_users_v3', JSON.stringify(userList));
+          return { success: true };
+        }
+      }
+
       // 4. Inquiries
       if (endpoint.startsWith('/api/inquiries')) {
         return DEFAULT_INQUIRIES;
@@ -12897,6 +13170,40 @@ const ShopAPI = {
 
   async deleteProduct(id) {
     return await this.request('/api/products?id=' + encodeURIComponent(id), {
+      method: 'DELETE'
+    });
+  },
+
+  // Users Management API
+  async getUsers(params = {}) {
+    const query = new URLSearchParams();
+    if (params.search) query.append('search', params.search);
+    if (params.grade && params.grade !== '전체') query.append('grade', params.grade);
+    if (params.status && params.status !== '전체') query.append('status', params.status);
+    const qs = query.toString() ? '?' + query.toString() : '';
+    return await this.request('/api/users' + qs);
+  },
+
+  async getUserById(id) {
+    return await this.request('/api/users?id=' + encodeURIComponent(id));
+  },
+
+  async createUser(userData) {
+    return await this.request('/api/users', {
+      method: 'POST',
+      body: JSON.stringify(userData)
+    });
+  },
+
+  async updateUser(id, userData) {
+    return await this.request('/api/users?id=' + encodeURIComponent(id), {
+      method: 'PUT',
+      body: JSON.stringify(userData)
+    });
+  },
+
+  async deleteUser(id) {
+    return await this.request('/api/users?id=' + encodeURIComponent(id), {
       method: 'DELETE'
     });
   },
