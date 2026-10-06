@@ -11,7 +11,7 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css?v=20261006_v11">
+  <link rel="stylesheet" href="css/style.css?v=20261006_v12">
   <script>
     tailwind.config = {
       theme: {
@@ -30,79 +30,109 @@
     }
   </script>
 </head>
-<body class="bg-slate-100 text-slate-800 flex min-h-screen">
+<body class="bg-slate-100 text-slate-800 flex flex-col min-h-screen">
 
-  <!-- Left Admin Sidebar -->
-  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0 border-r border-slate-800 hidden md:flex">
-    <!-- Brand -->
-    <div class="h-20 px-6 flex items-center gap-3 border-b border-slate-800">
-      <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-600/30">
-        <i data-lucide="shield-check" class="w-5 h-5"></i>
-      </div>
-      <div>
-        <h2 class="text-white font-black text-lg tracking-tight font-heading">EASY<span class="text-indigo-400">ADMIN</span></h2>
-        <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">v2.4 Management</span>
-      </div>
-    </div>
-
-    <!-- Navigation Menu -->
-    <nav class="flex-1 px-4 py-6 space-y-1.5 text-xs font-bold" id="admin-sidebar-nav">
-      <button onclick="switchAdminTab('dashboard')" id="nav-btn-dashboard" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-600 text-white transition">
-        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-        <span>통합 대시보드</span>
-      </button>
-      <button onclick="switchAdminTab('products')" id="nav-btn-products" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-        <i data-lucide="package" class="w-4 h-4"></i>
-        <span>상품 관리 (CRUD)</span>
-      </button>
-      <button onclick="switchAdminTab('orders')" id="nav-btn-orders" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-        <span>주문 & 배송 관리</span>
-      </button>
-      <button onclick="switchAdminTab('inquiries')" id="nav-btn-inquiries" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition">
-        <i data-lucide="message-square" class="w-4 h-4"></i>
-        <span>고객 문의 / Q&A</span>
-      </button>
-    </nav>
-
-    <!-- Bottom Actions -->
-    <div class="p-4 border-t border-slate-800 space-y-2">
-      <a href="index.html" target="_blank" class="w-full flex items-center justify-center gap-2 py-2.5 px-3 bg-slate-800 hover:bg-indigo-600 text-white rounded-xl text-xs font-bold transition">
-        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-        <span>쇼핑몰 바로가기</span>
-      </a>
-    </div>
-  </aside>
-
-  <!-- Right Main Content Area -->
-  <div class="flex-1 flex flex-col min-w-0">
-    
-    <!-- Top Bar -->
-    <header class="h-20 bg-white border-b border-slate-200/80 px-6 sm:px-8 flex items-center justify-between sticky top-0 z-30 shadow-xs">
-      <div class="flex items-center gap-4">
-        <h2 id="current-tab-title" class="text-xl font-black text-slate-900 tracking-tight font-heading">
-          통합 대시보드
-        </h2>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <button onclick="refreshCurrentTab()" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition" title="새로고침">
-          <i data-lucide="refresh-cw" class="w-4 h-4"></i>
-        </button>
-        <div class="flex items-center gap-2 pl-3 border-l border-slate-200">
-          <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center text-xs">
-            AD
+  <!-- Top Global Admin Navbar (상단 가로형 네비게이션) -->
+  <header class="bg-slate-900 text-white sticky top-0 z-40 border-b border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+        
+        <!-- Left: Brand Logo & Title -->
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-600/30">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
           </div>
-          <div class="text-left hidden sm:block">
-            <p class="text-xs font-bold text-slate-900">최고 관리자</p>
-            <p class="text-[10px] text-slate-400">admin@easyshop.kr</p>
+          <div>
+            <h2 class="text-white font-black text-lg tracking-tight font-heading leading-none">EASY<span class="text-indigo-400">ADMIN</span></h2>
+            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">v2.4 Management</span>
           </div>
         </div>
-      </div>
-    </header>
 
-    <!-- Content Tabs -->
-    <main class="flex-1 p-6 sm:p-8 space-y-8 overflow-y-auto">
+        <!-- Center: 4 Horizontal Navigation Tabs (상단 가로 메뉴 4개) -->
+        <nav class="hidden md:flex items-center gap-1.5 overflow-x-auto py-2" id="admin-top-nav">
+          <button onclick="switchAdminTab('dashboard')" id="nav-btn-dashboard" class="px-4 py-2.5 rounded-xl bg-indigo-600 text-white font-bold flex items-center gap-2 transition shadow-md shadow-indigo-600/20 text-xs sm:text-sm shrink-0">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+            <span>통합 대시보드</span>
+          </button>
+          <button onclick="switchAdminTab('products')" id="nav-btn-products" class="px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 font-bold flex items-center gap-2 transition text-xs sm:text-sm shrink-0">
+            <i data-lucide="package" class="w-4 h-4"></i>
+            <span>상품 관리 (CRUD)</span>
+          </button>
+          <button onclick="switchAdminTab('orders')" id="nav-btn-orders" class="px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 font-bold flex items-center gap-2 transition text-xs sm:text-sm shrink-0">
+            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+            <span>주문 & 배송 관리</span>
+          </button>
+          <button onclick="switchAdminTab('inquiries')" id="nav-btn-inquiries" class="px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 font-bold flex items-center gap-2 transition text-xs sm:text-sm shrink-0">
+            <i data-lucide="message-square" class="w-4 h-4"></i>
+            <span>고객 문의 / Q&A</span>
+          </button>
+        </nav>
+
+        <!-- Right Actions -->
+        <div class="flex items-center gap-3 shrink-0">
+          <a href="index.html" target="_blank" class="hidden sm:flex items-center gap-1.5 py-2 px-3 bg-slate-800 hover:bg-indigo-600 text-slate-200 hover:text-white rounded-xl text-xs font-bold transition border border-slate-700/50">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>쇼핑몰 바로가기</span>
+          </a>
+
+          <button onclick="refreshCurrentTab()" title="새로고침" class="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition">
+            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+          </button>
+
+          <!-- Admin Profile -->
+          <div class="flex items-center gap-2 pl-3 border-l border-slate-800">
+            <div class="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 font-bold flex items-center justify-center text-xs">
+              AD
+            </div>
+            <div class="text-left hidden lg:block">
+              <p class="text-xs font-bold text-white leading-tight">최고 관리자</p>
+              <p class="text-[10px] text-slate-400">admin@easyshop.kr</p>
+            </div>
+          </div>
+
+          <button onclick="handleAdminLogout()" title="로그아웃" class="p-2 text-rose-400 hover:text-rose-300 rounded-xl hover:bg-rose-950/40 transition">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Horizontal Tab Bar (모바일 가로 스크롤 메뉴) -->
+      <nav class="flex md:hidden items-center gap-1 overflow-x-auto pb-3 pt-1 border-t border-slate-800/80 -mx-2 px-2 scrollbar-none" id="admin-mobile-nav">
+        <button onclick="switchAdminTab('dashboard')" id="nav-m-btn-dashboard" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold flex items-center gap-1.5 text-xs shrink-0">
+          <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
+          <span>대시보드</span>
+        </button>
+        <button onclick="switchAdminTab('products')" id="nav-m-btn-products" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 font-bold flex items-center gap-1.5 text-xs shrink-0">
+          <i data-lucide="package" class="w-3.5 h-3.5"></i>
+          <span>상품 관리</span>
+        </button>
+        <button onclick="switchAdminTab('orders')" id="nav-m-btn-orders" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 font-bold flex items-center gap-1.5 text-xs shrink-0">
+          <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+          <span>주문 & 배송</span>
+        </button>
+        <button onclick="switchAdminTab('inquiries')" id="nav-m-btn-inquiries" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 font-bold flex items-center gap-1.5 text-xs shrink-0">
+          <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+          <span>고객 문의</span>
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- Sub Header / Title Bar -->
+  <div class="bg-white border-b border-slate-200/80 py-4 px-4 sm:px-6 lg:px-8 shadow-xs">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <h1 id="current-tab-title" class="text-xl sm:text-2xl font-black text-slate-900 font-heading">통합 대시보드</h1>
+        <span class="text-xs text-slate-300">|</span>
+        <span class="text-xs text-slate-500 font-medium">EASYSHOP 라이프스타일 큐레이션 통합 관리 시스템</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Tabs (Full-width max-w-7xl container) -->
+  <main class="flex-1 max-w-7xl mx-auto w-full p-4 sm:p-6 lg:p-8 space-y-8">
       
       <!-- ================= 1. DASHBOARD TAB ================= -->
       <section id="tab-dashboard" class="space-y-8">
@@ -299,8 +329,6 @@
 
     </main>
 
-  </div>
-
   <!-- Product Modal (Create/Edit) -->
   <div id="product-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
@@ -439,9 +467,9 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/cart-store.js?v=20261006_v11"></script>
-  <script src="js/api.js?v=20261006_v11"></script>
-  <script src="js/components.js?v=20261006_v11"></script>
+  <script src="js/cart-store.js?v=20261006_v12"></script>
+  <script src="js/api.js?v=20261006_v12"></script>
+  <script src="js/components.js?v=20261006_v12"></script>
   <script>
     let adminProducts = [];
     let adminOrders = [];
@@ -461,14 +489,26 @@
 
     function switchAdminTab(tab) {
       ['dashboard', 'products', 'orders', 'inquiries'].forEach(t => {
-        document.getElementById(`tab-${t}`).classList.add('hidden');
+        const tabEl = document.getElementById(`tab-${t}`);
+        if (tabEl) tabEl.classList.add('hidden');
+        
+        // Desktop nav button style
         const btn = document.getElementById(`nav-btn-${t}`);
-        if (btn) btn.className = 'w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 transition';
+        if (btn) btn.className = 'px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 font-bold flex items-center gap-2 transition text-xs sm:text-sm shrink-0';
+        
+        // Mobile nav button style
+        const mBtn = document.getElementById(`nav-m-btn-${t}`);
+        if (mBtn) mBtn.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 font-bold flex items-center gap-1.5 text-xs shrink-0';
       });
 
-      document.getElementById(`tab-${tab}`).classList.remove('hidden');
+      const targetTab = document.getElementById(`tab-${tab}`);
+      if (targetTab) targetTab.classList.remove('hidden');
+      
       const activeBtn = document.getElementById(`nav-btn-${tab}`);
-      if (activeBtn) activeBtn.className = 'w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-600 text-white transition';
+      if (activeBtn) activeBtn.className = 'px-4 py-2.5 rounded-xl bg-indigo-600 text-white font-bold flex items-center gap-2 transition shadow-md shadow-indigo-600/20 text-xs sm:text-sm shrink-0';
+
+      const activeMBtn = document.getElementById(`nav-m-btn-${tab}`);
+      if (activeMBtn) activeMBtn.className = 'px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold flex items-center gap-1.5 text-xs shrink-0';
 
       const titles = {
         dashboard: '통합 대시보드',
@@ -476,7 +516,9 @@
         orders: '주문 & 배송 관리',
         inquiries: '고객 문의 / Q&A'
       };
-      document.getElementById('current-tab-title').innerText = titles[tab];
+      if (document.getElementById('current-tab-title')) {
+        document.getElementById('current-tab-title').innerText = titles[tab] || '관리자 시스템';
+      }
 
       if (tab === 'dashboard') renderDashboard();
       if (tab === 'products') renderAdminProductsTable(adminProducts);
