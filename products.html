@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>?꾩껜 ?곹뭹 ?먯깋 - EASYSHOP</title>
-  <meta name="description" content="移댄뀒怨좊━蹂? 媛寃⑸?蹂?留욎땄 ?꾪꽣留곸쑝濡??먰븯???곹뭹??鍮좊Ⅴ寃?李얠븘蹂댁꽭??">
+  <title>전체 상품 탐색 - EASYSHOP</title>
+  <meta name="description" content="카테고리별, 가격대별 맞춤 필터링으로 원하는 상품을 빠르게 찾아보세요.">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -23,25 +23,25 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
       <div>
         <nav class="flex items-center gap-2 text-xs text-slate-400 mb-2">
-          <a href="/index.html" class="hover:text-slate-600 transition">??/a>
+          <a href="/index.html" class="hover:text-slate-600 transition">홈</a>
           <i data-lucide="chevron-right" class="w-3 h-3"></i>
-          <span class="text-indigo-600 font-bold" id="page-category-title">?꾩껜 ?곹뭹</span>
+          <span class="text-indigo-600 font-bold" id="page-category-title">전체 상품</span>
         </nav>
         <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-heading">
-          ?곹뭹 ?먯깋 & ?쇳븨
+          상품 탐색 & 쇼핑
         </h1>
       </div>
 
       <!-- Result Count & Sort Dropdown -->
       <div class="flex items-center gap-3 self-end sm:self-auto">
-        <span class="text-xs text-slate-500">珥?<strong class="text-indigo-600 font-black text-sm" id="result-count">0</strong>媛??곹뭹</span>
+        <span class="text-xs text-slate-500">총 <strong class="text-indigo-600 font-black text-sm" id="result-count">0</strong>개 상품</span>
         <select id="sort-select" onchange="applyFilters()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-700 focus:outline-none focus:border-indigo-500 shadow-xs cursor-pointer">
-          <option value="recommended">異붿쿇??/option>
-          <option value="best">?먮ℓ?멸린??/option>
-          <option value="price_asc">??? 媛寃⑹닚</option>
-          <option value="price_desc">?믪? 媛寃⑹닚</option>
-          <option value="rating">?됱젏 ?믪???/option>
-          <option value="reviews">由щ럭 留롮???/option>
+          <option value="recommended">추천순</option>
+          <option value="best">판매인기순</option>
+          <option value="price_asc">낮은 가격순</option>
+          <option value="price_desc">높은 가격순</option>
+          <option value="rating">평점 높은순</option>
+          <option value="reviews">리뷰 많은순</option>
         </select>
       </div>
     </div>
@@ -53,81 +53,82 @@
         <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-6">
           <div class="flex items-center justify-between pb-4 border-b border-slate-100">
             <h3 class="text-sm font-black text-slate-900 flex items-center gap-2">
-              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-indigo-600"></i> ?꾪꽣 ?듭뀡
+              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-indigo-600"></i> 필터 옵션
             </h3>
             <button onclick="resetFilters()" class="text-xs font-bold text-slate-400 hover:text-indigo-600 transition">
-              珥덇린??            </button>
+              초기화
+            </button>
           </div>
 
           <!-- Category Filter -->
           <div class="space-y-3">
-            <label class="block text-xs font-black text-slate-800 uppercase tracking-wider">移댄뀒怨좊━</label>
+            <label class="block text-xs font-black text-slate-800 uppercase tracking-wider">카테고리</label>
             <div class="space-y-2 text-xs font-medium text-slate-600" id="filter-categories">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="category" value="?꾩껜" checked onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
-                <span>?꾩껜 蹂닿린</span>
+                <input type="radio" name="category" value="전체" checked onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
+                <span>전체 보기</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="category" value="?⑥뀡 / ?섎쪟" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
-                <span>?⑥뀡 / ?섎쪟</span>
+                <input type="radio" name="category" value="패션 / 의류" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
+                <span>패션 / 의류</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="category" value="?붿???/ 媛?? onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
-                <span>?붿???/ 媛??/span>
+                <input type="radio" name="category" value="디지털 / 가전" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
+                <span>디지털 / 가전</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="category" value="酉고떚 / 耳?? onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
-                <span>酉고떚 / 耳??/span>
+                <input type="radio" name="category" value="뷰티 / 케어" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
+                <span>뷰티 / 케어</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="category" value="由щ튃 / ?명뀒由ъ뼱" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
-                <span>由щ튃 / ?명뀒由ъ뼱</span>
+                <input type="radio" name="category" value="리빙 / 인테리어" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
+                <span>리빙 / 인테리어</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="category" value="?몃뱶 / ?ㅼ튇" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
-                <span>?몃뱶 / ?ㅼ튇</span>
+                <input type="radio" name="category" value="푸드 / 키친" onchange="applyFilters()" class="text-indigo-600 focus:ring-indigo-500" />
+                <span>푸드 / 키친</span>
               </label>
             </div>
           </div>
 
           <!-- Price Range Filter -->
           <div class="space-y-3 pt-4 border-t border-slate-100">
-            <label class="block text-xs font-black text-slate-800 uppercase tracking-wider">媛寃⑸?</label>
+            <label class="block text-xs font-black text-slate-800 uppercase tracking-wider">가격대</label>
             <div class="space-y-2 text-xs font-medium text-slate-600">
               <label class="flex items-center gap-2 cursor-pointer">
                 <input type="radio" name="price_range" value="all" checked onchange="applyFilters()" class="text-indigo-600" />
-                <span>?꾩껜 媛寃⑸?</span>
+                <span>전체 가격대</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
                 <input type="radio" name="price_range" value="0-50000" onchange="applyFilters()" class="text-indigo-600" />
-                <span>50,000???댄븯</span>
+                <span>50,000원 이하</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
                 <input type="radio" name="price_range" value="50000-150000" onchange="applyFilters()" class="text-indigo-600" />
-                <span>50,000??~ 150,000??/span>
+                <span>50,000원 ~ 150,000원</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
                 <input type="radio" name="price_range" value="150000-9999999" onchange="applyFilters()" class="text-indigo-600" />
-                <span>150,000???댁긽</span>
+                <span>150,000원 이상</span>
               </label>
             </div>
           </div>
 
           <!-- Benefits Filter -->
           <div class="space-y-3 pt-4 border-t border-slate-100">
-            <label class="block text-xs font-black text-slate-800 uppercase tracking-wider">?쒗깮 諛?議곌굔</label>
+            <label class="block text-xs font-black text-slate-800 uppercase tracking-wider">혜택 및 조건</label>
             <div class="space-y-2 text-xs font-medium text-slate-600">
               <label class="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" id="chk-free-shipping" onchange="applyFilters()" class="rounded text-indigo-600" />
-                <span>臾대즺 諛곗넚 ?곹뭹</span>
+                <span>무료 배송 상품</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" id="chk-sale" onchange="applyFilters()" class="rounded text-indigo-600" />
-                <span>?몄씪 ?밴? ?곹뭹</span>
+                <span>세일 특가 상품</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" id="chk-best" onchange="applyFilters()" class="rounded text-indigo-600" />
-                <span>踰좎뒪?몄???/span>
+                <span>베스트셀러</span>
               </label>
             </div>
           </div>
@@ -142,10 +143,11 @@
 
         <div id="no-results" class="hidden py-24 text-center bg-white rounded-3xl border border-slate-200/80">
           <i data-lucide="package-search" class="w-12 h-12 mx-auto stroke-1 mb-3 text-slate-300"></i>
-          <h4 class="font-bold text-slate-800">議곌굔???쇱튂?섎뒗 ?곹뭹???놁뒿?덈떎.</h4>
-          <p class="text-xs text-slate-400 mt-1">?꾪꽣 議곌굔???꾪솕?섍굅??寃?됱뼱瑜?蹂寃쏀빐 蹂댁꽭??</p>
+          <h4 class="font-bold text-slate-800">조건에 일치하는 상품이 없습니다.</h4>
+          <p class="text-xs text-slate-400 mt-1">필터 조건을 완화하거나 검색어를 변경해 보세요.</p>
           <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">
-            ?꾪꽣 ?꾩껜 珥덇린??          </button>
+            필터 전체 초기화
+          </button>
         </div>
       </section>
 
@@ -191,7 +193,7 @@
     });
 
     function applyFilters() {
-      const selectedCat = document.querySelector('input[name="category"]:checked')?.value || '?꾩껜';
+      const selectedCat = document.querySelector('input[name="category"]:checked')?.value || '전체';
       const selectedPrice = document.querySelector('input[name="price_range"]:checked')?.value || 'all';
       const freeShipping = document.getElementById('chk-free-shipping').checked;
       const onlySale = document.getElementById('chk-sale').checked;
@@ -205,7 +207,7 @@
       let filtered = [...rawProducts];
 
       // Category
-      if (selectedCat !== '?꾩껜') {
+      if (selectedCat !== '전체') {
         filtered = filtered.filter(p => p.category === selectedCat);
       }
 
@@ -295,7 +297,7 @@
               class="w-full mt-4 py-2.5 bg-slate-900 hover:bg-indigo-600 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5"
             >
               <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
-              <span>?λ컮援щ땲 ?닿린</span>
+              <span>장바구니 담기</span>
             </button>
           </div>
         </div>
@@ -305,7 +307,7 @@
     }
 
     function resetFilters() {
-      document.querySelector('input[name="category"][value="?꾩껜"]').checked = true;
+      document.querySelector('input[name="category"][value="전체"]').checked = true;
       document.querySelector('input[name="price_range"][value="all"]').checked = true;
       document.getElementById('chk-free-shipping').checked = false;
       document.getElementById('chk-sale').checked = false;
@@ -318,7 +320,7 @@
       const p = rawProducts.find(item => item.id === id);
       if (p) {
         const added = CartStore.toggleWishlist(p);
-        ShopUI.showToast(added ? '?꾩떆由ъ뒪?몄뿉 ?댁븯?듬땲???ㅿ툘' : '?꾩떆由ъ뒪?몄뿉???쒖쇅?덉뒿?덈떎.');
+        ShopUI.showToast(added ? '위시리스트에 담았습니다 ❤️' : '위시리스트에서 제외했습니다.');
         applyFilters();
       }
     }
@@ -328,7 +330,7 @@
       if (p) {
         const defaultOption = p.options && p.options.length > 0 ? p.options[0].name : '';
         CartStore.addItem(p, defaultOption, 1);
-        ShopUI.showToast(`[${p.name}] ?곹뭹???λ컮援щ땲???댁븯?듬땲??`);
+        ShopUI.showToast(`[${p.name}] 상품을 장바구니에 담았습니다!`);
         ShopUI.openCartDrawer();
       }
     }

@@ -1,109 +1,26 @@
-﻿[
+[
   {
     "orderId": "ORD-20260907-8812",
     "orderDate": "2026-09-07 09:30:15",
-    "customerName": "源誘쇱?",
+    "customerName": "김민준",
     "customerPhone": "010-3849-1290",
     "customerEmail": "minjun.kim@example.com",
-    "shippingAddress": "?쒖슱?밸퀎??媛뺣궓援??뚰뿤?濡?152 媛뺣궓?뚯씠?몄뒪?쇳꽣 18痢?,
-    "shippingNote": "遺????臾??욎뿉 ?볦븘二쇱꽭??",
-    "paymentMethod": "?좎슜移대뱶 (?꾨?移대뱶)",
+    "shippingAddress": "서울특별시 강남구 테헤란로 152 강남파이낸스센터 18층",
+    "shippingNote": "부재 시 문 앞에 놓아주세요.",
+    "paymentMethod": "신용카드 (현대카드)",
     "totalAmount": 289000,
     "shippingFee": 0,
     "discountAmount": 10000,
-    "status": "諛곗넚以?,
+    "status": "배송중",
     "trackingNumber": "CJ68291039841",
     "items": [
       {
         "productId": "prod-01",
-        "name": "?꾨━誘몄뾼 罹먯떆誘몄뼱 釉붾젋???ㅻ쾭??肄뷀듃",
-        "option": "?ㅽ듃諛 踰좎씠吏 / L(105)",
+        "name": "프리미엄 캐시미어 블렌드 오버핏 코트",
+        "option": "오트밀 베이지 / L(105)",
         "quantity": 1,
         "price": 289000,
         "thumbnail": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    "orderId": "ORD-20260906-5521",
-    "orderDate": "2026-09-06 18:42:10",
-    "customerName": "?댁??",
-    "customerPhone": "010-9921-7734",
-    "customerEmail": "jieun.lee@example.com",
-    "shippingAddress": "寃쎄린???깅궓??遺꾨떦援??먭탳??줈 235 ?먯씠移섏뒪?섏뼱 N??5痢?,
-    "shippingNote": "諛곗넚 ???곕씫 遺?곷뱶由쎈땲??",
-    "paymentMethod": "移댁뭅?ㅽ럹??,
-    "totalAmount": 244000,
-    "shippingFee": 0,
-    "discountAmount": 0,
-    "status": "?곹뭹以鍮?,
-    "trackingNumber": "",
-    "items": [
-      {
-        "productId": "prod-02",
-        "name": "?먯뼱?ъ슫???몄씠利덉틪?щ쭅 臾댁꽑 ?ㅻ뱶???꾨줈",
-        "option": "?ㅽ럹?댁뒪 洹몃젅??,
-        "quantity": 1,
-        "price": 198000,
-        "thumbnail": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        "productId": "prod-03",
-        "name": "湲濡쒖슦 由щ컮?댄깉?쇱씠吏??섏씠???고뵆 ?몃읆 50ml",
-        "option": "?⑦뭹 50ml",
-        "quantity": 1,
-        "price": 46000,
-        "thumbnail": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    "orderId": "ORD-20260906-3109",
-    "orderDate": "2026-09-06 14:15:30",
-    "customerName": "諛뺤꽌以",
-    "customerPhone": "010-4412-8876",
-    "customerEmail": "seojun.park@example.com",
-    "shippingAddress": "遺?곌킅??떆 ?댁슫?援??쇳?以묒븰濡?90 ?먮퉬?댁꽱? 1201??,
-    "shippingNote": "寃쎈퉬?ㅼ뿉 留↔꺼二쇱꽭??",
-    "paymentMethod": "?좎뒪?섏씠",
-    "totalAmount": 129000,
-    "shippingFee": 0,
-    "discountAmount": 5000,
-    "status": "寃곗젣?꾨즺",
-    "trackingNumber": "",
-    "items": [
-      {
-        "productId": "prod-08",
-        "name": "?명듃???щ┝ 湲곌퀎??臾댁꽑 釉붾（?ъ뒪 ?ㅻ낫??,
-        "option": "??뚯쓬 媛덉텞 (遺?쒕윭??援щ텇媛?",
-        "quantity": 1,
-        "price": 129000,
-        "thumbnail": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80"
-      }
-    ]
-  },
-  {
-    "orderId": "ORD-20260905-1940",
-    "orderDate": "2026-09-05 11:05:44",
-    "customerName": "?뺤닔??,
-    "customerPhone": "010-7731-0029",
-    "customerEmail": "suah.jung@example.com",
-    "shippingAddress": "?몄쿇愿묒뿭???곗닔援??〓룄怨쇳븰濡?32 ?뚰겕?명뙆??IT?쇳꽣 20痢?,
-    "shippingNote": "吏곸젒 ?섎졊?섍쿋?듬땲??",
-    "paymentMethod": "?ㅼ씠踰꾪럹??,
-    "totalAmount": 52000,
-    "shippingFee": 0,
-    "discountAmount": 0,
-    "status": "諛곗넚?꾨즺",
-    "trackingNumber": "CJ99481726354",
-    "items": [
-      {
-        "productId": "prod-09",
-        "name": "?쒓렇?덉쿂 ?곕뵒 ?꾨줈留??뷀벂? & 罹붾뱾 ?명듃",
-        "option": "?щ젅?ㅽ듃 ?덉뒪??(?쒕뜑?곕뱶 & ?곕쾭)",
-        "quantity": 1,
-        "price": 52000,
-        "thumbnail": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80"
       }
     ]
   }
