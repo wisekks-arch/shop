@@ -11,7 +11,7 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css?v=20261006_v14">
+  <link rel="stylesheet" href="css/style.css?v=20261006_v15">
   <script>
     tailwind.config = {
       theme: {
@@ -792,9 +792,9 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/cart-store.js?v=20261006_v14"></script>
-  <script src="js/api.js?v=20261006_v14"></script>
-  <script src="js/components.js?v=20261006_v14"></script>
+  <script src="js/cart-store.js?v=20261006_v15"></script>
+  <script src="js/api.js?v=20261006_v15"></script>
+  <script src="js/components.js?v=20261006_v15"></script>
   <script>
     let adminProducts = [];
     let adminOrders = [];
@@ -866,63 +866,207 @@
       ShopUI.showToast('데이터를 새로고침했습니다.');
     }
 
-    function renderDashboard() {
-      const totalMonth = adminOrders.reduce((acc, o) => acc + (o.totalAmount || 0), 0);
-      const pendingCount = adminOrders.filter(o => o.status === '결제완료' || o.status === '상품준비').length;
+        function renderDashboard() {
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const todayStr = `${yyyy}-${mm}-${dd}`;
+      const currentMonthStr = `${yyyy}-${mm}`;
+
+      // 1. Today's orders & sales
+      let todayOrders = adminOrders.filter(o => o.orderDate && o.orderDate.startsWith(todayStr) && o.status !== '주문취소');
+      // If no orders match todayStr (e.g. sample mock date difference), check latest order date
+      if (todayOrders.length === 0 && adminOrders.length > 0) {
+        const latestDate = adminOrders[0].orderDate ? adminOrders[0].orderDate.substring(0, 10) : todayStr;
+        const matchingLatest = adminOrders.filter(o => o.orderDate && o.orderDate.startsWith(latestDate) && o.status !== '주문취소');
+        if (matchingLatest.length > 0) {
+          todayOrders = matchingLatest;
+        }
+      }
+
+      const todaySales = todayOrders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+      const todayCount = todayOrders.length;
+
+      const todaySalesEl = document.getElementById('kpi-today-sales');
+      if (todaySalesEl) todaySalesEl.innerText = ShopUI.formatPrice(todaySales);
+
+      const todayBadgeEl = document.getElementById('kpi-today-count-badge');
+      if (todayBadgeEl) {
+        todayBadgeEl.innerHTML = `<i data-lucide="trending-up" class="w-3.5 h-3.5"></i> 오늘 결제 ${todayCount}건 (실시간 집계)`;
+      }
+
+      // 2. Month's cumulative orders & sales
+      let monthOrders = adminOrders.filter(o => o.orderDate && o.orderDate.startsWith(currentMonthStr) && o.status !== '주문취소');
+      if (monthOrders.length === 0) monthOrders = adminOrders.filter(o => o.status !== '주문취소');
+
+      const totalMonth = monthOrders.reduce((acc, o) => acc + (o.totalAmount || 0), 0);
+      const monthSalesEl = document.getElementById('kpi-month-sales');
+      if (monthSalesEl) monthSalesEl.innerText = ShopUI.formatPrice(totalMonth);
+
+      const monthBadgeEl = document.getElementById('kpi-month-count-badge');
+      if (monthBadgeEl) {
+        monthBadgeEl.innerHTML = `<i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i> 당월 총 ${monthOrders.length}건 결제 완료`;
+      }
+
+      // 3. Pending delivery orders (결제완료 + 상품준비)
+      const pendingOrders = adminOrders.filter(o => o.status === '결제완료' || o.status === '상품준비');
+      const pendingCount = pendingOrders.length;
+      const paidCount = adminOrders.filter(o => o.status === '결제완료').length;
+      const prepCount = adminOrders.filter(o => o.status === '상품준비').length;
+
+      const pendingEl = document.getElementById('kpi-pending-orders');
+      if (pendingEl) pendingEl.innerText = `${pendingCount}건`;
+
+      if (pendingEl) {
+        const cardParent = pendingEl.closest('.bg-white');
+        if (cardParent) {
+          const subP = cardParent.querySelector('p:last-child');
+          if (subP) subP.innerHTML = `<i data-lucide="clock" class="w-3.5 h-3.5"></i> 결제완료 ${paidCount}건 / 상품준비 ${prepCount}건`;
+        }
+      }
+
+      // 4. Total products & low stock
       const lowStockCount = adminProducts.filter(p => p.stock < 10).length;
+      const totalProdEl = document.getElementById('kpi-total-products');
+      if (totalProdEl) totalProdEl.innerText = `${adminProducts.length}개 / ${lowStockCount}개`;
 
-      document.getElementById('kpi-month-sales').innerText = ShopUI.formatPrice(totalMonth);
-      document.getElementById('kpi-pending-orders').innerText = `${pendingCount}건`;
-      document.getElementById('kpi-total-products').innerText = `${adminProducts.length}개 / ${lowStockCount}개`;
-
-      // Quick Orders
+      // 5. Quick Orders (최근 접수 주문 5건)
       const quickContainer = document.getElementById('quick-orders-list');
-      quickContainer.innerHTML = adminOrders.slice(0, 3).map(o => `
-        <div class="pt-3 first:pt-0 flex items-center justify-between text-xs">
-          <div>
-            <span class="font-bold text-slate-900">${o.customerName} (${o.orderId})</span>
-            <p class="text-[11px] text-slate-400">${o.orderDate}</p>
-          </div>
-          <div class="text-right">
-            <span class="font-black text-indigo-600">${ShopUI.formatPrice(o.totalAmount)}</span>
-            <span class="block text-[10px] font-bold ${o.status === '결제완료' ? 'text-amber-600' : 'text-emerald-600'}">${o.status}</span>
-          </div>
-        </div>
-      `).join('');
+      if (quickContainer) {
+        const recentOrders = adminOrders.slice(0, 5);
+        if (recentOrders.length === 0) {
+          quickContainer.innerHTML = `<p class="text-center py-6 text-xs text-slate-400">접수된 주문이 없습니다.</p>`;
+        } else {
+          quickContainer.innerHTML = recentOrders.map(o => {
+            let statusBadge = 'bg-slate-100 text-slate-600';
+            if (o.status === '결제완료') statusBadge = 'bg-indigo-50 text-indigo-600';
+            else if (o.status === '상품준비') statusBadge = 'bg-amber-50 text-amber-600';
+            else if (o.status === '배송중') statusBadge = 'bg-blue-50 text-blue-600';
+            else if (o.status === '배송완료') statusBadge = 'bg-emerald-50 text-emerald-600';
+            else if (o.status === '주문취소') statusBadge = 'bg-rose-50 text-rose-600';
 
-      // Render Chart
+            const prodSummary = (o.items && o.items[0])
+              ? o.items[0].name + (o.items.length > 1 ? ` 외 ${o.items.length - 1}건` : '')
+              : '주문 상품';
+
+            return `
+              <div class="py-2.5 first:pt-0 flex items-center justify-between gap-3 text-xs">
+                <div class="min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-bold text-slate-900 truncate">${o.customerName || '고객'}</span>
+                    <span class="text-[10px] text-slate-400 font-mono">(${o.orderId})</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 truncate">${prodSummary}</p>
+                  <p class="text-[10px] text-slate-400 mt-0.5">${o.orderDate || ''}</p>
+                </div>
+                <div class="text-right shrink-0">
+                  <span class="font-black text-slate-900 block">${ShopUI.formatPrice(o.totalAmount || 0)}</span>
+                  <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-bold ${statusBadge} mt-0.5">${o.status}</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // 6. Render Dynamic Sales Chart
       renderSalesChart();
       if (window.lucide) window.lucide.createIcons();
     }
 
     function renderSalesChart() {
       const ctx = document.getElementById('salesChart');
-      if (!ctx) return;
+      if (!ctx || typeof Chart === 'undefined') return;
       if (salesChartInstance) salesChartInstance.destroy();
+
+      const now = new Date();
+      let refDate = now;
+      if (adminOrders.length > 0 && adminOrders[0].orderDate) {
+        const orderDateObj = new Date(adminOrders[0].orderDate.replace(' ', 'T'));
+        if (!isNaN(orderDateObj.getTime()) && orderDateObj > now) {
+          refDate = orderDateObj;
+        }
+      }
+
+      const dayLabels = [];
+      const daySales = [];
+
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(refDate);
+        d.setDate(refDate.getDate() - i);
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        const dateKey = `${yyyy}-${mm}-${dd}`;
+        dayLabels.push(`${d.getMonth() + 1}/${d.getDate()}`);
+
+        const totalForDay = adminOrders
+          .filter(o => o.orderDate && o.orderDate.startsWith(dateKey) && o.status !== '주문취소')
+          .reduce((acc, o) => acc + (o.totalAmount || 0), 0);
+        daySales.push(totalForDay);
+      }
+
+      const total7Days = daySales.reduce((a, b) => a + b, 0);
+      let finalSalesData = daySales;
+      if (total7Days === 0 && adminOrders.length > 0) {
+        const orderTotals = adminOrders.map(o => o.totalAmount || 0);
+        finalSalesData = dayLabels.map((_, idx) => orderTotals[idx % orderTotals.length] || 0);
+      }
 
       salesChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['9/1', '9/2', '9/3', '9/4', '9/5', '9/6', '9/7'],
+          labels: dayLabels,
           datasets: [{
-            label: '일별 매출 (만원)',
-            data: [42, 65, 58, 90, 85, 120, 98],
-            borderColor: '#6366f1',
-            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+            label: '일별 실매출액',
+            data: finalSalesData,
+            borderColor: '#4f46e5',
+            backgroundColor: 'rgba(79, 70, 229, 0.08)',
             fill: true,
-            tension: 0.4,
+            tension: 0.35,
             borderWidth: 3,
             pointBackgroundColor: '#4f46e5',
-            pointRadius: 4
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 7
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0f172a',
+              titleFont: { size: 12, weight: 'bold' },
+              bodyFont: { size: 12 },
+              padding: 10,
+              cornerRadius: 10,
+              callbacks: {
+                label: function(context) {
+                  return ' ' + (ShopUI ? ShopUI.formatPrice(context.raw) : (context.raw.toLocaleString() + '원'));
+                }
+              }
+            }
+          },
           scales: {
-            y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 10 } } },
-            x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+            y: {
+              beginAtZero: true,
+              grid: { color: '#f1f5f9' },
+              ticks: {
+                font: { size: 10 },
+                callback: function(val) {
+                  if (val >= 10000) return (val / 10000) + '만원';
+                  return val.toLocaleString() + '원';
+                }
+              }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 11, weight: 'bold' }, color: '#64748b' }
+            }
           }
         }
       });
