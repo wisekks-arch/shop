@@ -1,96 +1,64 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>주문 완료 - EASYSHOP</title>
+  <title>二쇰Ц ?꾨즺 - EASYSHOP</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#eef2ff',
-              100: '#e0e7ff',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
-            }
-          }
-        }
-      }
-    }
-  </script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+<body class="bg-slate-50 flex flex-col min-h-screen">
 
   <!-- Global Navbar -->
   <div id="navbar-root"></div>
 
   <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 py-12 w-full">
     
-    <div class="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden text-center p-8 sm:p-12 space-y-8">
+    <div class="bg-white rounded-3xl border border-slate-200/80 shadow-xl overflow-hidden text-center p-8 sm:p-12 space-y-8">
       
       <!-- Success Icon -->
-      <div class="w-20 h-20 bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-3xl flex items-center justify-center mx-auto shadow-md shadow-emerald-500/10">
-        <i data-lucide="check-circle" class="w-10 h-10"></i>
+      <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center mx-auto shadow-md shadow-emerald-500/10">
+        <i data-lucide="check-circle-2" class="w-10 h-10"></i>
       </div>
 
       <div class="space-y-2">
-        <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-black uppercase border border-indigo-200/60">Payment & Order Success</span>
-        <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-          주문 및 결제가 정상 완료되었습니다!
+        <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-black uppercase">Order Completed</span>
+        <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-heading">
+          二쇰Ц???뺤긽?곸쑝濡??꾨즺?섏뿀?듬땲??
         </h1>
-        <p class="text-xs sm:text-sm text-slate-500 font-medium">고객님의 소중한 주문이 안전하게 접수되었습니다. 신속하게 배송해 드리겠습니다.</p>
+        <p class="text-xs sm:text-sm text-slate-500">怨좉컼?섏쓽 ?뚯쨷??二쇰Ц???덉쟾?섍쾶 ?묒닔?섏뿀?듬땲??</p>
       </div>
 
       <!-- Order Voucher Info Box -->
-      <div class="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 text-left space-y-4 text-xs">
+      <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200/80 text-left space-y-4 text-xs">
         <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-          <span class="text-slate-500 font-medium">주문 번호</span>
+          <span class="text-slate-400">二쇰Ц 踰덊샇</span>
           <span id="complete-order-id" class="font-mono font-black text-indigo-600 text-sm">ORD-20260907-XXXX</span>
         </div>
         <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-          <span class="text-slate-500 font-medium">주문 일시</span>
+          <span class="text-slate-400">寃곗젣 ?쇱떆</span>
           <span id="complete-order-date" class="font-bold text-slate-800">2026-09-07 10:30</span>
         </div>
         <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-          <span class="text-slate-500 font-medium">받는 사람 / 연락처</span>
-          <span id="complete-recipient" class="font-bold text-slate-800">홍길동 (010-1234-5678)</span>
+          <span class="text-slate-400">諛곗넚吏</span>
+          <span id="complete-shipping-address" class="font-bold text-slate-800 truncate max-w-xs">?쒖슱??媛뺣궓援??뚰뿤?濡?/span>
         </div>
-        <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-          <span class="text-slate-500 font-medium">배송지 주소</span>
-          <span id="complete-shipping-address" class="font-bold text-slate-800 truncate max-w-xs sm:max-w-md">서울특별시 강남구 테헤란로 152</span>
-        </div>
-        <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-          <span class="text-slate-500 font-medium">결제 수단</span>
-          <span id="complete-pay-method" class="font-bold text-slate-800">신용/체크카드 (결제완료)</span>
-        </div>
-        <div class="flex items-center justify-between pt-1">
-          <span class="text-slate-600 font-bold text-sm">최종 결제 금액</span>
-          <span id="complete-total-amount" class="font-black text-indigo-600 text-xl">0원</span>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">理쒖쥌 寃곗젣 湲덉븸</span>
+          <span id="complete-total-amount" class="font-black text-slate-900 text-base">0??/span>
         </div>
       </div>
 
       <!-- Action Buttons -->
       <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-        <a href="order-lookup.html" class="px-6 py-3.5 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold rounded-2xl shadow-sm transition flex items-center justify-center gap-2">
-          <i data-lucide="truck" class="w-4 h-4"></i>
-          <span>주문/배송 실시간 조회</span>
-        </a>
-        <a href="products.html" class="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-2xl shadow-lg shadow-indigo-600/25 transition flex items-center justify-center gap-2">
-          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-          <span>쇼핑 계속하기</span>
-        </a>
-        <a href="index.html" class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-2xl transition flex items-center justify-center gap-2">
-          <i data-lucide="home" class="w-4 h-4"></i>
-          <span>메인 홈으로</span>
+        <a href="/order-lookup.html" class="px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-2xl transition">
+          二쇰Ц/諛곗넚 議고쉶 諛붾줈媛湲?        </a>
+        <a href="/products.html" class="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-2xl shadow-lg shadow-indigo-600/30 transition">
+          ?쇳븨 怨꾩냽?섍린
         </a>
       </div>
 
@@ -102,50 +70,28 @@
   <div id="footer-root"></div>
 
   <!-- Scripts -->
-  <script src="js/auth-store.js"></script>
   <script src="js/cart-store.js"></script>
   <script src="js/api.js"></script>
   <script src="js/components.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('DOMContentLoaded', () => {
       ShopUI.renderNavbar();
       ShopUI.renderFooter();
-      if (window.lucide) window.lucide.createIcons();
 
       const urlParams = new URLSearchParams(window.location.search);
-      const orderId = urlParams.get('orderId') || ('ORD-' + Date.now().toString().slice(-8));
+      const orderId = urlParams.get('orderId') || 'ORD-' + Date.now().toString().slice(-8);
 
       document.getElementById('complete-order-id').innerText = orderId;
       document.getElementById('complete-order-date').innerText = new Date().toLocaleString('ko-KR');
 
-      let order = null;
       try {
         const saved = sessionStorage.getItem('latest_order');
         if (saved) {
-          order = JSON.parse(saved);
+          const parsed = JSON.parse(saved);
+          document.getElementById('complete-shipping-address').innerText = parsed.shippingAddress || '?쒖슱??;
+          document.getElementById('complete-total-amount').innerText = ShopUI.formatPrice(parsed.totalAmount);
         }
       } catch (e) {}
-
-      if (!order) {
-        try {
-          order = await ShopAPI.getOrderById(orderId);
-        } catch (e) {}
-      }
-
-      if (order) {
-        const recipientName = order.shippingName || (order.buyer ? order.buyer.name : (order.customerName || '고객'));
-        const recipientPhone = order.shippingPhone || (order.buyer ? order.buyer.phone : (order.customerPhone || ''));
-        document.getElementById('complete-recipient').innerText = `${recipientName} ${recipientPhone ? '(' + recipientPhone + ')' : ''}`;
-        
-        const addr = order.shippingAddress || (order.buyer ? order.buyer.address : '서울특별시');
-        document.getElementById('complete-shipping-address').innerText = addr;
-        
-        const payMethod = order.paymentMethod || '신용/체크카드 (결제완료)';
-        document.getElementById('complete-pay-method').innerText = payMethod;
-
-        const total = order.totalAmount || 0;
-        document.getElementById('complete-total-amount').innerText = ShopUI.formatPrice(total);
-      }
     });
   </script>
 </body>

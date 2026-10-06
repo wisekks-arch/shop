@@ -1,118 +1,110 @@
-[
+﻿[
   {
-    "orderId": "ORD-20260916-8801",
-    "createdAt": "2026-09-16 16:35:20",
-    "customerName": "이지샵체험회원",
-    "customerPhone": "010-1234-5678",
-    "customerEmail": "demo@easyshop.kr",
-    "shippingName": "이지샵체험회원",
-    "shippingPhone": "010-1234-5678",
-    "shippingAddress": "서울특별시 강남구 테헤란로 152 18층 이지샵",
-    "shippingNote": "부재 시 문 앞에 놓아주세요.",
-    "paymentMethod": "신용카드 결제",
-    "items": [
-      {
-        "id": "prod-01",
-        "name": "프리미엄 캐시미어 블렌드 오버핏 코트",
-        "price": 289000,
-        "selectedOption": "오트밀 베이지 / M(95-100)",
-        "quantity": 1,
-        "thumbnail": "images/prod-01-main.jpg"
-      }
-    ],
+    "orderId": "ORD-20260907-8812",
+    "orderDate": "2026-09-07 09:30:15",
+    "customerName": "源誘쇱?",
+    "customerPhone": "010-3849-1290",
+    "customerEmail": "minjun.kim@example.com",
+    "shippingAddress": "?쒖슱?밸퀎??媛뺣궓援??뚰뿤?濡?152 媛뺣궓?뚯씠?몄뒪?쇳꽣 18痢?,
+    "shippingNote": "遺????臾??욎뿉 ?볦븘二쇱꽭??",
+    "paymentMethod": "?좎슜移대뱶 (?꾨?移대뱶)",
     "totalAmount": 289000,
     "shippingFee": 0,
     "discountAmount": 10000,
-    "status": "결제완료",
-    "trackingNumber": ""
-  },
-  {
-    "orderId": "ORD-20260916-5866",
-    "createdAt": "2026-09-16 13:12:09",
-    "customerName": "홍길동",
-    "customerPhone": "010-1234-5678",
-    "customerEmail": "customer@example.com",
-    "shippingName": "홍길동",
-    "shippingPhone": "010-1234-5678",
-    "shippingAddress": "서울특별시 강남구 테헤란로 152 강남파이낸스센터 1802호",
-    "shippingNote": "배송 전 연락 부탁드립니다.",
-    "paymentMethod": "간편 계좌이체",
+    "status": "諛곗넚以?,
+    "trackingNumber": "CJ68291039841",
     "items": [
       {
-        "id": "prod-02",
-        "name": "에어사운드 노이즈캔슬링 무선 헤드폰 프로",
-        "price": 198000,
-        "selectedOption": "스페이스 블랙",
+        "productId": "prod-01",
+        "name": "?꾨━誘몄뾼 罹먯떆誘몄뼱 釉붾젋???ㅻ쾭??肄뷀듃",
+        "option": "?ㅽ듃諛 踰좎씠吏 / L(105)",
         "quantity": 1,
+        "price": 289000,
+        "thumbnail": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=80"
+      }
+    ]
+  },
+  {
+    "orderId": "ORD-20260906-5521",
+    "orderDate": "2026-09-06 18:42:10",
+    "customerName": "?댁??",
+    "customerPhone": "010-9921-7734",
+    "customerEmail": "jieun.lee@example.com",
+    "shippingAddress": "寃쎄린???깅궓??遺꾨떦援??먭탳??줈 235 ?먯씠移섏뒪?섏뼱 N??5痢?,
+    "shippingNote": "諛곗넚 ???곕씫 遺?곷뱶由쎈땲??",
+    "paymentMethod": "移댁뭅?ㅽ럹??,
+    "totalAmount": 244000,
+    "shippingFee": 0,
+    "discountAmount": 0,
+    "status": "?곹뭹以鍮?,
+    "trackingNumber": "",
+    "items": [
+      {
+        "productId": "prod-02",
+        "name": "?먯뼱?ъ슫???몄씠利덉틪?щ쭅 臾댁꽑 ?ㅻ뱶???꾨줈",
+        "option": "?ㅽ럹?댁뒪 洹몃젅??,
+        "quantity": 1,
+        "price": 198000,
         "thumbnail": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
       },
       {
-        "id": "prod-10",
-        "name": "비건 세라마이드 보습 장벽 수분크림 100ml",
-        "price": 34000,
-        "selectedOption": "100ml 대용량 튜브",
+        "productId": "prod-03",
+        "name": "湲濡쒖슦 由щ컮?댄깉?쇱씠吏??섏씠???고뵆 ?몃읆 50ml",
+        "option": "?⑦뭹 50ml",
         "quantity": 1,
-        "thumbnail": "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80"
+        "price": 46000,
+        "thumbnail": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80"
       }
-    ],
-    "totalAmount": 232000,
-    "shippingFee": 0,
-    "discountAmount": 15000,
-    "status": "결제완료",
-    "trackingNumber": ""
+    ]
   },
   {
-    "orderId": "ORD-20260916-3109",
-    "createdAt": "2026-09-16 11:15:30",
-    "customerName": "박서준",
+    "orderId": "ORD-20260906-3109",
+    "orderDate": "2026-09-06 14:15:30",
+    "customerName": "諛뺤꽌以",
     "customerPhone": "010-4412-8876",
     "customerEmail": "seojun.park@example.com",
-    "shippingName": "박서준",
-    "shippingPhone": "010-4412-8876",
-    "shippingAddress": "부산광역시 해운대구 센텀중앙로 90 큐비이센텀 1201호",
-    "shippingNote": "경비실에 맡겨주세요.",
-    "paymentMethod": "토스페이",
-    "items": [
-      {
-        "id": "prod-08",
-        "name": "울트라 슬림 기계식 무선 블루투스 키보드",
-        "price": 129000,
-        "selectedOption": "적축(저소음) / 화이트",
-        "quantity": 1,
-        "thumbnail": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80"
-      }
-    ],
+    "shippingAddress": "遺?곌킅??떆 ?댁슫?援??쇳?以묒븰濡?90 ?먮퉬?댁꽱? 1201??,
+    "shippingNote": "寃쎈퉬?ㅼ뿉 留↔꺼二쇱꽭??",
+    "paymentMethod": "?좎뒪?섏씠",
     "totalAmount": 129000,
     "shippingFee": 0,
     "discountAmount": 5000,
-    "status": "상품준비중",
-    "trackingNumber": ""
-  },
-  {
-    "orderId": "ORD-20260915-8812",
-    "createdAt": "2026-09-15 09:30:15",
-    "customerName": "김민준",
-    "customerPhone": "010-3849-1290",
-    "customerEmail": "minjun.kim@example.com",
-    "shippingName": "김민준",
-    "shippingPhone": "010-3849-1290",
-    "shippingAddress": "서울특별시 서초구 반포대로 58 101호",
-    "shippingNote": "부재 시 경비실 보관",
-    "paymentMethod": "카카오페이",
+    "status": "寃곗젣?꾨즺",
+    "trackingNumber": "",
     "items": [
       {
-        "id": "prod-05",
-        "name": "스페셜티 드립백 커피 시그니처 4종 기프트 세트",
-        "price": 28000,
-        "selectedOption": "20개입 시그니처 선물박스",
-        "quantity": 2,
-        "thumbnail": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
+        "productId": "prod-08",
+        "name": "?명듃???щ┝ 湲곌퀎??臾댁꽑 釉붾（?ъ뒪 ?ㅻ낫??,
+        "option": "??뚯쓬 媛덉텞 (遺?쒕윭??援щ텇媛?",
+        "quantity": 1,
+        "price": 129000,
+        "thumbnail": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80"
       }
-    ],
-    "totalAmount": 56000,
+    ]
+  },
+  {
+    "orderId": "ORD-20260905-1940",
+    "orderDate": "2026-09-05 11:05:44",
+    "customerName": "?뺤닔??,
+    "customerPhone": "010-7731-0029",
+    "customerEmail": "suah.jung@example.com",
+    "shippingAddress": "?몄쿇愿묒뿭???곗닔援??〓룄怨쇳븰濡?32 ?뚰겕?명뙆??IT?쇳꽣 20痢?,
+    "shippingNote": "吏곸젒 ?섎졊?섍쿋?듬땲??",
+    "paymentMethod": "?ㅼ씠踰꾪럹??,
+    "totalAmount": 52000,
     "shippingFee": 0,
     "discountAmount": 0,
-    "status": "배송중",
-    "trackingNumber": "CJ68291039841"
+    "status": "諛곗넚?꾨즺",
+    "trackingNumber": "CJ99481726354",
+    "items": [
+      {
+        "productId": "prod-09",
+        "name": "?쒓렇?덉쿂 ?곕뵒 ?꾨줈留??뷀벂? & 罹붾뱾 ?명듃",
+        "option": "?щ젅?ㅽ듃 ?덉뒪??(?쒕뜑?곕뱶 & ?곕쾭)",
+        "quantity": 1,
+        "price": 52000,
+        "thumbnail": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80"
+      }
+    ]
   }
 ]

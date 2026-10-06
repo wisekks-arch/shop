@@ -1,7 +1,6 @@
-/**
+﻿/**
  * EasyShop Cart & Wishlist Store
- * LocalStorage 기반 반응형 상태 관리
- */
+ * LocalStorage 湲곕컲 諛섏쓳???곹깭 愿由? */
 const CartStore = {
   CART_KEY: 'easyshop_cart',
   WISHLIST_KEY: 'easyshop_wishlist',
@@ -118,7 +117,7 @@ const CartStore = {
     const originalTotal = selectedItems.reduce((acc, item) => acc + (item.originalPrice * item.quantity), 0);
     const totalSavings = originalTotal - productTotal;
 
-    // 50,000원 이상 무료배송 (미만 시 3,000원)
+    // 50,000???댁긽 臾대즺諛곗넚 (誘몃쭔 ??3,000??
     const freeShippingThreshold = 50000;
     const shippingFee = (productTotal >= freeShippingThreshold || productTotal === 0) ? 0 : 3000;
     const finalAmount = Math.max(0, productTotal + shippingFee - couponDiscount);
