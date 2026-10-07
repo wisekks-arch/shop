@@ -2962,6 +2962,402 @@
       }, 300);
     }
 
+    // Standalone Hidden iframe Print - 상품 박스 부착용 배송 송장 라벨 인쇄
+    function printShippingLabel() {
+      let o = null;
+      if (selectedModalOrderId) {
+        o = adminOrders.find(item => item.orderId === selectedModalOrderId);
+      }
+      if (!o && adminOrders.length > 0) {
+        o = adminOrders[0];
+      }
+      if (!o) {
+        ShopUI.showToast('출력할 주문 정보를 찾을 수 없습니다.');
+        return;
+      }
+
+      // 1. 기존 잔여 인쇄 iframe 제거
+      const oldFrame = document.getElementById('print-shipping-label-frame');
+      if (oldFrame) oldFrame.remove();
+
+      // 2. 인쇄 전용 숨김 iframe 생성
+      const iframe = document.createElement('iframe');
+      iframe.id = 'print-shipping-label-frame';
+      iframe.style.position = 'fixed';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = '0';
+      iframe.style.opacity = '0';
+      iframe.style.pointerEvents = 'none';
+      document.body.appendChild(iframe);
+
+      // 데이터 가공
+      const courierName = o.courier || 'CJ대한통운';
+      const trackingNo = o.trackingNumber || ('6829-' + (o.orderId ? o.orderId.replace(/[^0-9]/g, '').slice(-4) : '5421') + '-9012');
+      const recipientName = o.shippingName || o.customerName || '고객님';
+      const recipientPhone = o.shippingPhone || o.customerPhone || '010-0000-0000';
+      const recipientAddr = o.shippingAddress || '배송지 주소 미등록';
+      const shippingNote = o.shippingNote || '부재 시 문 앞에 놓아주세요';
+      
+      const items = Array.isArray(o.items) && o.items.length > 0 ? o.items : [
+        { name: '주문 상품', quantity: 1 }
+      ];
+      const firstItem = items[0];
+      const otherCount = items.length - 1;
+      const totalQty = items.reduce((sum, it) => sum + (it.quantity || 1), 0);
+      const productSummaryText = `${firstItem.name}${otherCount > 0 ? ` 외 ${otherCount}건` : ''} (총 ${totalQty}개)`;
+      const orderDateStr = o.orderDate ? o.orderDate.replace('T', ' ').slice(0, 16) : '-';
+
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html lang="ko">
+        <head>
+          <meta charset="UTF-8">
+          <title>배송송장_${o.orderId}</title>
+          <style>
+            @page {
+              size: A4 portrait;
+              margin: 15mm 15mm;
+            }
+            * {
+              box-sizing: border-box;
+              margin: 0;
+              padding: 0;
+              font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Pretendard", sans-serif;
+            }
+            body {
+              background: #ffffff;
+              color: #0f172a;
+              font-size: 11px;
+              line-height: 1.4;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            .label-container {
+              width: 100%;
+              max-width: 620px;
+              margin: 0 auto;
+              border: 2px dashed #475569;
+              padding: 12px;
+              border-radius: 8px;
+              background: #ffffff;
+            }
+            .cut-guide {
+              font-size: 9.5px;
+              color: #64748b;
+              text-align: center;
+              margin-bottom: 8px;
+              letter-spacing: 1px;
+            }
+            .waybill-card {
+              border: 2px solid #0f172a;
+              border-radius: 6px;
+              overflow: hidden;
+              background: #ffffff;
+            }
+            .header-strip {
+              background: #0f172a;
+              color: #ffffff;
+              padding: 8px 12px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
+            .courier-badge {
+              font-size: 16px;
+              font-weight: 900;
+              letter-spacing: -0.5px;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            }
+            .courier-badge span {
+              background: #f59e0b;
+              color: #0f172a;
+              padding: 1px 6px;
+              border-radius: 3px;
+              font-size: 10px;
+              font-weight: 800;
+            }
+            .hub-code {
+              font-size: 13px;
+              font-weight: 800;
+              letter-spacing: 0.5px;
+              color: #38bdf8;
+            }
+            .barcode-section {
+              padding: 10px 14px;
+              background: #f8fafc;
+              border-bottom: 2px solid #0f172a;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
+            .barcode-graphic {
+              height: 38px;
+              display: flex;
+              align-items: center;
+              gap: 2px;
+            }
+            .bar {
+              height: 100%;
+              background: #0f172a;
+            }
+            .track-number-box {
+              text-align: right;
+            }
+            .track-label {
+              font-size: 9px;
+              color: #64748b;
+              font-weight: bold;
+            }
+            .track-no {
+              font-size: 17px;
+              font-weight: 900;
+              color: #0f172a;
+              font-family: monospace;
+              letter-spacing: 1px;
+            }
+            .section-grid {
+              display: grid;
+              grid-template-columns: 1fr;
+              border-bottom: 2px solid #0f172a;
+            }
+            .recipient-box {
+              padding: 12px 14px;
+              background: #ffffff;
+              border-bottom: 1.5px solid #cbd5e1;
+            }
+            .box-tag {
+              display: inline-block;
+              font-size: 10px;
+              font-weight: 900;
+              color: #ffffff;
+              background: #4338ca;
+              padding: 2px 8px;
+              border-radius: 3px;
+              margin-bottom: 6px;
+            }
+            .box-tag.sender {
+              background: #475569;
+            }
+            .recipient-name {
+              font-size: 16px;
+              font-weight: 900;
+              color: #0f172a;
+              margin-bottom: 4px;
+            }
+            .recipient-phone {
+              font-size: 13px;
+              font-weight: 800;
+              color: #334155;
+              font-family: monospace;
+              margin-left: 8px;
+            }
+            .recipient-addr {
+              font-size: 15px;
+              font-weight: 900;
+              line-height: 1.35;
+              color: #0f172a;
+              background: #f1f5f9;
+              padding: 8px 10px;
+              border-radius: 4px;
+              border-left: 4px solid #4338ca;
+              margin: 6px 0;
+            }
+            .recipient-note {
+              font-size: 11px;
+              font-weight: 700;
+              color: #b91c1c;
+              margin-top: 4px;
+            }
+            .sender-box {
+              padding: 8px 14px;
+              background: #f8fafc;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 10.5px;
+              border-bottom: 1.5px solid #cbd5e1;
+            }
+            .sender-details strong {
+              color: #0f172a;
+              font-size: 11px;
+            }
+            .item-summary-box {
+              padding: 8px 14px;
+              background: #ffffff;
+              border-bottom: 1.5px solid #cbd5e1;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 11px;
+            }
+            .item-title {
+              font-weight: 800;
+              color: #0f172a;
+            }
+            .item-order-id {
+              font-size: 10px;
+              color: #64748b;
+              font-family: monospace;
+            }
+            .safety-icons-bar {
+              padding: 8px 14px;
+              background: #fffbeb;
+              border-bottom: 1.5px solid #fde68a;
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+              font-size: 10px;
+              font-weight: 800;
+              color: #92400e;
+            }
+            .safety-item {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+            }
+            .stub-section {
+              padding: 8px 14px;
+              background: #f8fafc;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 9.5px;
+              color: #64748b;
+            }
+            .stub-left {
+              line-height: 1.35;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="label-container">
+            <div class="cut-guide">✂ [점선 절취선] 출력 후 점선을 따라 잘라 택배 박스 상단에 부착해 주세요 ✂</div>
+            
+            <div class="waybill-card">
+              <!-- Top Strip -->
+              <div class="header-strip">
+                <div class="courier-badge">
+                  ${courierName} <span>공식 배송용</span>
+                </div>
+                <div class="hub-code">터미널 분류코드: [24-A-09] 수도권 당일집하</div>
+              </div>
+
+              <!-- Barcode & Tracking No -->
+              <div class="barcode-section">
+                <div>
+                  <div class="barcode-graphic">
+                    <span class="bar" style="width: 3px;"></span>
+                    <span class="bar" style="width: 1px; margin-left: 2px;"></span>
+                    <span class="bar" style="width: 4px; margin-left: 3px;"></span>
+                    <span class="bar" style="width: 2px; margin-left: 1px;"></span>
+                    <span class="bar" style="width: 5px; margin-left: 2px;"></span>
+                    <span class="bar" style="width: 1px; margin-left: 3px;"></span>
+                    <span class="bar" style="width: 3px; margin-left: 1px;"></span>
+                    <span class="bar" style="width: 2px; margin-left: 2px;"></span>
+                    <span class="bar" style="width: 4px; margin-left: 3px;"></span>
+                    <span class="bar" style="width: 2px; margin-left: 1px;"></span>
+                    <span class="bar" style="width: 5px; margin-left: 2px;"></span>
+                    <span class="bar" style="width: 2px; margin-left: 2px;"></span>
+                    <span class="bar" style="width: 3px; margin-left: 1px;"></span>
+                    <span class="bar" style="width: 1px; margin-left: 3px;"></span>
+                    <span class="bar" style="width: 4px; margin-left: 2px;"></span>
+                    <span class="bar" style="width: 2px; margin-left: 1px;"></span>
+                    <span class="bar" style="width: 3px; margin-left: 2px;"></span>
+                    <span class="bar" style="width: 5px; margin-left: 3px;"></span>
+                    <span class="bar" style="width: 2px; margin-left: 1px;"></span>
+                    <span class="bar" style="width: 4px; margin-left: 2px;"></span>
+                  </div>
+                  <div style="font-size: 9px; font-family: monospace; color: #64748b; margin-top: 2px;">*${o.orderId}*</div>
+                </div>
+                <div class="track-number-box">
+                  <div class="track-label">운송장 번호 (WAYBILL NO.)</div>
+                  <div class="track-no">${trackingNo}</div>
+                </div>
+              </div>
+
+              <!-- Recipient (TO) - LARGE & PROMINENT -->
+              <div class="recipient-box">
+                <span class="box-tag">받는 분 (TO)</span>
+                <div>
+                  <span class="recipient-name">${recipientName} 님</span>
+                  <span class="recipient-phone">📞 ${recipientPhone}</span>
+                </div>
+                <div class="recipient-addr">
+                  📍 ${recipientAddr}
+                </div>
+                <div class="recipient-note">
+                  [배송메모] ${shippingNote}
+                </div>
+              </div>
+
+              <!-- Sender (FROM) -->
+              <div class="sender-box">
+                <div class="sender-details">
+                  <span class="box-tag sender">보내는 분 (FROM)</span>
+                  <div style="margin-top: 2px;">
+                    <strong>EASYSHOP (이지샵 물류센터)</strong> &nbsp;|&nbsp; ☎ 1544-0000
+                  </div>
+                  <div style="color: #64748b; font-size: 10px; margin-top: 1px;">
+                    서울특별시 금천구 가산디지털1로 145 풀필먼트센터 3층
+                  </div>
+                </div>
+                <div style="text-align: right; font-size: 10px; color: #4338ca; font-weight: bold;">
+                  선불 / 결제완료
+                </div>
+              </div>
+
+              <!-- Item Summary -->
+              <div class="item-summary-box">
+                <div>
+                  <div class="item-title">📦 ${productSummaryText}</div>
+                  <div class="item-order-id">주문번호: ${o.orderId} &nbsp;|&nbsp; 접수일시: ${orderDateStr}</div>
+                </div>
+                <div style="font-weight: 900; font-size: 12px; color: #0f172a;">
+                  총 ${totalQty}개
+                </div>
+              </div>
+
+              <!-- Caution Badges -->
+              <div class="safety-icons-bar">
+                <div class="safety-item">⚠ 취급주의</div>
+                <div class="safety-item">🍷 파손주의</div>
+                <div class="safety-item">⬆ 상하주의</div>
+                <div class="safety-item">🚫 던지지마세요</div>
+              </div>
+
+              <!-- Footer / Receipt Stub -->
+              <div class="stub-section">
+                <div class="stub-left">
+                  발송처: EASYSHOP 온라인 스토어 (https://wisekks-arch.github.io/shop/)<br/>
+                  * 고객 변심 반품/교환 시 발송 전 고객센터(1544-0000)로 먼저 접수해 주시기 바랍니다.
+                </div>
+                <div style="text-align: right; font-weight: bold; color: #0f172a;">
+                  배송기사 확인용 [서명란] ________
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      const doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write(htmlContent);
+      doc.close();
+
+      setTimeout(() => {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      }, 300);
+    }
+
     // Excel Export (UTF-8 BOM CSV compatible with Microsoft Excel & Hancom)
     function exportOrdersExcel() {
       // 현재 화면에 필터링 및 검색된 목록 그대로 내보내기
@@ -3221,10 +3617,15 @@
           </div>
         </div>
         <div class="flex items-center gap-2 no-print">
-          <button onclick="printOrderInvoice()" class="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition" title="인쇄">
-            <i data-lucide="printer" class="w-4 h-4"></i>
+          <button onclick="printOrderInvoice()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs transition flex items-center gap-1.5 shadow-2xs" title="고객 보관용 주문 상세 명세서 인쇄">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 text-indigo-600"></i>
+            <span>명세서 인쇄</span>
           </button>
-          <button onclick="closeOrderDetailModal()" class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition">
+          <button onclick="printShippingLabel()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xs transition flex items-center gap-1.5 shadow-xs" title="상품 박스에 부착하는 택배 배송 송장 라벨 인쇄">
+            <i data-lucide="tag" class="w-3.5 h-3.5"></i>
+            <span>박스 송장 인쇄</span>
+          </button>
+          <button onclick="closeOrderDetailModal()" class="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition ml-0.5" title="닫기">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
