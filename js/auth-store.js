@@ -308,5 +308,78 @@ const AuthStore = {
     localStorage.setItem(this.TEMP_PW_KEY, JSON.stringify(tempStore));
 
     return { success: true, message: '비밀번호가 성공적으로 재설정되었습니다! 새 비밀번호로 로그인해 주세요.' };
+  },
+
+  /**
+   * Update Profile & Password
+   */
+  updateProfile(data) {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser) {
+      return { success: false, message: '로그인이 필요한 서비스입니다.' };
+    }
+
+    const users = this.getUsers();
+    const userIndex = users.findIndex(u => u.id === currentUser.id || u.email.toLowerCase() === currentUser.email.toLowerCase());
+    if (userIndex === -1) {
+      return { success: false, message: '회원 정보를 찾을 수 없습니다.' };
+    }
+
+    const targetUser = users[userIndex];
+
+    const name = (data.name || '').trim();
+    const phone = (data.phone || '').trim();
+    const address = (data.address || '').trim();
+    const addressDetail = (data.addressDetail || '').trim();
+
+    if (!name) return { success: false, message: '성명을 입력해 주세요.' };
+    if (!phone) return { success: false, message: '휴대폰 번호를 입력해 주세요.' };
+    if (!address) return { success: false, message: '주소를 입력해 주세요.' };
+
+    // If changing password
+    if (data.newPassword) {
+      if (!data.currentPassword) {
+        return { success: false, message: '비밀번호를 변경하려면 현재 비밀번호를 입력해 주세요.' };
+      }
+      if (targetUser.password !== data.currentPassword) {
+        return { success: false, message: '현재 비밀번호가 일치하지 않습니다.' };
+      }
+      const pwVal = this.validatePassword(data.newPassword);
+      if (!pwVal.valid) {
+        return { success: false, message: pwVal.message };
+      }
+      if (data.newPassword !== data.confirmNewPassword) {
+        return { success: false, message: '새 비밀번호 확인이 일치하지 않습니다.' };
+      }
+      targetUser.password = data.newPassword;
+    }
+
+    // Update fields
+    targetUser.name = name;
+    targetUser.phone = phone;
+    targetUser.address = address;
+    targetUser.addressDetail = addressDetail;
+    if (data.points !== undefined) targetUser.points = data.points;
+
+    users[userIndex] = targetUser;
+    this.saveUsers(users);
+
+    // Update Session
+    const updatedSession = {
+      ...currentUser,
+      name: targetUser.name,
+      phone: targetUser.phone,
+      address: targetUser.address,
+      addressDetail: targetUser.addressDetail,
+      points: targetUser.points || 0
+    };
+    localStorage.setItem(this.SESSION_KEY, JSON.stringify(updatedSession));
+    this.notify();
+
+    return {
+      success: true,
+      user: updatedSession,
+      message: '회원 정보가 성공적으로 수정되었습니다.'
+    };
   }
 };
