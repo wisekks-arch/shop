@@ -13427,7 +13427,109 @@ const ShopAPI = {
 
       // 4. Inquiries
       if (endpoint.startsWith('/api/inquiries')) {
-        return DEFAULT_INQUIRIES;
+        const method = (options.method || 'GET').toUpperCase();
+        let inquiryList = [];
+        try {
+          const stored = localStorage.getItem('easyshop_inquiries');
+          inquiryList = stored ? JSON.parse(stored) : null;
+        } catch(e) { inquiryList = null; }
+
+        if (!inquiryList || !Array.isArray(inquiryList)) {
+          inquiryList = [
+            {
+              id: 'inq-101',
+              productId: 'prod-01',
+              productName: '이지스마트 노이즈캔슬링 무선 헤드폰 Pro',
+              author: '이지샵체험회원',
+              authorEmail: 'demo@easyshop.kr',
+              title: '배송 출고 일정 문의드립니다.',
+              content: '오늘 결제하면 당일 바로 출고되어 내일 수령 가능한가요?',
+              isSecret: false,
+              status: '답변완료',
+              answer: '안녕하세요 고객님! 오후 2시 이전 주문 건은 당일 출고되어 대부분 익일 수령 가능하십니다. 감사합니다.',
+              createdAt: '2026-10-06 14:20',
+              answeredAt: '2026-10-06 15:10'
+            },
+            {
+              id: 'inq-102',
+              productId: 'prod-02',
+              productName: '프리미엄 세라믹 무선 고속충전 패드 15W',
+              author: '이지트래블러',
+              authorEmail: 'traveler@easyshop.kr',
+              title: '아이폰 16 시리즈 호환 여부 문의',
+              content: '아이폰 16 Pro 맥세이프 케이스 착용한 채로 고속 무선충전 잘 되나요?',
+              isSecret: false,
+              status: '답변완료',
+              answer: '네 고객님, 맥세이프 호환 케이스(두께 3mm 이하) 착용 상태에서 15W 고속 충전이 정상 지원됩니다.',
+              createdAt: '2026-10-06 16:45',
+              answeredAt: '2026-10-06 17:30'
+            },
+            {
+              id: 'inq-103',
+              productId: 'prod-03',
+              productName: '인체공학 버티컬 무소음 무선 블루투스 마우스',
+              author: '박민준',
+              authorEmail: 'minjun.park@kakao.com',
+              title: '맥북(macOS) 블루투스 연결 호환 문의',
+              content: '맥북 M3 모델에서 블루투스로 직접 페어링하여 앞/뒤로가기 버튼 사용 가능한가요?',
+              isSecret: false,
+              status: '답변대기',
+              answer: '',
+              createdAt: '2026-10-07 11:15',
+              answeredAt: ''
+            }
+          ];
+          localStorage.setItem('easyshop_inquiries', JSON.stringify(inquiryList));
+        }
+
+        const urlObj = new URL('http://localhost' + endpoint);
+        const inqId = urlObj.searchParams.get('id');
+
+        if (method === 'GET') {
+          return inquiryList;
+        }
+
+        if (method === 'POST') {
+          const bodyData = JSON.parse(options.body || '{}');
+          const newInquiry = {
+            id: 'inq-' + Date.now(),
+            productId: bodyData.productId || '',
+            productName: bodyData.productName || '일반 문의',
+            author: bodyData.author || '고객',
+            authorEmail: bodyData.authorEmail || '',
+            title: bodyData.title || '상품 문의',
+            content: bodyData.content || '',
+            isSecret: !!bodyData.isSecret,
+            status: '답변대기',
+            answer: '',
+            createdAt: new Date().toISOString().replace('T', ' ').substring(0, 16),
+            answeredAt: ''
+          };
+          inquiryList.unshift(newInquiry);
+          localStorage.setItem('easyshop_inquiries', JSON.stringify(inquiryList));
+          return { success: true, inquiry: newInquiry };
+        }
+
+        if (method === 'PUT') {
+          const bodyData = JSON.parse(options.body || '{}');
+          const target = inquiryList.find(i => i.id === inqId);
+          if (target) {
+            if (bodyData.answer !== undefined) target.answer = bodyData.answer;
+            if (bodyData.status !== undefined) target.status = bodyData.status;
+            target.answeredAt = new Date().toISOString().replace('T', ' ').substring(0, 16);
+            localStorage.setItem('easyshop_inquiries', JSON.stringify(inquiryList));
+            return { success: true, inquiry: target };
+          }
+          return { success: false, message: 'Inquiry not found' };
+        }
+
+        if (method === 'DELETE') {
+          inquiryList = inquiryList.filter(i => i.id !== inqId);
+          localStorage.setItem('easyshop_inquiries', JSON.stringify(inquiryList));
+          return { success: true };
+        }
+
+        return inquiryList;
       }
     } catch (e) {
       console.error('Fallback error:', e);

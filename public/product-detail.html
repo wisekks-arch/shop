@@ -497,6 +497,84 @@
     </div>
   </div>
 
+  <!-- Auth Guide Modal (바로구매 로그인 / 회원가입 유도 팝업) -->
+  <div id="auth-guide-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all animate-in fade-in zoom-in duration-200">
+      
+      <!-- Top Header / Banner -->
+      <div class="relative bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 p-6 text-white text-center">
+        <button onclick="closeAuthGuideModal()" class="absolute top-4 right-4 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-1.5 rounded-full transition cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner">
+          <i data-lucide="user-check" class="w-6 h-6 text-white"></i>
+        </div>
+        <h3 class="text-xl font-black tracking-tight">로그인이 필요한 서비스입니다</h3>
+        <p class="text-indigo-100 text-xs mt-1">간편 회원가입하고 풍성한 첫 구매 혜택을 받아보세요!</p>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4">
+
+        <!-- Selected Product Summary Box -->
+        <div class="flex items-center gap-3 p-3 bg-slate-50 border border-slate-100 rounded-2xl">
+          <img id="auth-modal-product-thumb" src="" alt="상품 썸네일" class="w-14 h-14 object-cover rounded-xl bg-slate-200 shrink-0 border border-slate-200" />
+          <div class="min-w-0 flex-1">
+            <h4 id="auth-modal-product-name" class="font-bold text-xs text-slate-900 truncate">상품명</h4>
+            <p id="auth-modal-product-opt" class="text-[11px] text-slate-500 mt-0.5">옵션: 기본 / 1개</p>
+            <p id="auth-modal-product-price" class="text-xs font-black text-indigo-600 mt-1">0원</p>
+          </div>
+        </div>
+
+        <!-- Membership Benefit Box -->
+        <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-4 space-y-2">
+          <div class="flex items-center gap-1.5 text-xs font-bold text-amber-800">
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i>
+            <span>이지샵 회원만의 특별한 혜택</span>
+          </div>
+          <ul class="text-[11px] text-amber-900/80 space-y-1.5 pl-1 font-medium">
+            <li class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+              <span>신규 회원가입 즉시 <strong>3,000P 웰컴 적립금</strong> 지급</span>
+            </li>
+            <li class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+              <span>첫 주문 <strong>10% 할인 웰컴 쿠폰</strong> 즉시 사용</span>
+            </li>
+            <li class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+              <span>실시간 배송 조회 및 주문 내역 간편 관리</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="space-y-2.5 pt-1">
+          <!-- 1. 기존 회원 로그인 -->
+          <button onclick="goToLoginForCheckout()" class="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 cursor-pointer">
+            <i data-lucide="log-in" class="w-4 h-4"></i>
+            <span>기존 회원 로그인하기</span>
+          </button>
+
+          <!-- 2. 신규 간편 회원가입 -->
+          <button onclick="goToSignupForCheckout()" class="w-full py-3.5 px-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
+            <i data-lucide="user-plus" class="w-4 h-4"></i>
+            <span>간편 회원가입 (3,000P 받기)</span>
+          </button>
+
+          <!-- 3. 비회원 주문 계속 진행 -->
+          <div class="text-center pt-1">
+            <button onclick="continueGuestCheckout()" class="text-xs text-slate-400 hover:text-slate-700 font-semibold underline transition cursor-pointer">
+              비회원으로 바로 주문하기
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
   <!-- Global Footer -->
   <div id="footer-root"></div>
 
@@ -685,7 +763,58 @@
       if (!currentProduct) return;
       const opt = document.getElementById('option-select').value;
       const qty = parseInt(document.getElementById('buy-qty').value) || 1;
+
+      // 1. 선택한 상품과 옵션을 장바구니에 보존 (로그인/회원가입 후 checkout으로 이어질 때 결제 상품 유지)
       CartStore.addItem(currentProduct, opt, qty);
+
+      // 2. 로그인 여부 확인
+      const isLoggedIn = typeof AuthStore !== 'undefined' && AuthStore.isLoggedIn();
+      if (isLoggedIn) {
+        // 이미 로그인된 회원은 바로 결제 페이지로 이동
+        window.location.href = 'checkout.html';
+      } else {
+        // 미로그인 / 미가입 고객은 로그인 & 회원가입 유도 모달 팝업 표시
+        openAuthGuideModal(opt, qty);
+      }
+    }
+
+    function openAuthGuideModal(opt, qty) {
+      if (!currentProduct) return;
+      const modal = document.getElementById('auth-guide-modal');
+      if (!modal) {
+        window.location.href = 'checkout.html';
+        return;
+      }
+
+      // 모달 내 선택 상품 정보 반영
+      const thumb = document.getElementById('auth-modal-product-thumb');
+      const name = document.getElementById('auth-modal-product-name');
+      const optEl = document.getElementById('auth-modal-product-opt');
+      const priceEl = document.getElementById('auth-modal-product-price');
+
+      if (thumb) thumb.src = currentProduct.thumbnail;
+      if (name) name.innerText = currentProduct.name;
+      if (optEl) optEl.innerText = `선택 옵션: ${opt} / ${qty}개`;
+      if (priceEl) priceEl.innerText = ShopUI.formatPrice(currentProduct.price * qty);
+
+      modal.classList.remove('hidden');
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function closeAuthGuideModal() {
+      const modal = document.getElementById('auth-guide-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function goToLoginForCheckout() {
+      window.location.href = 'login.html?redirect=checkout.html';
+    }
+
+    function goToSignupForCheckout() {
+      window.location.href = 'signup.html?redirect=checkout.html';
+    }
+
+    function continueGuestCheckout() {
       window.location.href = 'checkout.html';
     }
 
@@ -1066,7 +1195,7 @@
       if (countEl) countEl.innerText = `${len} / 500자`;
     }
 
-    function submitQnaAction() {
+    async function submitQnaAction() {
       const catSelect = document.getElementById('qna-input-category');
       const category = catSelect ? catSelect.value : '상품 상세 / 사이즈';
 
@@ -1098,6 +1227,34 @@
       const secretCheck = document.getElementById('qna-input-is-secret');
       const isSecret = secretCheck ? secretCheck.checked : false;
 
+      // 1. 현재 로그인 사용자 이메일 추출
+      let authorEmail = '';
+      if (typeof AuthStore !== 'undefined') {
+        const u = AuthStore.getCurrentUser();
+        if (u && u.email) authorEmail = u.email;
+      }
+
+      // 2. 어드민 문의 저장소(API) 연동
+      const inquiryPayload = {
+        productId: currentProduct ? currentProduct.id : '',
+        productName: currentProduct ? currentProduct.name : '상품 문의',
+        category: category,
+        author: author,
+        authorEmail: authorEmail,
+        title: title,
+        content: content,
+        isSecret: isSecret
+      };
+
+      try {
+        if (typeof ShopAPI !== 'undefined' && ShopAPI.createInquiry) {
+          await ShopAPI.createInquiry(inquiryPayload);
+        }
+      } catch (err) {
+        console.error('Failed to dispatch inquiry to admin:', err);
+      }
+
+      // 3. 상품 상세 로컬 Q&A 목록 반영
       currentProduct.qnas = currentProduct.qnas || [];
       currentProduct.qnas.unshift({
         id: 'qna-' + Date.now(),
@@ -1112,7 +1269,7 @@
 
       renderQnas(currentProduct.qnas);
       closeQnaModal();
-      ShopUI.showToast('상품 Q&A 문의가 성공적으로 등록되었습니다! 💬');
+      ShopUI.showToast('상품 Q&A 문의가 성공적으로 등록되었습니다! (관리자 전달 완료) 💬');
     }
   </script>
 </body>
