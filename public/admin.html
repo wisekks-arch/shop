@@ -2630,8 +2630,336 @@
       openOrderDetailModal(selectedModalOrderId);
     }
 
+    // Standalone Hidden iframe Print - Chromium fixed-layer bug completely eliminated
     function printOrderInvoice() {
-      window.print();
+      let o = null;
+      if (selectedModalOrderId) {
+        o = adminOrders.find(item => item.orderId === selectedModalOrderId);
+      }
+      if (!o && adminOrders.length > 0) {
+        o = adminOrders[0];
+      }
+      if (!o) {
+        ShopUI.showToast('출력할 주문 정보를 찾을 수 없습니다.');
+        return;
+      }
+
+      // 1. 기존 잔여 인쇄 iframe 제거
+      const oldFrame = document.getElementById('print-invoice-frame');
+      if (oldFrame) oldFrame.remove();
+
+      // 2. 인쇄 전용 숨김 iframe 생성
+      const iframe = document.createElement('iframe');
+      iframe.id = 'print-invoice-frame';
+      iframe.style.position = 'fixed';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = '0';
+      iframe.style.opacity = '0';
+      iframe.style.pointerEvents = 'none';
+      document.body.appendChild(iframe);
+
+      // 데이터 가공
+      const items = Array.isArray(o.items) && o.items.length > 0 ? o.items : [
+        { name: '주문 상품', price: o.totalAmount || 0, quantity: 1, option: '기본' }
+      ];
+      const prodSum = items.reduce((sum, it) => sum + ((it.price || 0) * (it.quantity || 1)), 0);
+      const shipFee = o.shippingFee || 0;
+      const cDiscount = o.couponDiscount || 0;
+      const ptsUsed = o.usedPoints || 0;
+      const finalAmount = o.totalAmount || (prodSum + shipFee - (cDiscount + ptsUsed));
+      const orderDateStr = o.orderDate ? o.orderDate.replace('T', ' ').slice(0, 19) : '-';
+
+      const itemsHtml = items.map((it, idx) => `
+        <tr>
+          <td style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0; text-align: center;">${idx + 1}</td>
+          <td style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #0f172a;">
+            ${it.name}
+            ${it.option ? `<div style="font-size: 10px; color: #64748b; font-weight: normal; margin-top: 2px;">옵션: ${it.option}</div>` : ''}
+          </td>
+          <td style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0; text-align: right; font-family: monospace;">${(it.price || 0).toLocaleString()}원</td>
+          <td style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0; text-align: center; font-family: monospace;">${it.quantity || 1}</td>
+          <td style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: bold; color: #4338ca; font-family: monospace;">${((it.price || 0) * (it.quantity || 1)).toLocaleString()}원</td>
+        </tr>
+      `).join('');
+
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html lang="ko">
+        <head>
+          <meta charset="UTF-8">
+          <title>주문상세명세서_${o.orderId}</title>
+          <style>
+            @page {
+              size: A4 portrait;
+              margin: 12mm 15mm 12mm 15mm;
+            }
+            * {
+              box-sizing: border-box;
+              margin: 0;
+              padding: 0;
+              font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Pretendard", sans-serif;
+            }
+            body {
+              color: #1e293b;
+              font-size: 11px;
+              line-height: 1.45;
+              background: #ffffff;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            .invoice-wrap {
+              width: 100%;
+              max-width: 100%;
+              margin: 0 auto;
+            }
+            .header-bar {
+              display: flex;
+              justify-content: space-between;
+              align-items: flex-end;
+              border-bottom: 2px solid #1e293b;
+              padding-bottom: 10px;
+              margin-bottom: 14px;
+            }
+            .brand-title {
+              font-size: 22px;
+              font-weight: 900;
+              color: #0f172a;
+              letter-spacing: -0.5px;
+            }
+            .brand-sub {
+              font-size: 10px;
+              color: #64748b;
+              font-weight: 600;
+              margin-top: 2px;
+            }
+            .order-meta {
+              text-align: right;
+            }
+            .meta-id {
+              font-size: 12px;
+              font-weight: 800;
+              color: #4338ca;
+              font-family: monospace;
+            }
+            .meta-date {
+              font-size: 10px;
+              color: #64748b;
+              margin-top: 2px;
+            }
+            .badge-status {
+              display: inline-block;
+              padding: 2px 8px;
+              border-radius: 4px;
+              font-size: 10px;
+              font-weight: bold;
+              background: #eef2ff;
+              color: #4338ca;
+              border: 1px solid #c7d2fe;
+              margin-top: 4px;
+            }
+            .grid-2col {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 12px;
+              margin-bottom: 14px;
+            }
+            .info-panel {
+              border: 1px solid #cbd5e1;
+              border-radius: 6px;
+              padding: 10px 12px;
+              background: #f8fafc;
+            }
+            .panel-title {
+              font-size: 11px;
+              font-weight: 800;
+              color: #0f172a;
+              border-bottom: 1px dashed #cbd5e1;
+              padding-bottom: 5px;
+              margin-bottom: 6px;
+            }
+            .info-row {
+              display: flex;
+              font-size: 10.5px;
+              margin-bottom: 3px;
+            }
+            .info-label {
+              width: 65px;
+              color: #64748b;
+              font-weight: 600;
+              flex-shrink: 0;
+            }
+            .info-val {
+              color: #1e293b;
+              font-weight: 500;
+              word-break: break-all;
+            }
+            .table-wrap {
+              border: 1px solid #cbd5e1;
+              border-radius: 6px;
+              overflow: hidden;
+              margin-bottom: 14px;
+            }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              font-size: 10.5px;
+            }
+            thead th {
+              background: #f1f5f9;
+              color: #475569;
+              font-weight: 700;
+              padding: 7px 8px;
+              border-bottom: 1px solid #cbd5e1;
+              font-size: 10px;
+            }
+            .calc-summary {
+              border: 1px solid #cbd5e1;
+              border-radius: 6px;
+              padding: 10px 14px;
+              background: #f8fafc;
+              margin-bottom: 14px;
+            }
+            .calc-row {
+              display: flex;
+              justify-content: space-between;
+              font-size: 11px;
+              margin-bottom: 4px;
+              color: #475569;
+            }
+            .calc-row.final {
+              font-size: 14px;
+              font-weight: 900;
+              color: #0f172a;
+              border-top: 1px solid #cbd5e1;
+              padding-top: 8px;
+              margin-top: 6px;
+            }
+            .final-price {
+              color: #4338ca;
+              font-size: 16px;
+              font-weight: 900;
+              font-family: monospace;
+            }
+            .delivery-bar {
+              border: 1px solid #cbd5e1;
+              border-radius: 6px;
+              padding: 8px 12px;
+              background: #ffffff;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 10.5px;
+              margin-bottom: 14px;
+            }
+            .footer-note {
+              border-top: 1px dashed #cbd5e1;
+              padding-top: 10px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 9.5px;
+              color: #64748b;
+            }
+            .seal-box {
+              display: inline-block;
+              border: 1px solid #ef4444;
+              color: #ef4444;
+              padding: 2px 6px;
+              border-radius: 4px;
+              font-weight: bold;
+              font-size: 10px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="invoice-wrap">
+            <div class="header-bar">
+              <div>
+                <div class="brand-title">주문 상세 명세서</div>
+                <div class="brand-sub">EASYSHOP ORDER INVOICE (공식 발급용)</div>
+              </div>
+              <div class="order-meta">
+                <div class="meta-id">주문번호: ${o.orderId}</div>
+                <div class="meta-date">접수일시: ${orderDateStr}</div>
+                <div><span class="badge-status">${o.status || '결제완료'}</span></div>
+              </div>
+            </div>
+
+            <div class="grid-2col">
+              <div class="info-panel">
+                <div class="panel-title">1. 주문자 정보 (Customer)</div>
+                <div class="info-row"><span class="info-label">성 명:</span><span class="info-val"><strong>${o.customerName || '-'}</strong></span></div>
+                <div class="info-row"><span class="info-label">연 락 처:</span><span class="info-val">${o.customerPhone || '-'}</span></div>
+                <div class="info-row"><span class="info-label">이 메 일:</span><span class="info-val">${o.customerEmail || '-'}</span></div>
+                <div class="info-row"><span class="info-label">결제수단:</span><span class="info-val">${o.paymentMethod || '신용/체크카드'}</span></div>
+              </div>
+
+              <div class="info-panel">
+                <div class="panel-title">2. 배송지 정보 (Shipping)</div>
+                <div class="info-row"><span class="info-label">수 령 인:</span><span class="info-val"><strong>${o.shippingName || o.customerName || '-'}</strong></span></div>
+                <div class="info-row"><span class="info-label">연 락 처:</span><span class="info-val">${o.shippingPhone || o.customerPhone || '-'}</span></div>
+                <div class="info-row"><span class="info-label">배송주소:</span><span class="info-val">${o.shippingAddress || '-'}</span></div>
+                <div class="info-row"><span class="info-label">배송메모:</span><span class="info-val">${o.shippingNote || '요청사항 없음'}</span></div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 40px; text-align: center;">No.</th>
+                    <th style="text-align: left;">주문 상품 내역</th>
+                    <th style="width: 80px; text-align: right;">단가</th>
+                    <th style="width: 50px; text-align: center;">수량</th>
+                    <th style="width: 95px; text-align: right;">상품 합계</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${itemsHtml}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="calc-summary">
+              <div class="calc-row"><span>상품 주문 총액</span><span style="font-family: monospace;">${prodSum.toLocaleString()}원</span></div>
+              <div class="calc-row"><span>배송비</span><span style="font-family: monospace;">${shipFee === 0 ? '0원 (무료배송)' : `${shipFee.toLocaleString()}원`}</span></div>
+              ${cDiscount > 0 ? `<div class="calc-row" style="color: #e11d48;"><span>쿠폰 할인 ${o.couponName ? `(${o.couponName})` : ''}</span><span style="font-family: monospace;">-${cDiscount.toLocaleString()}원</span></div>` : ''}
+              ${ptsUsed > 0 ? `<div class="calc-row" style="color: #d97706;"><span>포인트 사용</span><span style="font-family: monospace;">-${ptsUsed.toLocaleString()}P</span></div>` : ''}
+              <div class="calc-row final">
+                <span>최종 결제 금액</span>
+                <span class="final-price">${finalAmount.toLocaleString()}원</span>
+              </div>
+            </div>
+
+            <div class="delivery-bar">
+              <div><strong>배송 현황:</strong> ${o.status || '결제완료'} &nbsp;|&nbsp; <strong>택배사:</strong> ${o.courier || 'CJ대한통운'}</div>
+              <div><strong>운송장 번호:</strong> <span style="font-family: monospace; font-weight: bold; color: #4338ca;">${o.trackingNumber || '미등록'}</span></div>
+            </div>
+
+            <div class="footer-note">
+              <div>
+                본 명세서는 전자상거래 소비자보호법에 의거하여 발행된 주문 명세서입니다.<br/>
+                발급처: EASYSHOP (이지샵) &nbsp;|&nbsp; 고객센터: 1544-0000 &nbsp;|&nbsp; 발급일시: ${new Date().toLocaleString('ko-KR')}
+              </div>
+              <div class="seal-box">[이지샵 직인생략]</div>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      const doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write(htmlContent);
+      doc.close();
+
+      setTimeout(() => {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      }, 300);
     }
 
     // Excel Export (UTF-8 BOM CSV compatible with Microsoft Excel & Hancom)
