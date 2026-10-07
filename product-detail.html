@@ -389,6 +389,114 @@
     </div>
   </div>
 
+  <!-- Q&A Write Modal (구매후기와 동일한 대화형 모달창) -->
+  <div id="qna-write-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-5 bg-gradient-to-r from-teal-50 to-indigo-50 border-b border-teal-100/60 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold">
+            <i data-lucide="help-circle" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-slate-900">상품 Q&A 문의 작성</h3>
+            <p class="text-[11px] text-slate-500">상품에 대해 궁금한 점을 질문해 주시면 빠르게 답변해 드립니다.</p>
+          </div>
+        </div>
+        <button onclick="closeQnaModal()" class="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-xl transition cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body Form -->
+      <div class="p-6 space-y-4">
+        
+        <!-- Product Thumbnail & Name Preview -->
+        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-200/80">
+          <img id="qna-modal-product-thumb" src="" alt="상품" class="w-12 h-12 object-cover rounded-xl shrink-0" />
+          <div class="overflow-hidden">
+            <span id="qna-modal-product-cat" class="text-[10px] font-bold text-teal-600 block truncate">카테고리</span>
+            <h4 id="qna-modal-product-name" class="text-xs font-bold text-slate-900 truncate">상품명</h4>
+          </div>
+        </div>
+
+        <!-- Inquiry Type & Author Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="space-y-1.5">
+            <label for="qna-input-category" class="text-xs font-bold text-slate-700">문의 유형 *</label>
+            <select id="qna-input-category" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-teal-600 bg-white">
+              <option value="상품 상세 / 사이즈">상품 상세 / 사이즈</option>
+              <option value="배송 / 출고 일정">배송 / 출고 일정</option>
+              <option value="재입고 / 옵션 문의">재입고 / 옵션 문의</option>
+              <option value="교환 / 반품 / AS">교환 / 반품 / AS</option>
+              <option value="기타 문의">기타 문의</option>
+            </select>
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="qna-input-author" class="text-xs font-bold text-slate-700">작성자 닉네임</label>
+            <input 
+              type="text" 
+              id="qna-input-author" 
+              placeholder="예: 홍길동 (미입력 시 고객으로 표시)" 
+              class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-teal-600"
+            />
+          </div>
+        </div>
+
+        <!-- Inquiry Title -->
+        <div class="space-y-1.5">
+          <label for="qna-input-title" class="text-xs font-bold text-slate-700">문의 제목 <span class="text-rose-500">*</span></label>
+          <input 
+            type="text" 
+            id="qna-input-title" 
+            maxlength="100"
+            placeholder="문의하실 제목을 간략히 입력해 주세요." 
+            class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-teal-600"
+          />
+        </div>
+
+        <!-- Inquiry Content Textarea -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-xs">
+            <label for="qna-input-content" class="font-bold text-slate-700">문의 상세 내용 <span class="text-rose-500">*</span></label>
+            <span id="qna-char-count" class="text-slate-400 font-semibold">0 / 500자</span>
+          </div>
+          <textarea 
+            id="qna-input-content" 
+            rows="4" 
+            maxlength="500" 
+            oninput="handleQnaInput(this)"
+            placeholder="문의하실 내용을 상세히 적어주시면 정확하고 빠른 답변에 도움이 됩니다. (개인정보 기재 지양)" 
+            class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-teal-600 resize-none leading-relaxed placeholder-slate-400"
+          ></textarea>
+        </div>
+
+        <!-- Secret Option Checkbox -->
+        <div class="pt-1">
+          <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-600 hover:text-slate-900 select-none">
+            <input type="checkbox" id="qna-input-is-secret" class="w-4 h-4 rounded text-teal-600 focus:ring-teal-500 border-slate-300 cursor-pointer" />
+            <span class="font-bold flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> 비밀글로 문의하기 (작성자와 관리자만 확인 가능)</span>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-2">
+        <button onclick="closeQnaModal()" class="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 rounded-xl text-xs font-bold transition cursor-pointer">
+          취소
+        </button>
+        <button onclick="submitQnaAction()" class="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold shadow-xs transition cursor-pointer flex items-center gap-1.5">
+          <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          <span>문의 등록 완료</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Global Footer -->
   <div id="footer-root"></div>
 
@@ -861,40 +969,150 @@
     function renderQnas(qnas) {
       const container = document.getElementById('qna-list');
       if (!container) return;
-      if (qnas.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-400 py-6 text-center">등록된 상품 문의가 없습니다.</p>`;
+      if (!qnas || qnas.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-400 py-10 text-center">등록된 상품 Q&A 문의가 없습니다. 상품에 대해 궁금한 점을 질문해 보세요.</p>`;
         return;
       }
-      container.innerHTML = qnas.map(q => `
-        <div class="pt-4 first:pt-0 space-y-2 text-xs">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-slate-800">Q. ${q.question}</span>
-            <span class="text-slate-400">${q.date} (${q.author})</span>
-          </div>
-          ${q.answer ? `
-            <div class="p-3 bg-indigo-50/60 rounded-xl text-indigo-950 mt-2">
-              <p class="font-bold">A. 관리자 답변:</p>
-              <p class="mt-1 text-slate-700">${q.answer}</p>
+
+      container.innerHTML = qnas.map(q => {
+        const categoryBadge = q.category 
+          ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200">${q.category}</span>`
+          : '';
+        const secretBadge = q.isSecret 
+          ? `<span class="inline-flex items-center gap-1 text-[11px] font-bold text-slate-500"><i data-lucide="lock" class="w-3 h-3 text-slate-400"></i> 비밀글</span>`
+          : '';
+        const titleText = q.title || q.question || '상품 문의';
+        const isAnswered = !!q.answer;
+
+        return `
+          <div class="py-4 first:pt-0 space-y-2.5 text-xs">
+            <div class="flex items-center justify-between gap-2 flex-wrap">
+              <div class="flex items-center gap-2 flex-wrap">
+                ${categoryBadge}
+                ${isAnswered 
+                  ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-teal-50 text-teal-700 border border-teal-200">답변완료</span>`
+                  : `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">답변대기</span>`
+                }
+                ${secretBadge}
+                <span class="font-bold text-slate-900 text-sm">Q. ${titleText}</span>
+              </div>
+              <span class="text-slate-400 text-[11px] font-mono">${q.date || ''} · <strong class="text-slate-600 font-semibold">${q.author || '고객'}</strong></span>
             </div>
-          ` : '<span class="text-amber-600 font-semibold">[답변대기중]</span>'}
-        </div>
-      `).join('');
+
+            <p class="text-slate-600 leading-relaxed pl-1 whitespace-pre-line">${q.question || ''}</p>
+
+            ${q.answer ? `
+              <div class="p-3.5 bg-slate-50 border border-slate-200/80 rounded-2xl text-xs space-y-1 mt-2">
+                <div class="flex items-center gap-1.5 font-bold text-teal-700">
+                  <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
+                  <span>A. 이지샵 고객센터 관리자 답변</span>
+                </div>
+                <p class="text-slate-700 leading-relaxed pl-5 whitespace-pre-line">${q.answer}</p>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      if (window.lucide) window.lucide.createIcons();
     }
 
     function openQnaModal() {
-      const question = prompt('상품 문의 내용을 입력해 주세요:');
-      if (question) {
-        currentProduct.qnas = currentProduct.qnas || [];
-        currentProduct.qnas.unshift({
-          id: 'qna-' + Date.now(),
-          author: '고객',
-          date: new Date().toISOString().slice(0, 10),
-          question: question,
-          answer: ''
-        });
-        renderQnas(currentProduct.qnas);
-        ShopUI.showToast('문의가 접수되었습니다. 담당자가 곧 답변드립니다.');
+      if (!currentProduct) return;
+
+      // 1. 상품 미리보기 데이터 세팅
+      const thumb = document.getElementById('qna-modal-product-thumb');
+      const cat = document.getElementById('qna-modal-product-cat');
+      const name = document.getElementById('qna-modal-product-name');
+      if (thumb) thumb.src = currentProduct.thumbnail;
+      if (cat) cat.innerText = currentProduct.category || '상품';
+      if (name) name.innerText = currentProduct.name;
+
+      // 2. 로그인 사용자 이름 자동 세팅
+      let defaultAuthor = '';
+      if (typeof AuthStore !== 'undefined') {
+        const u = AuthStore.getCurrentUser();
+        if (u && u.name) defaultAuthor = u.name;
       }
+      const authorInput = document.getElementById('qna-input-author');
+      if (authorInput) authorInput.value = defaultAuthor;
+
+      // 3. 입력폼 초기화
+      const titleInput = document.getElementById('qna-input-title');
+      const contentInput = document.getElementById('qna-input-content');
+      const secretCheck = document.getElementById('qna-input-is-secret');
+      const countEl = document.getElementById('qna-char-count');
+      if (titleInput) titleInput.value = '';
+      if (contentInput) contentInput.value = '';
+      if (secretCheck) secretCheck.checked = false;
+      if (countEl) countEl.innerText = '0 / 500자';
+
+      // 4. 모달 표시
+      const modal = document.getElementById('qna-write-modal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        if (window.lucide) window.lucide.createIcons();
+      }
+    }
+
+    function closeQnaModal() {
+      const modal = document.getElementById('qna-write-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handleQnaInput(el) {
+      const len = el.value.length;
+      const countEl = document.getElementById('qna-char-count');
+      if (countEl) countEl.innerText = `${len} / 500자`;
+    }
+
+    function submitQnaAction() {
+      const catSelect = document.getElementById('qna-input-category');
+      const category = catSelect ? catSelect.value : '상품 상세 / 사이즈';
+
+      const authorInput = document.getElementById('qna-input-author');
+      let author = authorInput ? authorInput.value.trim() : '';
+      if (!author) author = '고객';
+
+      const titleInput = document.getElementById('qna-input-title');
+      const title = titleInput ? titleInput.value.trim() : '';
+      if (!title) {
+        alert('문의 제목을 입력해 주세요.');
+        if (titleInput) titleInput.focus();
+        return;
+      }
+
+      const contentInput = document.getElementById('qna-input-content');
+      const content = contentInput ? contentInput.value.trim() : '';
+      if (!content) {
+        alert('문의 상세 내용을 입력해 주세요.');
+        if (contentInput) contentInput.focus();
+        return;
+      }
+      if (content.length < 5) {
+        alert('문의 내용을 5자 이상 상세히 작성해 주세요.');
+        if (contentInput) contentInput.focus();
+        return;
+      }
+
+      const secretCheck = document.getElementById('qna-input-is-secret');
+      const isSecret = secretCheck ? secretCheck.checked : false;
+
+      currentProduct.qnas = currentProduct.qnas || [];
+      currentProduct.qnas.unshift({
+        id: 'qna-' + Date.now(),
+        category: category,
+        author: author,
+        title: title,
+        question: content,
+        date: new Date().toISOString().slice(0, 10),
+        isSecret: isSecret,
+        answer: ''
+      });
+
+      renderQnas(currentProduct.qnas);
+      closeQnaModal();
+      ShopUI.showToast('상품 Q&A 문의가 성공적으로 등록되었습니다! 💬');
     }
   </script>
 </body>
