@@ -1,4 +1,4 @@
-/**
+﻿/**
  * EasyShop REST API Client Module (v7 Pure UTF-8 with Built-in 60 Products & 1200 Reviews)
  */
 const DEFAULT_CATEGORIES = [
@@ -41,6 +41,14 @@ const DEFAULT_CATEGORIES = [
     "badge": "SALE",
     "description": "장인의 정성이 담긴 프리미엄 디저트와 다이닝",
     "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "cat-brand",
+    "name": "브랜드 / 백화점",
+    "icon": "crown",
+    "badge": "LUXURY",
+    "description": "글로벌 명품 하우스와 백화점 프리미엄 부티크 컬렉션",
+    "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80"
   }
 ];
 
@@ -12666,6 +12674,660 @@ const DEFAULT_PRODUCTS = [
         "question": "오늘 주문하면 언제 출고되나요?",
         "answer": "고객님 안녕하세요! 오후 2시 이전 결제 완료 시 당일 안전하게 로켓 출고됩니다."
       }
+    ]
+  },
+{
+    "id": "prod-61",
+    "name": "[CHANEL] 샤넬 클래식 플랩백 미디엄 캐비어 블랙 샴페인골드",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 14800000,
+    "originalPrice": 15500000,
+    "discountRate": 5,
+    "rating": 5.0,
+    "reviewCount": 28,
+    "stock": 3,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "샤넬의 타임리스 아이콘, 견고한 그레인드 카프스킨(캐비어)과 은은한 샴페인 골드 하드웨어",
+    "description": "<h3>샤넬의 영원한 클래식, 플랩백 미디엄 캐비어 샴페인골드</h3>\n<p>프랑스 럭셔리 하우스 샤넬을 대표하는 궁극의 타임리스 아이콘입니다. 내구성이 뛰어난 견고한 그레인드 카프스킨(캐비어) 레더와 정교하게 폴리싱된 샴페인 골드 턴락 메탈이 완벽한 기품을 선사합니다.</p>\n\n<div class=\"product-detail-image-gallery mt-8 space-y-8\">\n  <div class=\"rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white\">\n    <img src=\"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80\" alt=\"샤넬 클래식 플랩백 상세 01\" class=\"w-full h-auto object-cover max-h-[560px]\" loading=\"lazy\" />\n    <div class=\"p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs\">\n      <span class=\"font-bold text-slate-800\">📸 DETAIL VIEW #01 - 시그니처 다이아몬드 퀼팅 & 캐비어 텍스처</span>\n      <span class=\"text-slate-500 font-medium\">스크래치에 강한 최고급 그레인드 카프스킨의 독보적인 볼륨감</span>\n    </div>\n  </div>\n  <div class=\"rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white\">\n    <img src=\"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80\" alt=\"샤넬 클래식 플랩백 상세 02\" class=\"w-full h-auto object-cover max-h-[560px]\" loading=\"lazy\" />\n    <div class=\"p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs\">\n      <span class=\"font-bold text-slate-800\">📸 DETAIL VIEW #02 - 샴페인골드 CC 턴락 & 가죽 위빙 체인</span>\n      <span class=\"text-slate-500 font-medium\">숄더 및 크로스 연출이 모두 가능한 하이엔드 피니시 하드웨어</span>\n    </div>\n  </div>\n  <div class=\"rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white\">\n    <img src=\"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80\" alt=\"샤넬 클래식 플랩백 상세 03\" class=\"w-full h-auto object-cover max-h-[560px]\" loading=\"lazy\" />\n    <div class=\"p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs\">\n      <span class=\"font-bold text-slate-800\">📸 DETAIL VIEW #03 - 백화점 풀패키지 & 인테리어 수납</span>\n      <span class=\"text-slate-500 font-medium\">더블 플랩 구조와 버건디 레더 라이닝의 우아한 마감</span>\n    </div>\n  </div>\n</div>\n\n<div class=\"mt-8 p-6 bg-amber-50/50 rounded-2xl border border-amber-200 text-xs text-slate-700 leading-relaxed space-y-2\">\n  <div class=\"font-bold text-amber-900 flex items-center gap-1.5 text-sm mb-2\">\n    <span>👑 EASYSHOP 백화점 부티크 보증</span>\n  </div>\n  <p>• 백화점 부티크 본매장 바잉 100% 정품 (정품 보증서, 하드박스, 더스트백, 쇼핑백 풀세트 동봉)</p>\n  <p>• 전문 명품 감정사의 3중 정품 검수 완료 후 특수 보안 씰 부착 안전 특송 배송</p>\n  <p>• 수령 후 가품 판정 시 구매 금액의 300% 보상 보증제 실시</p>\n</div>",
+    "options": [
+      { "name": "미디엄 (25.5 x 15.5 x 6.5 cm) / 샴페인골드", "stock": 2 },
+      { "name": "미디엄 (25.5 x 15.5 x 6.5 cm) / 실버메탈", "stock": 1 }
+    ],
+    "specs": {
+      "브랜드": "CHANEL (샤넬)",
+      "제조국": "프랑스",
+      "소재": "그레인드 카프스킨(캐비어), 골드 메탈",
+      "품질보증": "샤넬 코리아 정식 AS 접수 가능 / 5년 품질보증"
+    },
+    "reviews": [
+      { "id": "rev-prod-61-1", "author": "강*연", "rating": 5, "date": "2026-10-02", "content": "백화점 오픈런 없이 안전하게 풀패키지로 수령했습니다. 가죽 광택과 퀼팅 대칭 완벽해요!", "likes": 45 },
+      { "id": "rev-prod-61-2", "author": "윤*서", "rating": 5, "date": "2026-09-28", "content": "정품 감정서와 패키징까지 백화점에서 산 그대로라 믿고 살 수 있었습니다.", "likes": 38 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-61-1", "author": "이*정", "date": "2026-10-05", "question": "국내 백화점 샤넬 매장에서 AS 가능한가요?", "answer": "네, 인보이스 및 정품 개런티가 포함되어 전국 백화점 샤넬 부티크에서 동일하게 AS 접수 가능합니다." }
+    ]
+  },
+  {
+    "id": "prod-62",
+    "name": "[DIOR] 레이디 디올 미디엄 백 까나쥬 양가죽 블랙 골드 피니시",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 8900000,
+    "originalPrice": 9300000,
+    "discountRate": 4,
+    "rating": 4.9,
+    "reviewCount": 24,
+    "stock": 4,
+    "isBest": true,
+    "isNew": false,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "디올 꾸뛰르의 정수, 아이코닉 까나쥬 스티칭과 세련된 페일골드 D.I.O.R. 블록 블레이존 참",
+    "description": "<h3>디올 하우스의 영원한 상징, 레이디 디올 미디엄 백 까나쥬</h3>\n<p>레이디 다이애나의 우아함을 기리는 디올의 대표 백입니다. 부드러운 최상급 양가죽 램스킨에 하우스 고유의 까나쥬 모티프를 정교한 스티칭으로 수놓았습니다. 은은하게 빛나는 골드 피니시 메탈 참이 매 순간 걸음마다 눈부신 광채를 더합니다.</p>\n\n<div class=\"product-detail-image-gallery mt-8 space-y-8\">\n  <div class=\"rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white\">\n    <img src=\"https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=800&q=80\" alt=\"레이디 디올 미디엄 01\" class=\"w-full h-auto object-cover max-h-[560px]\" loading=\"lazy\" />\n    <div class=\"p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs\">\n      <span class=\"font-bold text-slate-800\">📸 DETAIL VIEW #01 - 프리미엄 램스킨 & 까나쥬 퀼팅</span>\n      <span class=\"text-slate-500 font-medium\">손끝에서 느껴지는 극상의 부드러움과 정교한 기하학적 입체감</span>\n    </div>\n  </div>\n  <div class=\"rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white\">\n    <img src=\"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80\" alt=\"레이디 디올 미디엄 02\" class=\"w-full h-auto object-cover max-h-[560px]\" loading=\"lazy\" />\n    <div class=\"p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs\">\n      <span class=\"font-bold text-slate-800\">📸 DETAIL VIEW #02 - 골드 피니시 D.I.O.R. 참 장식</span>\n      <span class=\"text-slate-500 font-medium\">클래식한 탑 핸들과 탈부착 가능한 와이드 가죽 숄더 스트랩 구성</span>\n    </div>\n  </div>\n</div>",
+    "options": [
+      { "name": "미디엄 (24 x 20 x 11 cm) / 블랙 페일골드", "stock": 3 },
+      { "name": "미디엄 (24 x 20 x 11 cm) / 클라우드 블루", "stock": 1 }
+    ],
+    "specs": {
+      "브랜드": "Christian Dior (디올)",
+      "제조국": "이탈리아",
+      "소재": "양가죽 100%, 골드 피니시 메탈",
+      "품질보증": "디올 공식 부티크 AS 접수 가능"
+    },
+    "reviews": [
+      { "id": "rev-prod-62-1", "author": "손*혜", "rating": 5, "date": "2026-10-01", "content": "결혼 예물로 받았는데 실물이 상상 이상으로 영롱합니다. 램스킨 결이 예술이에요.", "likes": 31 },
+      { "id": "rev-prod-62-2", "author": "김*민", "rating": 5, "date": "2026-09-25", "content": "블랙에 골드 참 조합은 역시 정답이네요. 포장 상태도 너무 정성스러웠습니다.", "likes": 22 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-62-1", "author": "정*희", "date": "2026-10-04", "question": "숄더 스트랩 포함 구성인가요?", "answer": "네 고객님, 가죽 숄더 스트랩이 포함된 본사 풀세트로 배송됩니다." }
+    ]
+  },
+  {
+    "id": "prod-63",
+    "name": "[HERMES] 에르메스 샹달 실버 브레이슬릿 GM 스털링 실버 925",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 2850000,
+    "originalPrice": 3100000,
+    "discountRate": 8,
+    "rating": 4.9,
+    "reviewCount": 19,
+    "stock": 5,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1611591475152-4735d387e949?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1611591475152-4735d387e949?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "에르메스 해양 닻줄 체인 모티프, 묵직하고 고급스러운 925 스털링 실버의 클래식 마스터피스",
+    "description": "<h3>에르메스 주얼리의 정점, 샹달 실버 브레이슬릿 GM</h3>\n<p>1938년 로베르 뒤마가 바다의 닻줄(Chaine d'Ancre)에서 영감을 받아 탄생시킨 에르메스의 전설적인 실버 주얼리입니다. 최고 등급 925 스털링 실버를 수작업으로 마감하여 독보적인 중량감과 유려한 곡선미를 선사합니다.</p>",
+    "options": [
+      { "name": "GM 12코 (약 19cm) / 실버 925", "stock": 3 },
+      { "name": "GM 13코 (약 20.5cm) / 실버 925", "stock": 2 }
+    ],
+    "specs": {
+      "브랜드": "HERMÈS (에르메스)",
+      "제조국": "프랑스",
+      "소재": "스털링 실버 925/1000",
+      "품질보증": "에르메스 정품 보증서 / 오렌지 박스 풀패키지"
+    },
+    "reviews": [
+      { "id": "rev-prod-63-1", "author": "박*호", "rating": 5, "date": "2026-10-03", "content": "GM 사이즈 묵직함이 정말 끝내줍니다. 매일 차고 다니는데 실버 광택이 남다릅니다.", "likes": 18 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-63-1", "author": "유*진", "date": "2026-10-06", "question": "오렌지박스와 리본 포장되어 오나요?", "answer": "네, 에르메스 시그니처 오렌지 박스 및 볼둑 리본 포장 상태 그대로 배송됩니다." }
+    ]
+  },
+  {
+    "id": "prod-64",
+    "name": "[LOUIS VUITTON] 루이비통 네오노에 BB 모노그램 앙프렝트 버킷백",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 3450000,
+    "originalPrice": 3800000,
+    "discountRate": 9,
+    "rating": 4.8,
+    "reviewCount": 31,
+    "stock": 7,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "부드러운 모노그램 앙프렝트 엠보싱 천연 그레인 소가죽, 데일리와 포멀을 넘나드는 버킷백",
+    "description": "<h3>루이비통의 모던 헤리티지, 네오노에 BB 앙프렝트</h3>\n<p>샴페인 병을 운반하기 위해 1932년 고안된 가스통-루이 비통의 클래식 노에 백을 현대적인 감각과 앙프렝트 레더로 재해석한 백입니다. 가벼운 무게와 풍부한 수납력, 탈부착 가능한 핸들과 스트랩으로 다채로운 스타일링이 가능합니다.</p>",
+    "options": [
+      { "name": "BB 사이즈 (20 x 20 x 13 cm) / 느와르 블랙", "stock": 4 },
+      { "name": "BB 사이즈 (20 x 20 x 13 cm) / 뚜르뗄 그레이", "stock": 3 }
+    ],
+    "specs": {
+      "브랜드": "Louis Vuitton (루이비통)",
+      "제조국": "프랑스 / 스페인",
+      "소재": "천연 카우하이드 소가죽",
+      "품질보증": "전국 루이비통 매장 정식 서비스 가능"
+    },
+    "reviews": [
+      { "id": "rev-prod-64-1", "author": "신*주", "rating": 5, "date": "2026-10-04", "content": "캔버스보다 앙프렝트 가죽이 훨씬 고급스럽네요. 핸들과 스트랩 둘 다 있어 실용적입니다.", "likes": 29 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-64-1", "author": "임*영", "date": "2026-10-05", "question": "가죽 스트랩 조절 가능한가요?", "answer": "네, 프레스 스터드가 있는 탈부착형 스트랩으로 숄더 및 크로스 길이 조절이 가능합니다." }
+    ]
+  },
+  {
+    "id": "prod-65",
+    "name": "[ROLEX] 롤렉스 서브마리너 데이트 41mm 오이스터스틸 블랙 세라크롬",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 18500000,
+    "originalPrice": 19800000,
+    "discountRate": 7,
+    "rating": 5.0,
+    "reviewCount": 42,
+    "stock": 2,
+    "isBest": true,
+    "isNew": false,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "다이버 워치의 기준, 칼리버 3235 무브먼트와 견고한 세라크롬 베젤, 300m 방수 성능",
+    "description": "<h3>워치메이킹의 절대적 기준, 롤렉스 서브마리너 데이트</h3>\n<p>1953년 첫 선을 보인 이래 전 세계 워치 컬렉터들의 궁극적인 드림 워치로 자리잡은 서브마리너 데이트입니다. 부식에 극도로 강한 오이스터스틸과 스크래치가 나지 않는 세라크롬 세라믹 베젤, 70시간 파워리저브를 자랑하는 칼리버 3235가 탑재되었습니다.</p>",
+    "options": [
+      { "name": "41mm / 오이스터스틸 블랙 다이얼 (Ref.126610LN)", "stock": 2 }
+    ],
+    "specs": {
+      "브랜드": "ROLEX (롤렉스)",
+      "제조국": "스위스",
+      "소재": "오이스터스틸 904L, 블랙 세라크롬 베젤",
+      "품질보증": "롤렉스 공식 5년 월드와이드 보증서 포함"
+    },
+    "reviews": [
+      { "id": "rev-prod-65-1", "author": "장*우", "rating": 5, "date": "2026-10-06", "content": "드디어 구했습니다. 그린 개런티 카드와 풀코 구성 완벽하고 시리얼 넘버도 정확하네요.", "likes": 50 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-65-1", "author": "문*준", "date": "2026-10-06", "question": "시계 브레이슬릿 줄 조절해서 받을 수 있나요?", "answer": "요청 시 손목 둘레에 맞춰 안전하게 조절 후 분리된 링크도 모두 동봉해 드립니다." }
+    ]
+  },
+  {
+    "id": "prod-66",
+    "name": "[CARTIER] 까르띠에 러브 브레이슬릿 스몰 18K 옐로우 골드",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 6200000,
+    "originalPrice": 6500000,
+    "discountRate": 5,
+    "rating": 4.9,
+    "reviewCount": 35,
+    "stock": 6,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1611591475152-4735d387e949?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "영원한 사랑의 서약, 스크루 드라이버 시스템과 타임리스 18K 옐로우 골드 오벌 뱅글",
+    "description": "<h3>영원한 사랑을 봉인하는 주얼리, 까르띠에 러브 브레이슬릿</h3>\n<p>1969년 뉴욕에서 탄생한 까르띠에 러브 컬렉션은 특별한 전용 스크루 드라이버로 착용하는 독창적인 시스템으로 영원한 헌신과 사랑을 상징합니다. 깔끔하고 절제된 라인과 정교한 그래픽 스크루 모티프가 돋보입니다.</p>",
+    "options": [
+      { "name": "16호 (손목 둘레 15-16cm) / 18K 옐로우골드", "stock": 3 },
+      { "name": "17호 (손목 둘레 16-17cm) / 18K 옐로우골드", "stock": 3 }
+    ],
+    "specs": {
+      "브랜드": "Cartier (까르띠에)",
+      "제조국": "프랑스 / 스위스",
+      "소재": "18K 옐로우 골드 (750/1000)",
+      "품질보증": "까르띠에 정품 보증서 / 레드 박스 풀세트"
+    },
+    "reviews": [
+      { "id": "rev-prod-66-1", "author": "한*라", "rating": 5, "date": "2026-10-04", "content": "스몰 모델이라 일상에서 착용하기 부담 없고 단독으로도, 시계와 레이어드해도 예쁩니다.", "likes": 34 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-66-1", "author": "조*현", "date": "2026-10-05", "question": "전용 드라이버도 함께 제공되나요?", "answer": "네, 정품 골드 스크루 드라이버 및 정품 시리얼 보증서가 포함되어 발송됩니다." }
+    ]
+  },
+  {
+    "id": "prod-67",
+    "name": "[GUCCI] 구찌 GG 마몽 마틀라세 스몰 숄더백 블랙 레더",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 2980000,
+    "originalPrice": 3400000,
+    "discountRate": 12,
+    "rating": 4.8,
+    "reviewCount": 29,
+    "stock": 8,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "아이코닉 쉐브론 퀼팅 레더와 앤틱 에이징 골드 더블 G 메탈 장식이 돋보이는 숄더백",
+    "description": "<h3>구찌의 대표 시그니처, GG 마몽 마틀라세 숄더백</h3>\n<p>부드러운 구조감의 쉐브론 모티브 퀼팅 가죽과 하우스의 상징적인 더블 G 하드웨어가 완벽한 조화를 이룹니다. 슬라이딩 체인 스트랩을 활용해 숄더백 또는 탑 핸들 백으로 자유롭게 연출할 수 있습니다.</p>",
+    "options": [
+      { "name": "스몰 (26 x 15 x 7 cm) / 블랙 골드", "stock": 5 },
+      { "name": "스몰 (26 x 15 x 7 cm) / 더스티 핑크", "stock": 3 }
+    ],
+    "specs": {
+      "브랜드": "GUCCI (구찌)",
+      "제조국": "이탈리아",
+      "소재": "천연 카프스킨 소가죽, 앤틱 골드 메탈",
+      "품질보증": "구찌 코리아 부티크 정품 AS 가능"
+    },
+    "reviews": [
+      { "id": "rev-prod-67-1", "author": "오*진", "rating": 5, "date": "2026-10-02", "content": "가죽이 정말 촉촉하고 가벼워서 데일리로 최고예요. 백화점 정품 패키징 깔끔합니다.", "likes": 26 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-67-1", "author": "배*수", "date": "2026-10-05", "question": "체인 끈 길이 조절되나요?", "answer": "슬라이딩 체인 스트랩으로 숄더(55cm)와 탑 핸들(30cm) 두 가지 방식으로 착용 가능합니다." }
+    ]
+  },
+  {
+    "id": "prod-68",
+    "name": "[PRADA] 프라다 리에디션 2005 리나일론 체인 숄더백 블랙",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 2450000,
+    "originalPrice": 2750000,
+    "discountRate": 11,
+    "rating": 4.8,
+    "reviewCount": 22,
+    "stock": 9,
+    "isBest": false,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "지속 가능한 재생 나일론 소재와 사피아노 가죽 트리밍, 에나멜 메탈 트라이앵글 로고",
+    "description": "<h3>Y2K 무드와 모던함의 만남, 프라다 리에디션 2005</h3>\n<p>해양 플라스틱 쓰레기를 정화하여 탄생시킨 혁신적인 리나일론(Re-Nylon) 소재로 제작된 프라다의 대표 백입니다. 탈부착 가능한 체인 핸들과 스트랩, 미니 파우치까지 포함되어 트렌디한 스트리트 럭셔리를 완성합니다.</p>",
+    "options": [
+      { "name": "원사이즈 (22 x 18 x 6.5 cm) / 블랙", "stock": 9 }
+    ],
+    "specs": {
+      "브랜드": "PRADA (프라다)",
+      "제조국": "이탈리아",
+      "소재": "재생 나일론(Re-Nylon), 사피아노 가죽",
+      "품질보증": "프라다 코리아 정품 보증"
+    },
+    "reviews": [
+      { "id": "rev-prod-68-1", "author": "서*민", "rating": 5, "date": "2026-10-01", "content": "미니 파우치랑 체인 분리되는 게 신의 한 수! 캐주얼, 정장 어디에나 다 잘 어울려요.", "likes": 19 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-68-1", "author": "정*주", "date": "2026-10-04", "question": "미니 파우치도 포함인가요?", "answer": "네, 숄더 스트랩에 탈부착 가능한 프라다 트라이앵글 미니 파우치가 기본 포함되어 있습니다." }
+    ]
+  },
+  {
+    "id": "prod-69",
+    "name": "[LE LABO] 르라보 상탈 33 (SANTAL 33) 오 드 퍼퓸 100ml 백화점 정품",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 420000,
+    "originalPrice": 470000,
+    "discountRate": 11,
+    "rating": 4.9,
+    "reviewCount": 52,
+    "stock": 15,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "스모키한 우디와 카다멈, 바이올렛의 관능적인 조화, 니치 향수의 절대 강자 상탈 33",
+    "description": "<h3>모닥불의 연기와 가죽의 관능적인 울림, 르라보 상탈 33</h3>\n<p>미국 서부의 자유로운 정신과 광활한 평원을 연상시키는 독보적인 우디 향수입니다. 카다멈, 아이리스, 바이올렛이 어우러져 깊고 스모키한 샌달우드와 레더 노트를 풍성하게 피워 올립니다.</p>",
+    "options": [
+      { "name": "100ml / 본품 + 시그니처 라벨링 박스", "stock": 10 },
+      { "name": "50ml / 본품 + 시그니처 라벨링 박스", "stock": 5 }
+    ],
+    "specs": {
+      "브랜드": "LE LABO (르라보)",
+      "제조국": "미국",
+      "용량": "100ml (오 드 퍼퓸)",
+      "품질보증": "백화점 직발송 100% 정품 보증"
+    },
+    "reviews": [
+      { "id": "rev-prod-69-1", "author": "이*훈", "rating": 5, "date": "2026-10-05", "content": "지속력과 잔향이 정말 압도적입니다. 뿌리고 나간 날엔 주위에서 다 무슨 향수냐고 묻네요.", "likes": 41 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-69-1", "author": "박*선", "date": "2026-10-06", "question": "유통기한은 넉넉한가요?", "answer": "최근 3개월 내 백화점 부티크에서 입고된 신선한 제조 상품(사용기한 3년 이상)으로 출고됩니다." }
+    ]
+  },
+  {
+    "id": "prod-70",
+    "name": "[DIPTYQUE] 딥티크 도 손 (DO SON) 오 드 퍼퓸 75ml 백화점 부티크 에디션",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 295000,
+    "originalPrice": 330000,
+    "discountRate": 11,
+    "rating": 4.9,
+    "reviewCount": 38,
+    "stock": 18,
+    "isBest": true,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "베트남 하롱베이 해변가의 신선한 바닷바람과 관능적인 튜베로즈(월하향)의 매혹적인 잔향",
+    "description": "<h3>바닷바람에 실려오는 매혹적인 튜베로즈 향기, 딥티크 도 손</h3>\n<p>딥티크 창립자 이브 쿠에슬랑의 어린 시절 베트남 도손 해변에서의 추억을 담았습니다. 신선하고 매혹적인 월하향의 관능미에 오렌지 블로썸과 재스민이 어우러져 깊고 우아한 잔향을 선사합니다.</p>",
+    "options": [
+      { "name": "75ml (오 드 퍼퓸) / 부티크 보틀", "stock": 18 }
+    ],
+    "specs": {
+      "브랜드": "Diptyque (딥티크)",
+      "제조국": "프랑스",
+      "용량": "75ml",
+      "품질보증": "신세계인터내셔날 정식 수입 라벨 부착 정품"
+    },
+    "reviews": [
+      { "id": "rev-prod-70-1", "author": "최*은", "rating": 5, "date": "2026-10-04", "content": "오드뚜왈렛보다 퍼퓸이 훨씬 깊고 지속력이 좋아요. 첫 향부터 잔향까지 황홀합니다.", "likes": 33 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-70-1", "author": "문*정", "date": "2026-10-05", "question": "한글 국문라벨 부착되어 있나요?", "answer": "네, 신세계인터내셔날 공식 수입 정품 국문 라벨이 부착되어 백화점 동일 제품입니다." }
+    ]
+  },
+  {
+    "id": "prod-71",
+    "name": "[ESTEE LAUDER] 에스티로더 어드밴스드 나이트 리페어 갈색병 115ml 대용량 듀오 세트",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 348000,
+    "originalPrice": 460000,
+    "discountRate": 24,
+    "rating": 4.9,
+    "reviewCount": 65,
+    "stock": 25,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1608248597359-009187ec2e5b?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1608248597359-009187ec2e5b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "전 세계 1위 안티에이징 세럼, 크로노룩스™ 파워 시그널 테크놀로지로 완성하는 밤사이 기적",
+    "description": "<h3>백화점 1등 안티에이징의 신화, 갈색병 115ml 점보 리미티드 듀오</h3>\n<p>잠든 사이 피부 본연의 힘을 깨우는 에스티로더의 스테디셀러 세럼입니다. 독자적인 마이크로 리커버리 성분이 주름 개선, 탄력 강화, 모공 케어, 수분 공급까지 토탈 케어를 완성합니다.</p>",
+    "options": [
+      { "name": "115ml 본품 2병 + 디럭스 4종 기프트 키트", "stock": 25 }
+    ],
+    "specs": {
+      "브랜드": "ESTEE LAUDER (에스티로더)",
+      "제조국": "미국 / 영국",
+      "용량": "115ml x 2ea",
+      "기능성": "미백, 주름개선 2중 기능성 화장품"
+    },
+    "reviews": [
+      { "id": "rev-prod-71-1", "author": "송*미", "rating": 5, "date": "2026-10-03", "content": "115ml 대용량 듀오라 1년 내내 아낌없이 씁니다. 피부결이 눈에 띄게 매끄러워졌어요.", "likes": 52 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-71-1", "author": "김*진", "date": "2026-10-06", "question": "증정 기프트 키트 구성품은 무엇인가요?", "answer": "갈색병 아이크림 5ml, 마이크로 에센스 30ml, 리바이탈라이징 크림 15ml가 함께 증정됩니다." }
+    ]
+  },
+  {
+    "id": "prod-72",
+    "name": "[DYSON] 다이슨 에어랩 i.d.™ 멀티 스타일러 앤 드라이어 스트로베리 브론즈",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 699000,
+    "originalPrice": 749000,
+    "discountRate": 7,
+    "rating": 4.9,
+    "reviewCount": 48,
+    "stock": 12,
+    "isBest": true,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1585751119414-ef2636f8aede?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "블루투스 스마트 맞춤 컬링 제어, 과도한 열 손상 없는 코안다 에어 스타일링 최신 세대",
+    "description": "<h3>나만의 헤어 프로필로 완성하는 자동 컬링, 다이슨 에어랩 i.d.™</h3>\n<p>MyDyson 앱과 연동되어 개인 헤어 프로필에 맞춰 원터치로 완벽한 컬을 연출해 줍니다. 양방향 롱 배럴과 블러셔 브러시 등 다채로운 노즐로 볼륨, 스트레이트, 컬링까지 손쉽게 완성하세요.</p>",
+    "options": [
+      { "name": "스트로베리 브론즈 & 블러시 핑크 / 풀노즐 세트", "stock": 8 },
+      { "name": "세라믹 핑크 & 로즈 골드 / 풀노즐 세트", "stock": 4 }
+    ],
+    "specs": {
+      "브랜드": "Dyson (다이슨)",
+      "제조국": "말레이시아 / 필리핀",
+      "정격전압": "220V / 60Hz",
+      "품질보증": "다이슨 코리아 공식 2년 무상 보증"
+    },
+    "reviews": [
+      { "id": "rev-prod-72-1", "author": "안*경", "rating": 5, "date": "2026-10-06", "content": "신형 스트로베리 브론즈 실물 색감 대박입니다! 앱으로 컬 시간 조절되니 똥손도 여신 머리 됩니다.", "likes": 37 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-72-1", "author": "장*민", "date": "2026-10-07", "question": "국내 정식 발매 정품 맞나요?", "answer": "네, 다이슨 코리아 공식 정품으로 공식 웹사이트 정품 등록 및 2년 무상 AS가 가능합니다." }
+    ]
+  },
+  {
+    "id": "prod-73",
+    "name": "[BANG & OLUFSEN] 뱅앤올룹슨 베오사운드 2 3세대 프리미엄 무선 홈 스피커",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 4490000,
+    "originalPrice": 4890000,
+    "discountRate": 8,
+    "rating": 5.0,
+    "reviewCount": 16,
+    "stock": 4,
+    "isBest": true,
+    "isNew": false,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "360도 전방위 공간 음향, 통 알루미늄 가공의 모차르트 플랫폼 탑재 하이엔드 무선 오디오",
+    "description": "<h3>공간을 지배하는 360도 하이엔드 사운드, 베오사운드 2 3rd Gen</h3>\n<p>덴마크 명품 오디오 뱅앤올룹슨의 역작입니다. 아쿠스틱 렌즈 테크놀로지로 방안 어디에 있어도 선명하고 웅장한 사운드를 전달하며, 최신 모차르트 소프트웨어 플랫폼으로 미래 지향적 연결성을 제공합니다.</p>",
+    "options": [
+      { "name": "내추럴 알루미늄 실버", "stock": 2 },
+      { "name": "골드 톤 에디션", "stock": 2 }
+    ],
+    "specs": {
+      "브랜드": "Bang & Olufsen (뱅앤올룹슨)",
+      "제조국": "체코",
+      "출력": "102W 클래스 D 앰프",
+      "품질보증": "코오롱 정품 보증서 / 3년 무상 AS"
+    },
+    "reviews": [
+      { "id": "rev-prod-73-1", "author": "정*석", "rating": 5, "date": "2026-10-02", "content": "인테리어 오브제로도 압도적이고 소리의 해상도와 공간감이 기존 스피커와 차원이 다릅니다.", "likes": 25 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-73-1", "author": "권*우", "date": "2026-10-04", "question": "에어플레이2와 블루투스 둘 다 지원하나요?", "answer": "네, AirPlay 2, Chromecast 내장, Spotify Connect 및 블루투스 5.3을 완벽 지원합니다." }
+    ]
+  },
+  {
+    "id": "prod-74",
+    "name": "[MONTBLANC] 몽블랑 마이스터스튁 149 골드 코팅 18K 만년필 (M닙) 기프트 세트",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 1320000,
+    "originalPrice": 1450000,
+    "discountRate": 9,
+    "rating": 4.9,
+    "reviewCount": 23,
+    "stock": 8,
+    "isBest": false,
+    "isNew": true,
+    "isSale": false,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1585336261026-41846104bc17?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "필기구의 정점이자 성공의 상징, 수작업 18K 골드 로듐 바이컬러 닙과 딥 블랙 레진",
+    "description": "<h3>세기를 뛰어넘는 명작, 몽블랑 마이스터스튁 149</h3>\n<p>1924년 탄생 이후 100년 넘게 세계적인 지도자들과 석학들의 손을 거쳐온 마이스터스튁의 대명사 '149'입니다. 몽블랑 설산을 상징하는 화이트 스타 엠블럼과 웅장한 바디 볼륨, 유려한 18K 골드 닙이 매끄러운 필기감을 약속합니다.</p>",
+    "options": [
+      { "name": "M닙 (중간 굵기) / 골드 코팅 + 보틀 잉크 세트", "stock": 5 },
+      { "name": "F닙 (얇은 굵기) / 골드 코팅 + 보틀 잉크 세트", "stock": 3 }
+    ],
+    "specs": {
+      "브랜드": "MONTBLANC (몽블랑)",
+      "제조국": "독일",
+      "소재": "블랙 고급 레진, 18K 골드 닙",
+      "품질보증": "몽블랑 코리아 공식 서비스 보증서 포함"
+    },
+    "reviews": [
+      { "id": "rev-prod-74-1", "author": "조*현", "rating": 5, "date": "2026-10-01", "content": "승진 선물로 받았는데 종이 위를 미끄러지듯 나아가는 필기감에 전율이 느껴집니다.", "likes": 21 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-74-1", "author": "황*철", "date": "2026-10-04", "question": "무료 각인 서비스 가능한가요?", "answer": "요청 시 몽블랑 백화점 부티크에서 정품 보증서를 지참하여 무료 인그레이빙(각인) 서비스를 받으실 수 있습니다." }
+    ]
+  },
+  {
+    "id": "prod-75",
+    "name": "[BURBERRY] 버버리 워털루 헤리티지 롱 개버딘 트렌치코트 허니",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 3650000,
+    "originalPrice": 4100000,
+    "discountRate": 11,
+    "rating": 4.9,
+    "reviewCount": 31,
+    "stock": 6,
+    "isBest": true,
+    "isNew": false,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "영국 캐슬포드 직조 방수 코튼 개버딘, 빈티지 체크 안감과 클래식 래글런 슬리브 실루엣",
+    "description": "<h3>영국 헤리티지의 정수, 버버리 워털루 롱 트렌치코트</h3>\n<p>토마스 버버리가 발명한 통기성과 방수성을 갖춘 개버딘 소재로 영국 캐슬포드에서 숙련된 장인들이 제작한 트렌치코트입니다. 여유로운 릴랙스 핏과 롱 기장으로 가을/겨울 우아하고 분위기 있는 룩을 연출합니다.</p>",
+    "options": [
+      { "name": "UK 6 (국내 55) / 허니 베이지", "stock": 2 },
+      { "name": "UK 8 (국내 66) / 허니 베이지", "stock": 3 },
+      { "name": "UK 10 (국내 77) / 허니 베이지", "stock": 1 }
+    ],
+    "specs": {
+      "브랜드": "Burberry (버버리)",
+      "제조국": "영국",
+      "소재": "코튼 개버딘 100%, 버버리 체크 안감",
+      "품질보증": "버버리 코리아 정품 보증"
+    },
+    "reviews": [
+      { "id": "rev-prod-75-1", "author": "유*미", "rating": 5, "date": "2026-10-04", "content": "핏감이 너무 예쁘고 롱한 기장감이 분위기 제대로 살려줍니다. 평생 입을 인생 코트예요.", "likes": 33 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-75-1", "author": "문*영", "date": "2026-10-05", "question": "수트케이스와 옷걸이 동봉되나요?", "answer": "네, 버버리 정품 수트케이스 및 버버리 로고 우드 옷걸이가 함께 동봉됩니다." }
+    ]
+  },
+  {
+    "id": "prod-76",
+    "name": "[BACCARAT] 바카라 크리스탈 벨루가 텀블러 2인 하이볼 글라스 기프트 박스",
+    "category": "브랜드 / 백화점",
+    "categoryId": "cat-brand",
+    "price": 420000,
+    "originalPrice": 480000,
+    "discountRate": 13,
+    "rating": 5.0,
+    "reviewCount": 27,
+    "stock": 14,
+    "isBest": false,
+    "isNew": true,
+    "isSale": true,
+    "isFreeShipping": true,
+    "thumbnail": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80"
+    ],
+    "summary": "프랑스 왕실이 선택한 명품 크리스탈, 빛의 굴절을 극대화한 벨루가 도트 커팅 텀블러",
+    "description": "<h3>식탁 위의 보석, 바카라 벨루가 크리스탈 텀블러</h3>\n<p>250년 역사의 프랑스 최고급 크리스탈 명가 바카라(Baccarat)의 베스트셀러입니다. 텀블러 하단에 정교하게 조각된 원형 도트 커팅이 음료를 담았을 때 눈부신 빛의 반사를 만들어내며, 맑고 청아한 크리스탈 고유의 공명음을 선사합니다.</p>",
+    "options": [
+      { "name": "벨루가 텀블러 2P (높이 14cm / 350ml) / 레드 기프트박스", "stock": 14 }
+    ],
+    "specs": {
+      "브랜드": "Baccarat (바카라)",
+      "제조국": "프랑스",
+      "소재": "최고급 핸드크래프트 크리스탈",
+      "품질보증": "바카라 정품 보증서 / 레드 기프트 박스 풀세트"
+    },
+    "reviews": [
+      { "id": "rev-prod-76-1", "author": "김*진", "rating": 5, "date": "2026-10-06", "content": "위스키나 탄산수 마실 때 잔을 부딪히면 맑은 종소리가 울려 퍼집니다. 선물용으로 최고예요.", "likes": 24 }
+    ],
+    "qnas": [
+      { "id": "qna-prod-76-1", "author": "이*수", "date": "2026-10-07", "question": "쇼핑백도 동봉되나요?", "answer": "네, 바카라 시그니처 레드 쇼핑백 및 리본 포장 상태로 안전하게 출고됩니다." }
     ]
   }
 ];

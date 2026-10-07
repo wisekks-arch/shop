@@ -216,6 +216,7 @@ const ShopUI = {
             <a href="products.html" class="flex items-center gap-2 text-slate-900 font-bold hover:text-indigo-600 transition ${active === 'all' ? 'text-indigo-600' : ''}">
               <i data-lucide="layout-grid" class="w-4 h-4 text-indigo-500"></i> 전체 카테고리
             </a>
+            <a href="products.html?category=브랜드 / 백화점" class="text-slate-600 hover:text-indigo-600 transition ${active === 'brand' ? 'text-indigo-600 font-bold' : ''}">브랜드 / 백화점</a>
             <a href="products.html?category=패션 / 의류" class="text-slate-600 hover:text-indigo-600 transition ${active === 'fashion' ? 'text-indigo-600 font-bold' : ''}">패션 / 의류</a>
             <a href="products.html?category=디지털 / 가전" class="text-slate-600 hover:text-indigo-600 transition ${active === 'digital' ? 'text-indigo-600 font-bold' : ''}">디지털 / 가전</a>
             <a href="products.html?category=뷰티 / 케어" class="text-slate-600 hover:text-indigo-600 transition ${active === 'beauty' ? 'text-indigo-600 font-bold' : ''}">뷰티 / 케어</a>
@@ -236,6 +237,7 @@ const ShopUI = {
         <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-2">
           ${mobileAuthHtml}
           <a href="products.html" class="block py-2 text-slate-800 font-bold">전체 상품 탐색</a>
+          <a href="products.html?category=브랜드 / 백화점" class="block py-2 text-slate-600">브랜드 / 백화점</a>
           <a href="products.html?category=패션 / 의류" class="block py-2 text-slate-600">패션 / 의류</a>
           <a href="products.html?category=디지털 / 가전" class="block py-2 text-slate-600">디지털 / 가전</a>
           <a href="products.html?category=뷰티 / 케어" class="block py-2 text-slate-600">뷰티 / 케어</a>
