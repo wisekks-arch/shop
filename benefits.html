@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>혜택 관리 (포인트 & 쿠폰) - 이지샵(EasyShop)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.321.0/font/lucide.min.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased flex flex-col min-vh-100 min-h-screen">
+
+  <!-- Header Container -->
+  <div id="shop-header"></div>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+
+    <!-- Breadcrumb & Page Header -->
+    <div class="mb-8">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+        <a href="index.html" class="hover:text-indigo-600 transition">홈</a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+        <a href="profile.html" class="hover:text-indigo-600 transition">마이페이지</a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+        <span class="text-slate-800 font-bold">혜택 관리</span>
+      </nav>
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
+            <span class="p-2 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
+              <i data-lucide="gift" class="w-6 h-6"></i>
+            </span>
+            내 혜택 관리
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">
+            회원님의 보유 포인트 적립/사용 내역 및 보유 쿠폰(사용/기간만료 포함)을 기간별로 상세하게 조회할 수 있습니다.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="profile.html" class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
+            <i data-lucide="user" class="w-4 h-4 text-slate-500"></i> 마이페이지
+          </a>
+          <a href="order-lookup.html" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
+            <i data-lucide="truck" class="w-4 h-4"></i> 주문/배송 조회
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Required Fallback -->
+    <div id="login-required-box" class="hidden bg-white rounded-3xl p-10 border border-slate-200/80 shadow-sm text-center max-w-lg mx-auto my-12">
+      <div class="w-16 h-16 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-4 border border-indigo-100">
+        <i data-lucide="lock" class="w-8 h-8"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-2">로그인이 필요한 서비스입니다</h3>
+      <p class="text-xs text-slate-500 mb-6">
+        회원님의 포인트 및 쿠폰 내역을 조회하시려면 먼저 로그인해 주시기 바랍니다.
+      </p>
+      <a href="login.html?redirect=benefits.html" class="inline-flex items-center justify-center gap-2 w-full py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md transition">
+        <i data-lucide="log-in" class="w-4 h-4"></i> 이지샵 로그인하기
+      </a>
+    </div>
+
+    <!-- Main Content Area (Logged In) -->
+    <div id="benefits-main-content" class="space-y-6">
+
+      <!-- Top Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        <!-- Card 1: Points Summary -->
+        <div class="bg-gradient-to-br from-indigo-900 via-indigo-950 to-slate-950 rounded-3xl p-6 sm:p-7 text-white shadow-lg relative overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 font-bold text-xs border border-amber-400/30 flex items-center gap-1.5">
+              <i data-lucide="coins" class="w-3.5 h-3.5"></i> EasyShop Points
+            </span>
+            <span id="user-name-label" class="text-xs text-slate-300 font-medium">회원 님</span>
+          </div>
+          <div class="mb-4">
+            <span class="text-xs text-slate-400 font-medium">현재 사용 가능한 보유 포인트</span>
+            <div class="flex items-baseline gap-1 mt-1">
+              <span id="total-points-display" class="text-3xl sm:text-4xl font-black text-amber-400 tracking-tight font-heading">0</span>
+              <span class="text-lg font-bold text-slate-200">P</span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>30일 내 소멸 예정: <strong class="text-white">0P</strong></span>
+            </div>
+            <button type="button" onclick="switchTab('points')" class="text-amber-300 hover:text-white font-bold text-xs flex items-center gap-1 transition">
+              내역 보기 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2: Coupons Summary -->
+        <div class="bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-950 rounded-3xl p-6 sm:p-7 text-white shadow-lg relative overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-300 font-bold text-xs border border-emerald-400/30 flex items-center gap-1.5">
+              <i data-lucide="ticket" class="w-3.5 h-3.5"></i> EasyShop Coupons
+            </span>
+            <span class="text-xs text-emerald-300/80 font-medium">최대 15,000원 할인</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 mb-4">
+            <div class="bg-white/5 rounded-2xl p-3 border border-white/10 text-center">
+              <span class="text-[11px] text-slate-400 block mb-0.5">사용가능</span>
+              <span id="summary-coupon-active" class="text-xl sm:text-2xl font-black text-emerald-400">0</span>
+              <span class="text-xs text-slate-300">장</span>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-3 border border-white/10 text-center">
+              <span class="text-[11px] text-slate-400 block mb-0.5">사용완료</span>
+              <span id="summary-coupon-used" class="text-xl sm:text-2xl font-black text-slate-300">0</span>
+              <span class="text-xs text-slate-300">장</span>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-3 border border-white/10 text-center">
+              <span class="text-[11px] text-slate-400 block mb-0.5">기간만료</span>
+              <span id="summary-coupon-expired" class="text-xl sm:text-2xl font-black text-rose-400">0</span>
+              <span class="text-xs text-slate-300">장</span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>주문서 작성 시 즉시 적용 가능</span>
+            </div>
+            <button type="button" onclick="switchTab('coupons')" class="text-emerald-300 hover:text-white font-bold text-xs flex items-center gap-1 transition">
+              쿠폰함 보기 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Navigation Tabs -->
+      <div class="flex items-center gap-2 border-b border-slate-200">
+        <button 
+          id="tab-btn-points" 
+          onclick="switchTab('points')" 
+          type="button" 
+          class="px-5 py-3 text-sm font-extrabold border-b-2 border-indigo-600 text-indigo-600 flex items-center gap-2 transition"
+        >
+          <i data-lucide="coins" class="w-4 h-4 text-amber-500"></i>
+          <span>포인트 적립/사용 내역</span>
+          <span id="tab-badge-points" class="px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">0건</span>
+        </button>
+        <button 
+          id="tab-btn-coupons" 
+          onclick="switchTab('coupons')" 
+          type="button" 
+          class="px-5 py-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition"
+        >
+          <i data-lucide="ticket" class="w-4 h-4 text-emerald-500"></i>
+          <span>쿠폰 보유/사용/만료 내역</span>
+          <span id="tab-badge-coupons" class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold">0장</span>
+        </button>
+      </div>
+
+      <!-- Date Filter Control Card -->
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <!-- Left: FROM ~ TO Dropdowns -->
+          <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+            <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5 shrink-0">
+              <i data-lucide="calendar" class="w-4 h-4 text-indigo-600"></i>
+              조회 기간
+            </span>
+
+            <!-- FROM: Year & Month -->
+            <div class="flex items-center gap-1">
+              <select id="filter-from-year" class="px-2.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 focus:outline-none focus:border-indigo-600 focus:bg-white transition">
+                <option value="2024">2024년</option>
+                <option value="2025">2025년</option>
+                <option value="2026" selected>2026년</option>
+              </select>
+              <select id="filter-from-month" class="px-2.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 focus:outline-none focus:border-indigo-600 focus:bg-white transition">
+                <option value="01">1월</option>
+                <option value="02">2월</option>
+                <option value="03">3월</option>
+                <option value="04">4월</option>
+                <option value="05">5월</option>
+                <option value="06">6월</option>
+                <option value="07">7월</option>
+                <option value="08">8월</option>
+                <option value="09">9월</option>
+                <option value="10" selected>10월</option>
+                <option value="11">11월</option>
+                <option value="12">12월</option>
+              </select>
+            </div>
+
+            <span class="text-slate-400 font-bold text-xs">~</span>
+
+            <!-- TO: Year & Month -->
+            <div class="flex items-center gap-1">
+              <select id="filter-to-year" class="px-2.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 focus:outline-none focus:border-indigo-600 focus:bg-white transition">
+                <option value="2024">2024년</option>
+                <option value="2025">2025년</option>
+                <option value="2026" selected>2026년</option>
+              </select>
+              <select id="filter-to-month" class="px-2.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 focus:outline-none focus:border-indigo-600 focus:bg-white transition">
+                <option value="01">1월</option>
+                <option value="02">2월</option>
+                <option value="03">3월</option>
+                <option value="04">4월</option>
+                <option value="05">5월</option>
+                <option value="06">6월</option>
+                <option value="07">7월</option>
+                <option value="08">8월</option>
+                <option value="09">9월</option>
+                <option value="10" selected>10월</option>
+                <option value="11">11월</option>
+                <option value="12">12월</option>
+              </select>
+            </div>
+
+            <button type="button" onclick="applyFilter()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
+              <i data-lucide="search" class="w-3.5 h-3.5"></i> 조회
+            </button>
+          </div>
+
+          <!-- Right: Quick Presets & Coupon Status Filter -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Coupon Status Filter (Shown only on coupons tab) -->
+            <div id="coupon-status-filter-wrapper" class="hidden flex items-center gap-1.5 mr-2 pr-2 border-r border-slate-200">
+              <span class="text-xs font-semibold text-slate-500">상태:</span>
+              <select id="filter-coupon-status" onchange="applyFilter()" class="px-2.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 focus:outline-none">
+                <option value="all">전체 쿠폰</option>
+                <option value="사용가능">사용가능</option>
+                <option value="사용완료">사용완료</option>
+                <option value="기간만료">기간만료</option>
+              </select>
+            </div>
+
+            <!-- Quick Buttons -->
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="setQuickDate('this-month')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-[11px] font-bold text-slate-700 transition">당월</button>
+              <button type="button" onclick="setQuickDate('prev-month')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-[11px] font-bold text-slate-700 transition">전월</button>
+              <button type="button" onclick="setQuickDate('3months')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-[11px] font-bold text-slate-700 transition">3개월</button>
+              <button type="button" onclick="setQuickDate('this-year')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-[11px] font-bold text-slate-700 transition">올해 전체</button>
+              <button type="button" onclick="setQuickDate('all')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-[11px] font-bold text-slate-700 transition">전체</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 1: Points Ledger -->
+      <div id="points-view-section" class="space-y-4">
+        <!-- Summary Stats Ribbon -->
+        <div class="bg-indigo-50/60 rounded-2xl p-4 border border-indigo-100/80 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div class="flex items-center gap-4">
+            <span class="text-slate-600 font-medium">조회 결과: <strong id="points-result-count" class="text-slate-900 font-bold">0건</strong></span>
+            <span class="text-slate-300">|</span>
+            <span class="text-slate-600 font-medium">기간 내 총 적립: <strong id="points-total-plus" class="text-emerald-600 font-bold">+0P</strong></span>
+            <span class="text-slate-300">|</span>
+            <span class="text-slate-600 font-medium">기간 내 총 사용: <strong id="points-total-minus" class="text-rose-600 font-bold">-0P</strong></span>
+          </div>
+          <span class="text-[11px] text-slate-400">포인트의 기본 유효기간은 적립일로부터 1년입니다.</span>
+        </div>
+
+        <!-- Points Table -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50/80 text-slate-500 font-bold border-b border-slate-200">
+                <tr>
+                  <th class="py-3.5 px-4 sm:px-6">일자 (지급/사용)</th>
+                  <th class="py-3.5 px-3">구분</th>
+                  <th class="py-3.5 px-4">지급사유 / 사용처</th>
+                  <th class="py-3.5 px-4 text-right">포인트 변동</th>
+                  <th class="py-3.5 px-4 text-right">잔여 포인트</th>
+                  <th class="py-3.5 px-4 text-center">유효기간</th>
+                </tr>
+              </thead>
+              <tbody id="points-table-body" class="divide-y divide-slate-100 font-medium">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div id="points-empty-state" class="hidden p-12 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+              <i data-lucide="inbox" class="w-6 h-6"></i>
+            </div>
+            <p class="text-sm font-bold text-slate-700">선택하신 기간 내 포인트 내역이 없습니다.</p>
+            <p class="text-xs text-slate-400 mt-1">조회 기간을 변경하여 다시 검색해 보세요.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 2: Coupons Ledger -->
+      <div id="coupons-view-section" class="hidden space-y-4">
+        <!-- Summary Stats Ribbon -->
+        <div class="bg-emerald-50/60 rounded-2xl p-4 border border-emerald-100/80 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div class="flex items-center gap-4">
+            <span class="text-slate-600 font-medium">조회 결과: <strong id="coupons-result-count" class="text-slate-900 font-bold">0장</strong></span>
+            <span class="text-slate-300">|</span>
+            <span class="text-slate-600 font-medium">사용가능: <strong id="coupons-filter-active" class="text-emerald-600 font-bold">0장</strong></span>
+            <span class="text-slate-300">|</span>
+            <span class="text-slate-600 font-medium">사용완료: <strong id="coupons-filter-used" class="text-slate-600 font-bold">0장</strong></span>
+            <span class="text-slate-300">|</span>
+            <span class="text-slate-600 font-medium">기간만료: <strong id="coupons-filter-expired" class="text-rose-600 font-bold">0장</strong></span>
+          </div>
+          <span class="text-[11px] text-slate-400">유효기간이 지난 쿠폰은 '기간만료'로 자동 처리됩니다.</span>
+        </div>
+
+        <!-- Coupons Table -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-50/80 text-slate-500 font-bold border-b border-slate-200">
+                <tr>
+                  <th class="py-3.5 px-4 sm:px-6">쿠폰명 / 혜택</th>
+                  <th class="py-3.5 px-3">상태</th>
+                  <th class="py-3.5 px-4">지급일자 및 사유</th>
+                  <th class="py-3.5 px-4">사용일자 및 사용처</th>
+                  <th class="py-3.5 px-4 text-center">유효기간 (D-Day)</th>
+                </tr>
+              </thead>
+              <tbody id="coupons-table-body" class="divide-y divide-slate-100 font-medium">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div id="coupons-empty-state" class="hidden p-12 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+              <i data-lucide="ticket-slash" class="w-6 h-6"></i>
+            </div>
+            <p class="text-sm font-bold text-slate-700">선택하신 조건의 쿠폰 내역이 없습니다.</p>
+            <p class="text-xs text-slate-400 mt-1">조회 기간 또는 쿠폰 상태 필터를 변경해 보세요.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benefit Notice Box -->
+      <div class="bg-slate-100/70 rounded-3xl p-6 border border-slate-200/80 text-xs text-slate-600 space-y-2">
+        <h4 class="font-bold text-slate-900 flex items-center gap-1.5 text-sm mb-2">
+          <i data-lucide="help-circle" class="w-4 h-4 text-indigo-600"></i> 포인트 및 쿠폰 이용안내
+        </h4>
+        <ul class="list-disc list-inside space-y-1 text-slate-500 leading-relaxed">
+          <li><strong>포인트 적립 및 사용:</strong> 상품 구매, 리뷰 작성, 프로모션 등을 통해 적립되며 주문 결제 시 100P 단위로 현금처럼 사용 가능합니다.</li>
+          <li><strong>포인트 유효기간:</strong> 일반 적립 포인트의 유효기간은 지급일로부터 1년(365일)이며, 기한 내 미사용 시 월별 단위로 자동 소멸됩니다.</li>
+          <li><strong>쿠폰 사용 기준:</strong> 1회 주문 시 1장의 쿠폰만 적용 가능하며, 상품권 등 일부 카테고리에는 제한될 수 있습니다.</li>
+          <li><strong>기간만료 쿠폰:</strong> 유효기간이 지난 쿠폰은 주문에 적용할 수 없으며 시스템상 '기간만료'로 자동 반영되어 분리 관리됩니다.</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer Container -->
+  <div id="shop-footer"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/auth-store.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    // State
+    let currentTab = 'points'; // 'points' or 'coupons'
+    let allPointsHistory = [];
+    let allCouponsHistory = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check tab param from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const tabParam = urlParams.get('tab');
+      if (tabParam === 'coupons') {
+        currentTab = 'coupons';
+      } else {
+        currentTab = 'points';
+      }
+
+      // Set default date: 2026-01 to 2026-10 (current year default)
+      document.getElementById('filter-from-year').value = '2026';
+      document.getElementById('filter-from-month').value = '01';
+      document.getElementById('filter-to-year').value = '2026';
+      document.getElementById('filter-to-month').value = '10';
+
+      initBenefitsPage();
+    });
+
+    function initBenefitsPage() {
+      const currentUser = AuthStore.getCurrentUser();
+
+      if (!currentUser) {
+        document.getElementById('login-required-box').classList.remove('hidden');
+        document.getElementById('benefits-main-content').classList.add('hidden');
+        if (window.lucide) window.lucide.createIcons();
+        return;
+      }
+
+      document.getElementById('login-required-box').classList.add('hidden');
+      document.getElementById('benefits-main-content').classList.remove('hidden');
+
+      // Populate user info
+      document.getElementById('user-name-label').innerText = (currentUser.name || '회원') + ' 님';
+      document.getElementById('total-points-display').innerText = (currentUser.points || 0).toLocaleString();
+
+      // Load histories
+      allPointsHistory = AuthStore.getPointsHistory(currentUser.id);
+      allCouponsHistory = AuthStore.getAllUserCoupons(currentUser.id);
+
+      // Render tab indicators
+      updateTabBadges();
+
+      // Switch to active tab and render
+      switchTab(currentTab, false);
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function switchTab(tab, apply = true) {
+      currentTab = tab;
+      const pointsBtn = document.getElementById('tab-btn-points');
+      const couponsBtn = document.getElementById('tab-btn-coupons');
+      const pointsSection = document.getElementById('points-view-section');
+      const couponsSection = document.getElementById('coupons-view-section');
+      const couponStatusFilter = document.getElementById('coupon-status-filter-wrapper');
+
+      if (tab === 'points') {
+        pointsBtn.className = "px-5 py-3 text-sm font-extrabold border-b-2 border-indigo-600 text-indigo-600 flex items-center gap-2 transition";
+        couponsBtn.className = "px-5 py-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition";
+        pointsSection.classList.remove('hidden');
+        couponsSection.classList.add('hidden');
+        couponStatusFilter.classList.add('hidden');
+      } else {
+        couponsBtn.className = "px-5 py-3 text-sm font-extrabold border-b-2 border-indigo-600 text-indigo-600 flex items-center gap-2 transition";
+        pointsBtn.className = "px-5 py-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition";
+        pointsSection.classList.add('hidden');
+        couponsSection.classList.remove('hidden');
+        couponStatusFilter.classList.remove('hidden');
+      }
+
+      if (apply) {
+        applyFilter();
+      } else {
+        applyFilter();
+      }
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function updateTabBadges() {
+      // Points badge
+      document.getElementById('tab-badge-points').innerText = allPointsHistory.length + '건';
+
+      // Coupons summary
+      const activeCount = allCouponsHistory.filter(c => c.status === '사용가능').length;
+      const usedCount = allCouponsHistory.filter(c => c.status === '사용완료').length;
+      const expiredCount = allCouponsHistory.filter(c => c.status === '기간만료').length;
+
+      document.getElementById('tab-badge-coupons').innerText = allCouponsHistory.length + '장';
+      document.getElementById('summary-coupon-active').innerText = activeCount;
+      document.getElementById('summary-coupon-used').innerText = usedCount;
+      document.getElementById('summary-coupon-expired').innerText = expiredCount;
+    }
+
+    function setQuickDate(type) {
+      const now = new Date();
+      const currYear = '2026'; // Demo fixed or new Date().getFullYear().toString()
+      const currMonth = '10';
+
+      if (type === 'this-month') {
+        document.getElementById('filter-from-year').value = currYear;
+        document.getElementById('filter-from-month').value = currMonth;
+        document.getElementById('filter-to-year').value = currYear;
+        document.getElementById('filter-to-month').value = currMonth;
+      } else if (type === 'prev-month') {
+        document.getElementById('filter-from-year').value = currYear;
+        document.getElementById('filter-from-month').value = '09';
+        document.getElementById('filter-to-year').value = currYear;
+        document.getElementById('filter-to-month').value = '09';
+      } else if (type === '3months') {
+        document.getElementById('filter-from-year').value = currYear;
+        document.getElementById('filter-from-month').value = '08';
+        document.getElementById('filter-to-year').value = currYear;
+        document.getElementById('filter-to-month').value = currMonth;
+      } else if (type === 'this-year') {
+        document.getElementById('filter-from-year').value = currYear;
+        document.getElementById('filter-from-month').value = '01';
+        document.getElementById('filter-to-year').value = currYear;
+        document.getElementById('filter-to-month').value = '12';
+      } else if (type === 'all') {
+        document.getElementById('filter-from-year').value = '2024';
+        document.getElementById('filter-from-month').value = '01';
+        document.getElementById('filter-to-year').value = '2026';
+        document.getElementById('filter-to-month').value = '12';
+      }
+
+      applyFilter();
+    }
+
+    function applyFilter() {
+      const fromY = document.getElementById('filter-from-year').value;
+      const fromM = document.getElementById('filter-from-month').value;
+      const toY = document.getElementById('filter-to-year').value;
+      const toM = document.getElementById('filter-to-month').value;
+
+      const fromKey = `${fromY}-${fromM}`;
+      const toKey = `${toY}-${toM}`;
+
+      if (fromKey > toKey) {
+        alert('시작 년월이 종료 년월보다 클 수 없습니다. 기간을 다시 선택해 주세요.');
+        return;
+      }
+
+      if (currentTab === 'points') {
+        renderPointsList(fromKey, toKey);
+      } else {
+        const statusFilter = document.getElementById('filter-coupon-status').value;
+        renderCouponsList(fromKey, toKey, statusFilter);
+      }
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function renderPointsList(fromKey, toKey) {
+      const tbody = document.getElementById('points-table-body');
+      const emptyState = document.getElementById('points-empty-state');
+
+      // Filter by date (YYYY-MM)
+      const filtered = allPointsHistory.filter(item => {
+        const itemYm = (item.date || '').slice(0, 7);
+        return itemYm >= fromKey && itemYm <= toKey;
+      });
+
+      // Calculate totals
+      let totalPlus = 0;
+      let totalMinus = 0;
+      filtered.forEach(item => {
+        if (item.amount > 0) totalPlus += item.amount;
+        else totalMinus += Math.abs(item.amount);
+      });
+
+      document.getElementById('points-result-count').innerText = filtered.length + '건';
+      document.getElementById('points-total-plus').innerText = '+' + totalPlus.toLocaleString() + 'P';
+      document.getElementById('points-total-minus').innerText = '-' + totalMinus.toLocaleString() + 'P';
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      tbody.innerHTML = filtered.map(item => {
+        const isEarn = item.type === '적립' || item.amount > 0;
+        const amountDisplay = isEarn ? `+${item.amount.toLocaleString()}P` : `${item.amount.toLocaleString()}P`;
+        const amountClass = isEarn ? 'text-emerald-600 font-extrabold' : 'text-rose-600 font-extrabold';
+        const typeBadge = isEarn 
+          ? `<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold">적립</span>`
+          : `<span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200 text-[11px] font-bold">사용</span>`;
+
+        return `
+          <tr class="hover:bg-slate-50/60 transition">
+            <td class="py-3.5 px-4 sm:px-6 whitespace-nowrap text-slate-700 font-semibold">
+              ${item.date}
+            </td>
+            <td class="py-3.5 px-3 whitespace-nowrap">
+              ${typeBadge}
+            </td>
+            <td class="py-3.5 px-4 text-slate-900">
+              <div class="font-bold">${item.reason}</div>
+              <div class="text-[11px] text-slate-400 mt-0.5">${item.place ? '사용/지급처: ' + item.place : ''}</div>
+            </td>
+            <td class="py-3.5 px-4 text-right whitespace-nowrap ${amountClass}">
+              ${amountDisplay}
+            </td>
+            <td class="py-3.5 px-4 text-right whitespace-nowrap text-slate-800 font-bold">
+              ${(item.balance || 0).toLocaleString()}P
+            </td>
+            <td class="py-3.5 px-4 text-center whitespace-nowrap text-slate-500">
+              ${item.expireDate || '-'}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderCouponsList(fromKey, toKey, statusFilter) {
+      const tbody = document.getElementById('coupons-table-body');
+      const emptyState = document.getElementById('coupons-empty-state');
+
+      // Filter by issue date (YYYY-MM) & status
+      const filtered = allCouponsHistory.filter(item => {
+        const itemYm = (item.issuedAt || '').slice(0, 7);
+        const inDate = itemYm >= fromKey && itemYm <= toKey;
+        const matchStatus = (statusFilter === 'all') || (item.status === statusFilter);
+        return inDate && matchStatus;
+      });
+
+      // Filter counts
+      const act = filtered.filter(c => c.status === '사용가능').length;
+      const usd = filtered.filter(c => c.status === '사용완료').length;
+      const exp = filtered.filter(c => c.status === '기간만료').length;
+
+      document.getElementById('coupons-result-count').innerText = filtered.length + '장';
+      document.getElementById('coupons-filter-active').innerText = act + '장';
+      document.getElementById('coupons-filter-used').innerText = usd + '장';
+      document.getElementById('coupons-filter-expired').innerText = exp + '장';
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      tbody.innerHTML = filtered.map(item => {
+        let statusBadge = '';
+        let dDayText = '-';
+
+        if (item.status === '사용가능') {
+          statusBadge = `<span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold">사용가능</span>`;
+          // Calculate D-day
+          if (item.expiresAt) {
+            const expDate = new Date(item.expiresAt);
+            const today = new Date();
+            const diffDays = Math.ceil((expDate - today) / (1000 * 60 * 60 * 24));
+            if (diffDays >= 0) {
+              dDayText = `<span class="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">D-${diffDays}</span>`;
+            } else {
+              dDayText = `<span class="text-rose-600 font-bold">만료</span>`;
+            }
+          }
+        } else if (item.status === '사용완료') {
+          statusBadge = `<span class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-xs font-bold">사용완료</span>`;
+          dDayText = `<span class="text-slate-400">사용됨</span>`;
+        } else {
+          statusBadge = `<span class="px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold">기간만료</span>`;
+          dDayText = `<span class="text-rose-500 font-semibold bg-rose-50 px-2 py-0.5 rounded border border-rose-100">만료소멸</span>`;
+        }
+
+        const usedInfoHtml = item.usedAt 
+          ? `<div><span class="text-slate-700 font-semibold">${item.usedAt}</span></div><div class="text-[11px] text-slate-400 mt-0.5">${item.usedWhere || '-'}</div>`
+          : `<span class="text-slate-400">${item.status === '기간만료' ? '미사용 자동소멸' : '-'}</span>`;
+
+        return `
+          <tr class="hover:bg-slate-50/60 transition">
+            <td class="py-4 px-4 sm:px-6">
+              <div class="font-extrabold text-slate-900 text-sm">${item.name}</div>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 font-bold text-[11px] border border-indigo-100">
+                  ${(item.discount || 0).toLocaleString()}원 할인
+                </span>
+                <span class="text-[11px] text-slate-500">
+                  ${item.minOrder ? item.minOrder.toLocaleString() + '원 이상 구매 시' : '조건 없음'}
+                </span>
+              </div>
+            </td>
+            <td class="py-4 px-3 whitespace-nowrap">
+              ${statusBadge}
+            </td>
+            <td class="py-4 px-4">
+              <div class="text-slate-800 font-semibold">${item.issuedAt}</div>
+              <div class="text-[11px] text-slate-400 mt-0.5">${item.issueReason || '-'}</div>
+            </td>
+            <td class="py-4 px-4">
+              ${usedInfoHtml}
+            </td>
+            <td class="py-4 px-4 text-center whitespace-nowrap">
+              <div class="text-slate-800 font-bold">${item.expiresAt || '-'}</div>
+              <div class="mt-1">${dDayText}</div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+  </script>
+</body>
+</html>

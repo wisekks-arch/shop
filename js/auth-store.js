@@ -397,32 +397,275 @@ const AuthStore = {
   /**
    * Get available coupons for current user
    */
-  getUserCoupons() {
-    const user = this.getCurrentUser();
-    if (!user) return [];
+  POINTS_LEDGER_KEY: 'easyshop_points_ledger_v2',
+  COUPONS_LEDGER_KEY: 'easyshop_coupons_ledger_v2',
 
-    const defaultCoupons = [
-      { id: 'cp-welcome-10k', name: '신규가입 웰컴 10,000원 쿠폰', discount: 10000, minOrder: 30000, used: false },
-      { id: 'cp-first-5k', name: '첫구매 감사 5,000원 할인쿠폰', discount: 5000, minOrder: 20000, used: false },
-      { id: 'cp-weekend-3k', name: '주말 특별 3,000원 할인쿠폰', discount: 3000, minOrder: 15000, used: false }
+  /**
+   * Get points history for user
+   */
+  getPointsHistory(targetUserId) {
+    const user = this.getCurrentUser();
+    const uid = targetUserId || (user ? user.id : null);
+    if (!uid) return [];
+
+    let ledger = {};
+    try {
+      ledger = JSON.parse(localStorage.getItem(this.POINTS_LEDGER_KEY) || '{}');
+    } catch (e) { ledger = {}; }
+
+    if (ledger[uid] && Array.isArray(ledger[uid]) && ledger[uid].length > 0) {
+      return ledger[uid];
+    }
+
+    // Default rich sample points history for user
+    const currentPoints = (user && user.id === uid) ? (user.points || 0) : 38136;
+    const defaultHistory = [
+      {
+        id: 'pt-2026-008',
+        date: '2026-10-07 14:30',
+        type: '적립',
+        reason: '포토 상품평 작성 리워드 적립',
+        place: '이지샵 온라인몰',
+        amount: 2000,
+        balance: currentPoints,
+        expireDate: '2027-10-07'
+      },
+      {
+        id: 'pt-2026-007',
+        date: '2026-09-28 11:20',
+        type: '적립',
+        reason: '한가위 명절 쇼핑 축제 특별 적립',
+        place: '이지샵 이벤트',
+        amount: 10000,
+        balance: currentPoints - 2000,
+        expireDate: '2027-09-28'
+      },
+      {
+        id: 'pt-2026-006',
+        date: '2026-09-15 15:30',
+        type: '사용',
+        reason: '주문 결제 포인트 차감 (주문번호 ORD-20260915-4421)',
+        place: '이지샵 결제시스템',
+        amount: -5000,
+        balance: currentPoints - 12000,
+        expireDate: '-'
+      },
+      {
+        id: 'pt-2026-005',
+        date: '2026-08-20 16:45',
+        type: '적립',
+        reason: '여름 바캉스 시즌 기획전 구매 추가 적립',
+        place: '이지샵 온라인몰',
+        amount: 15000,
+        balance: currentPoints - 7000,
+        expireDate: '2027-08-20'
+      },
+      {
+        id: 'pt-2026-004',
+        date: '2026-07-10 18:10',
+        type: '사용',
+        reason: '주문 결제 포인트 차감 (주문번호 ORD-20260710-1092)',
+        place: '이지샵 결제시스템',
+        amount: -3000,
+        balance: currentPoints - 22000,
+        expireDate: '-'
+      },
+      {
+        id: 'pt-2026-003',
+        date: '2026-05-01 09:15',
+        type: '적립',
+        reason: '봄맞이 매일 출석체크 100% 달성 보너스',
+        place: '이지샵 이벤트',
+        amount: 5000,
+        balance: currentPoints - 19000,
+        expireDate: '2027-05-01'
+      },
+      {
+        id: 'pt-2026-002',
+        date: '2026-03-15 10:00',
+        type: '적립',
+        reason: '신규 회원가입 축하 웰컴 포인트 지급',
+        place: '이지샵 본사',
+        amount: 10000,
+        balance: currentPoints - 24000,
+        expireDate: '2027-03-15'
+      },
+      {
+        id: 'pt-2025-001',
+        date: '2025-11-20 14:00',
+        type: '적립',
+        reason: '2025 블랙프라이데이 사전 예약 감사 리워드',
+        place: '이지샵 이벤트',
+        amount: 4136,
+        balance: 4136,
+        expireDate: '2026-11-20'
+      }
     ];
 
-    const users = this.getUsers();
-    const u = users.find(item => item.id === user.id || item.email === user.email);
-    if (u) {
-      if (!Array.isArray(u.coupons) || u.coupons.length === 0) {
-        u.coupons = [...defaultCoupons];
-        this.saveUsers(users);
-      }
-      return u.coupons.filter(c => !c.used);
+    ledger[uid] = defaultHistory;
+    localStorage.setItem(this.POINTS_LEDGER_KEY, JSON.stringify(ledger));
+    return defaultHistory;
+  },
+
+  /**
+   * Add a point transaction
+   */
+  addPointsTransaction({ amount, type, reason, place, expireDate }) {
+    const user = this.getCurrentUser();
+    if (!user) return false;
+
+    const history = this.getPointsHistory(user.id);
+    const newTx = {
+      id: 'pt-' + Date.now(),
+      date: new Date().toISOString().slice(0, 16).replace('T', ' '),
+      type: type || (amount > 0 ? '적립' : '사용'),
+      reason: reason || (amount > 0 ? '이벤트/구매 적립' : '주문 결제 사용'),
+      place: place || '이지샵 온라인몰',
+      amount: amount,
+      balance: user.points || 0,
+      expireDate: expireDate || (type === '사용' || amount < 0 ? '-' : new Date(Date.now() + 365*24*3600*1000).toISOString().slice(0, 10))
+    };
+
+    history.unshift(newTx);
+    let ledger = {};
+    try {
+      ledger = JSON.parse(localStorage.getItem(this.POINTS_LEDGER_KEY) || '{}');
+    } catch(e) { ledger = {}; }
+    ledger[user.id] = history;
+    localStorage.setItem(this.POINTS_LEDGER_KEY, JSON.stringify(ledger));
+    return true;
+  },
+
+  /**
+   * Get all user coupons with detailed status (사용가능, 사용완료, 기간만료)
+   */
+  getAllUserCoupons(targetUserId) {
+    const user = this.getCurrentUser();
+    const uid = targetUserId || (user ? user.id : null);
+    if (!uid) return [];
+
+    let ledger = {};
+    try {
+      ledger = JSON.parse(localStorage.getItem(this.COUPONS_LEDGER_KEY) || '{}');
+    } catch (e) { ledger = {}; }
+
+    let coupons = ledger[uid];
+
+    if (!coupons || !Array.isArray(coupons) || coupons.length === 0) {
+      coupons = [
+        {
+          id: 'cp-welcome-10k',
+          name: '신규가입 웰컴 10,000원 할인쿠폰',
+          discount: 10000,
+          minOrder: 50000,
+          issuedAt: '2026-09-01',
+          issueReason: '신규 회원가입 축하 웰컴 팩',
+          expiresAt: '2026-12-31',
+          status: '사용가능',
+          usedAt: null,
+          usedWhere: '-'
+        },
+        {
+          id: 'cp-weekend-3k',
+          name: '주말 특별 3,000원 할인쿠폰',
+          discount: 3000,
+          minOrder: 20000,
+          issuedAt: '2026-10-01',
+          issueReason: '주말 정기 깜짝 쇼핑 지원',
+          expiresAt: '2026-11-15',
+          status: '사용가능',
+          usedAt: null,
+          usedWhere: '-'
+        },
+        {
+          id: 'cp-autumn-15p',
+          name: '가을 신상품 전용 15,000원 특별쿠폰',
+          discount: 15000,
+          minOrder: 70000,
+          issuedAt: '2026-09-20',
+          issueReason: 'F/W 패션 기획전 감사 쿠폰',
+          expiresAt: '2026-10-31',
+          status: '사용가능',
+          usedAt: null,
+          usedWhere: '-'
+        },
+        {
+          id: 'cp-first-5k',
+          name: '첫구매 감사 5,000원 할인쿠폰',
+          discount: 5000,
+          minOrder: 30000,
+          issuedAt: '2026-09-10',
+          issueReason: '첫 주문 감사 프로모션',
+          expiresAt: '2026-10-10',
+          status: '사용완료',
+          usedAt: '2026-09-15 15:30',
+          usedWhere: '이지샵 온라인몰 (주문 ORD-20260915-4421)'
+        },
+        {
+          id: 'cp-chuseok-7k',
+          name: '추석 한가위 7,000원 특별 할인쿠폰',
+          discount: 7000,
+          minOrder: 40000,
+          issuedAt: '2026-09-20',
+          issueReason: '한가위 명절 쇼핑 지원금',
+          expiresAt: '2026-09-30',
+          status: '사용완료',
+          usedAt: '2026-09-28 11:20',
+          usedWhere: '이지샵 온라인몰 (주문 ORD-20260928-8812)'
+        },
+        {
+          id: 'cp-summer-5k',
+          name: '2026 바캉스 썸머 5,000원 할인쿠폰',
+          discount: 5000,
+          minOrder: 30000,
+          issuedAt: '2026-07-01',
+          issueReason: '여름 시즌 기획전 이벤트',
+          expiresAt: '2026-08-31',
+          status: '기간만료',
+          usedAt: null,
+          usedWhere: '미사용 자동소멸'
+        },
+        {
+          id: 'cp-yearend-10k',
+          name: '2025 연말 결산 감사 10,000원 쿠폰',
+          discount: 10000,
+          minOrder: 50000,
+          issuedAt: '2025-12-01',
+          issueReason: '2025 고객 감사 대축제',
+          expiresAt: '2025-12-31',
+          status: '기간만료',
+          usedAt: null,
+          usedWhere: '미사용 자동소멸'
+        }
+      ];
+      ledger[uid] = coupons;
+      localStorage.setItem(this.COUPONS_LEDGER_KEY, JSON.stringify(ledger));
     }
-    return defaultCoupons.filter(c => !c.used);
+
+    // Dynamic expiry evaluation: 만약 유효기간이 지났고 사용완료가 아니면 실시간으로 '기간만료' 처리
+    const todayStr = new Date().toISOString().slice(0, 10);
+    coupons = coupons.map(c => {
+      if (c.status !== '사용완료' && c.expiresAt && c.expiresAt < todayStr) {
+        return { ...c, status: '기간만료', usedWhere: c.usedWhere === '-' ? '기간만료 자동소멸' : c.usedWhere };
+      }
+      return c;
+    });
+
+    return coupons;
+  },
+
+  /**
+   * Get available coupons for checkout
+   */
+  getUserCoupons() {
+    const all = this.getAllUserCoupons();
+    return all.filter(c => c.status === '사용가능');
   },
 
   /**
    * Deduct points from current user
    */
-  deductPoints(amount) {
+  deductPoints(amount, reason = '주문 결제 포인트 사용', place = '이지샵 주문결제') {
     const deductAmount = parseInt(amount) || 0;
     if (deductAmount <= 0) return true;
 
@@ -432,11 +675,21 @@ const AuthStore = {
     const users = this.getUsers();
     const idx = users.findIndex(u => u.id === user.id || u.email === user.email);
     if (idx >= 0) {
-      users[idx].points = Math.max(0, (users[idx].points || 0) - deductAmount);
+      const newPoints = Math.max(0, (users[idx].points || 0) - deductAmount);
+      users[idx].points = newPoints;
       this.saveUsers(users);
 
-      const updatedUser = { ...user, points: users[idx].points };
+      const updatedUser = { ...user, points: newPoints };
       localStorage.setItem(this.SESSION_KEY, JSON.stringify(updatedUser));
+      
+      // Record transaction
+      this.addPointsTransaction({
+        amount: -deductAmount,
+        type: '사용',
+        reason: reason,
+        place: place
+      });
+
       this.notify();
       return true;
     }
@@ -446,20 +699,24 @@ const AuthStore = {
   /**
    * Mark a coupon as used
    */
-  useCoupon(couponId) {
+  useCoupon(couponId, where = '이지샵 온라인몰') {
     if (!couponId) return true;
     const user = this.getCurrentUser();
     if (!user) return false;
 
-    const users = this.getUsers();
-    const idx = users.findIndex(u => u.id === user.id || u.email === user.email);
-    if (idx >= 0 && Array.isArray(users[idx].coupons)) {
-      const c = users[idx].coupons.find(item => item.id === couponId);
-      if (c) c.used = true;
-      this.saveUsers(users);
+    let ledger = {};
+    try {
+      ledger = JSON.parse(localStorage.getItem(this.COUPONS_LEDGER_KEY) || '{}');
+    } catch(e) { ledger = {}; }
 
-      const updatedUser = { ...user, coupons: users[idx].coupons };
-      localStorage.setItem(this.SESSION_KEY, JSON.stringify(updatedUser));
+    let coupons = ledger[user.id] || this.getAllUserCoupons(user.id);
+    const target = coupons.find(c => c.id === couponId);
+    if (target) {
+      target.status = '사용완료';
+      target.usedAt = new Date().toISOString().slice(0, 16).replace('T', ' ');
+      target.usedWhere = where;
+      ledger[user.id] = coupons;
+      localStorage.setItem(this.COUPONS_LEDGER_KEY, JSON.stringify(ledger));
       this.notify();
       return true;
     }

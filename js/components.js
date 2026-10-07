@@ -24,10 +24,14 @@ const ShopUI = {
     // Top Utility Auth Buttons
     const topAuthHtml = currentUser ? `
       <div class="flex items-center gap-2">
-        <a href="profile.html" class="text-emerald-300 hover:text-emerald-200 font-bold flex items-center gap-1.5 transition text-xs" title="회원정보 관리">
-          <i data-lucide="user-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+        <a href="benefits.html?tab=points" class="text-emerald-300 hover:text-emerald-200 font-bold flex items-center gap-1.5 transition text-xs" title="보유 포인트 내역 조회">
+          <i data-lucide="coins" class="w-3.5 h-3.5 text-amber-400"></i>
           <span class="text-white font-extrabold">${currentUser.name} 님</span>
-          <span class="text-[10px] bg-emerald-950/80 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/30">${(currentUser.points || 0).toLocaleString()}P</span>
+          <span class="text-[10px] bg-emerald-950/80 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/30 hover:bg-emerald-800 transition">${(currentUser.points || 0).toLocaleString()}P</span>
+        </a>
+        <span class="text-slate-600">|</span>
+        <a href="benefits.html?tab=coupons" class="text-amber-300 hover:text-amber-200 transition flex items-center gap-1 text-[11px] font-semibold" title="보유 쿠폰함 조회">
+          <i data-lucide="ticket" class="w-3 h-3 text-amber-400"></i> 쿠폰함
         </a>
         <span class="text-slate-600">|</span>
         <a href="profile.html" class="text-indigo-300 hover:text-white transition flex items-center gap-1 text-[11px] font-medium">
@@ -88,9 +92,14 @@ const ShopUI = {
             <p class="text-[10px] text-indigo-600 font-semibold">${(currentUser.points || 0).toLocaleString()}P (정보수정)</p>
           </div>
         </a>
-        <button type="button" onclick="ShopUI.handleLogout()" class="px-2.5 py-1 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-lg border border-rose-200 transition">
-          로그아웃
-        </button>
+        <div class="flex items-center gap-1">
+          <a href="benefits.html" class="px-2 py-1 text-[11px] font-bold text-indigo-700 bg-white hover:bg-indigo-100 rounded-lg border border-indigo-200 transition">
+            혜택관리
+          </a>
+          <button type="button" onclick="ShopUI.handleLogout()" class="px-2 py-1 text-[11px] font-bold text-rose-600 hover:bg-rose-50 rounded-lg border border-rose-200 transition">
+            로그아웃
+          </button>
+        </div>
       </div>
     ` : `
       <div class="grid grid-cols-2 gap-2 pt-2 pb-2">
