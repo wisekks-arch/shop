@@ -2290,9 +2290,10 @@
             <!-- 4. Payment Total Amount -->
             <td class="p-4 text-right">
               <span class="font-black text-slate-900 text-sm block font-heading">${ShopUI.formatPrice(o.totalAmount || 0)}</span>
-              <span class="text-[10px] text-slate-400 block font-normal">
-                상품 ${ShopUI.formatPrice((o.totalAmount || 0) + (o.discountAmount || 0) - (o.shippingFee || 0))}
-              </span>
+              <div class="flex flex-col items-end gap-1 mt-1">
+                ${o.couponDiscount ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-50 text-rose-600 border border-rose-200 inline-block">쿠폰 -${ShopUI.formatPrice(o.couponDiscount)}</span>` : ''}
+                ${o.usedPoints ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200 inline-block">포인트 -${o.usedPoints.toLocaleString()}P</span>` : ''}
+              </div>
             </td>
 
             <!-- 5. Payment Method -->
@@ -2461,12 +2462,35 @@
       // Price Breakdown
       const prodSum = items.reduce((sum, it) => sum + ((it.price || 0) * (it.quantity || 1)), 0);
       const shipFee = o.shippingFee || 0;
-      const discount = o.discountAmount || 0;
+      const cDiscount = o.couponDiscount || 0;
+      const ptsUsed = o.usedPoints || 0;
 
       document.getElementById('modal-price-products').innerText = ShopUI.formatPrice(prodSum);
       document.getElementById('modal-price-shipping').innerText = shipFee === 0 ? '무료배송' : ShopUI.formatPrice(shipFee);
-      document.getElementById('modal-price-discount').innerText = discount > 0 ? `-${ShopUI.formatPrice(discount)}` : '0원';
-      document.getElementById('modal-price-final').innerText = ShopUI.formatPrice(o.totalAmount || (prodSum + shipFee - discount));
+      
+      const cRow = document.getElementById('modal-coupon-row');
+      const cEl = document.getElementById('modal-price-coupon');
+      if (cRow && cEl) {
+        if (cDiscount > 0) {
+          cRow.classList.remove('hidden');
+          cEl.innerText = `-${ShopUI.formatPrice(cDiscount)}${o.couponName ? ` (${o.couponName})` : ''}`;
+        } else {
+          cRow.classList.add('hidden');
+        }
+      }
+
+      const pRow = document.getElementById('modal-points-row');
+      const pEl = document.getElementById('modal-price-points');
+      if (pRow && pEl) {
+        if (ptsUsed > 0) {
+          pRow.classList.remove('hidden');
+          pEl.innerText = `-${ptsUsed.toLocaleString()}P`;
+        } else {
+          pRow.classList.add('hidden');
+        }
+      }
+
+      document.getElementById('modal-price-final').innerText = ShopUI.formatPrice(o.totalAmount || (prodSum + shipFee - (o.discountAmount || 0)));
 
       // Tracking Info
       const trackInfoEl = document.getElementById('modal-tracking-info');
@@ -2769,12 +2793,16 @@
           <span>배송비</span>
           <span class="font-bold" id="modal-price-shipping">0원</span>
         </div>
-        <div class="flex justify-between text-rose-600">
-          <span>쿠폰 및 프로모션 할인</span>
-          <span class="font-bold" id="modal-price-discount">-0원</span>
+        <div id="modal-coupon-row" class="flex justify-between text-rose-600 hidden">
+          <span>쿠폰 할인</span>
+          <span class="font-bold" id="modal-price-coupon">-0원</span>
+        </div>
+        <div id="modal-points-row" class="flex justify-between text-amber-600 hidden">
+          <span>포인트 사용</span>
+          <span class="font-bold" id="modal-price-points">-0P</span>
         </div>
         <div class="flex justify-between text-slate-900 font-black text-sm pt-2 border-t border-indigo-200">
-          <span>최종 결제 금액</span>
+          <span>최종 실결제 금액</span>
           <span class="text-indigo-600 font-heading text-base" id="modal-price-final">0원</span>
         </div>
       </div>

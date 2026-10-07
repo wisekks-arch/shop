@@ -47,6 +47,14 @@
           <span class="text-slate-400">배송지</span>
           <span id="complete-shipping-address" class="font-bold text-slate-800 truncate max-w-xs">서울시 강남구 테헤란로</span>
         </div>
+        <div id="complete-coupon-row" class="flex items-center justify-between pb-3 border-b border-slate-200 hidden">
+          <span class="text-slate-400">쿠폰 할인</span>
+          <span id="complete-coupon-discount" class="font-bold text-rose-500">-0원</span>
+        </div>
+        <div id="complete-points-row" class="flex items-center justify-between pb-3 border-b border-slate-200 hidden">
+          <span class="text-slate-400">포인트 사용</span>
+          <span id="complete-points-discount" class="font-bold text-amber-600">-0P</span>
+        </div>
         <div class="flex items-center justify-between">
           <span class="text-slate-400">최종 결제 금액</span>
           <span id="complete-total-amount" class="font-black text-slate-900 text-base">0원</span>
@@ -92,6 +100,26 @@
           const parsed = JSON.parse(saved);
           document.getElementById('complete-shipping-address').innerText = parsed.shippingAddress || '서울시';
           document.getElementById('complete-total-amount').innerText = ShopUI.formatPrice(parsed.totalAmount);
+
+          // Coupon
+          if (parsed.couponDiscount && parsed.couponDiscount > 0) {
+            const cRow = document.getElementById('complete-coupon-row');
+            const cEl = document.getElementById('complete-coupon-discount');
+            if (cRow && cEl) {
+              cRow.classList.remove('hidden');
+              cEl.innerText = `-${ShopUI.formatPrice(parsed.couponDiscount)}${parsed.couponName ? ` (${parsed.couponName})` : ''}`;
+            }
+          }
+
+          // Points
+          if (parsed.usedPoints && parsed.usedPoints > 0) {
+            const pRow = document.getElementById('complete-points-row');
+            const pEl = document.getElementById('complete-points-discount');
+            if (pRow && pEl) {
+              pRow.classList.remove('hidden');
+              pEl.innerText = `-${parsed.usedPoints.toLocaleString()}P`;
+            }
+          }
         }
       } catch (e) {}
     });

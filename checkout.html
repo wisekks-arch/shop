@@ -90,7 +90,67 @@
           </div>
         </div>
 
-        <!-- 3. Payment Method -->
+        <!-- 3. Discount Benefits (Coupons & Points) -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="ticket" class="w-4 h-4 text-indigo-600"></i> 할인 혜택 적용 (쿠폰 & 포인트)
+            </h3>
+            <span id="co-member-badge" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700">회원 혜택</span>
+          </div>
+
+          <!-- Coupon Selection -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <label class="font-bold text-slate-700 flex items-center gap-1.5">
+                <i data-lucide="gift" class="w-3.5 h-3.5 text-rose-500"></i> 보유 쿠폰 선택
+              </label>
+              <span class="text-slate-400">적용 가능 <strong id="co-coupon-count" class="text-indigo-600">0</strong>장</span>
+            </div>
+            <select 
+              id="co-coupon-select" 
+              onchange="handleCouponChange()"
+              class="w-full p-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:outline-none bg-white text-xs font-semibold"
+            >
+              <option value="">쿠폰을 선택해 주세요</option>
+            </select>
+            <p id="co-coupon-msg" class="text-[11px] text-slate-400">최대 할인 혜택을 받을 수 있는 쿠폰을 선택해 보세요.</p>
+          </div>
+
+          <!-- Points Usage -->
+          <div class="space-y-2 pt-3 border-t border-slate-100">
+            <div class="flex items-center justify-between text-xs">
+              <label class="font-bold text-slate-700 flex items-center gap-1.5">
+                <i data-lucide="coins" class="w-3.5 h-3.5 text-amber-500"></i> 보유 포인트 사용
+              </label>
+              <span class="text-slate-500">보유 포인트: <strong id="co-avail-points" class="text-amber-500 font-extrabold font-mono">0P</strong></span>
+            </div>
+            <div class="flex gap-2">
+              <div class="relative flex-1">
+                <input 
+                  type="number" 
+                  id="co-points-input" 
+                  min="0"
+                  step="100"
+                  placeholder="0" 
+                  oninput="handlePointsChange()"
+                  class="w-full pl-3 pr-8 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:outline-none text-xs font-bold font-mono"
+                />
+                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">P</span>
+              </div>
+              <button 
+                type="button" 
+                onclick="useAllPoints()"
+                class="px-4 py-2.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 text-slate-700 rounded-xl text-xs font-bold transition shrink-0 cursor-pointer border border-slate-200"
+              >
+                전액사용
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400">100P 단위로 사용 가능하며, 결제 금액을 초과할 수 없습니다.</p>
+          </div>
+        </div>
+
+        <!-- 4. Payment Method -->
         <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
           <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <i data-lucide="credit-card" class="w-4 h-4 text-indigo-600"></i> 결제 수단 선택
@@ -137,6 +197,10 @@
               <span id="co-coupon-discount" class="font-bold text-rose-500">-0원</span>
             </div>
             <div class="flex items-center justify-between">
+              <span>포인트 사용</span>
+              <span id="co-points-discount" class="font-bold text-amber-600">-0P</span>
+            </div>
+            <div class="flex items-center justify-between">
               <span>배송비</span>
               <span id="co-shipping-fee" class="font-bold text-slate-900">0원</span>
             </div>
@@ -156,7 +220,7 @@
 
           <button 
             type="submit" 
-            class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-2xl shadow-xl shadow-indigo-600/30 transition text-sm flex items-center justify-center gap-2"
+            class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-2xl shadow-xl shadow-indigo-600/30 transition text-sm flex items-center justify-center gap-2 cursor-pointer"
           >
             <i data-lucide="lock" class="w-4 h-4"></i>
             <span id="pay-button-text">결제 및 주문완료</span>
@@ -173,39 +237,57 @@
   <div id="footer-root"></div>
 
   <!-- Scripts -->
-  <script src="js/auth-store.js?v=20261007_v2"></script>
-  <script src="js/cart-store.js?v=20261007_v2"></script>
-  <script src="js/api.js?v=20261007_v2"></script>
-  <script src="js/components.js?v=20261007_v2"></script>
+  <script src="js/auth-store.js?v=20261007_v3"></script>
+  <script src="js/cart-store.js?v=20261007_v3"></script>
+  <script src="js/api.js?v=20261007_v3"></script>
+  <script src="js/components.js?v=20261007_v3"></script>
   <script>
     let couponDiscount = 0;
+    let selectedCoupon = null;
+    let appliedPoints = 0;
     let summary = null;
+    let currentUser = null;
 
     document.addEventListener('DOMContentLoaded', () => {
       ShopUI.renderNavbar();
       ShopUI.renderFooter();
 
-      // Pre-fill member information if logged in
-      try {
-        const authUserRaw = localStorage.getItem('easyshop_auth_user');
-        if (authUserRaw) {
-          const authUser = JSON.parse(authUserRaw);
-          if (authUser.name && document.getElementById('order-name')) document.getElementById('order-name').value = authUser.name;
-          if (authUser.phone && document.getElementById('order-phone')) document.getElementById('order-phone').value = authUser.phone;
-          if (authUser.email && document.getElementById('order-email')) document.getElementById('order-email').value = authUser.email;
-          if (authUser.name && document.getElementById('ship-name')) document.getElementById('ship-name').value = authUser.name;
-          if (authUser.phone && document.getElementById('ship-phone')) document.getElementById('ship-phone').value = authUser.phone;
-          if (authUser.address && document.getElementById('ship-address')) document.getElementById('ship-address').value = authUser.address;
-          if (authUser.addressDetail && document.getElementById('ship-address-detail')) document.getElementById('ship-address-detail').value = authUser.addressDetail;
+      // Load Logged-in User
+      currentUser = typeof AuthStore !== 'undefined' ? AuthStore.getCurrentUser() : null;
+      if (currentUser) {
+        if (currentUser.name && document.getElementById('order-name')) document.getElementById('order-name').value = currentUser.name;
+        if (currentUser.phone && document.getElementById('order-phone')) document.getElementById('order-phone').value = currentUser.phone;
+        if (currentUser.email && document.getElementById('order-email')) document.getElementById('order-email').value = currentUser.email;
+        if (currentUser.name && document.getElementById('ship-name')) document.getElementById('ship-name').value = currentUser.name;
+        if (currentUser.phone && document.getElementById('ship-phone')) document.getElementById('ship-phone').value = currentUser.phone;
+        if (currentUser.address && document.getElementById('ship-address')) document.getElementById('ship-address').value = currentUser.address;
+        if (currentUser.addressDetail && document.getElementById('ship-address-detail')) document.getElementById('ship-address-detail').value = currentUser.addressDetail;
+
+        // Points
+        const availPoints = currentUser.points || 0;
+        document.getElementById('co-avail-points').innerText = `${availPoints.toLocaleString()}P`;
+
+        // Coupons
+        loadMemberCoupons();
+      } else {
+        const badge = document.getElementById('co-member-badge');
+        if (badge) {
+          badge.className = 'px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500';
+          badge.innerText = '비회원 주문';
         }
-      } catch (e) {
-        console.error('Member prefill error:', e);
+        document.getElementById('co-avail-points').innerText = '0P (비회원)';
+        document.getElementById('co-points-input').disabled = true;
+        document.getElementById('co-coupon-select').disabled = true;
       }
 
+      // Read URL coupon parameter if passed from cart
       const urlParams = new URLSearchParams(window.location.search);
-      couponDiscount = parseInt(urlParams.get('coupon')) || 0;
+      const urlCoupon = parseInt(urlParams.get('coupon')) || 0;
+      if (urlCoupon > 0) {
+        couponDiscount = urlCoupon;
+      }
 
-      summary = CartStore.getSummary(couponDiscount);
+      summary = CartStore.getSummary(0);
       if (summary.selectedItems.length === 0) {
         alert('주문할 상품이 없습니다.');
         window.location.href = 'cart.html';
@@ -214,6 +296,97 @@
 
       renderCheckoutSummary();
     });
+
+    function loadMemberCoupons() {
+      const select = document.getElementById('co-coupon-select');
+      const countEl = document.getElementById('co-coupon-count');
+      if (!select || typeof AuthStore === 'undefined') return;
+
+      const coupons = AuthStore.getUserCoupons();
+      if (countEl) countEl.innerText = coupons.length;
+
+      select.innerHTML = '<option value="">선택 안 함 (쿠폰 미적용)</option>' + coupons.map(c => `
+        <option value="${c.id}" data-discount="${c.discount}" data-min="${c.minOrder || 0}">
+          ${c.name} (-${ShopUI.formatPrice(c.discount)})
+        </option>
+      `).join('');
+    }
+
+    function handleCouponChange() {
+      const select = document.getElementById('co-coupon-select');
+      const selectedOption = select.options[select.selectedIndex];
+      const couponId = select.value;
+      const msgEl = document.getElementById('co-coupon-msg');
+
+      if (!couponId) {
+        couponDiscount = 0;
+        selectedCoupon = null;
+        if (msgEl) msgEl.innerText = '쿠폰이 적용되지 않았습니다.';
+      } else {
+        const discount = parseInt(selectedOption.getAttribute('data-discount')) || 0;
+        const minOrder = parseInt(selectedOption.getAttribute('data-min')) || 0;
+
+        if (summary.productTotal < minOrder) {
+          alert(`해당 쿠폰은 최소 주문금액 ${ShopUI.formatPrice(minOrder)} 이상 시 사용 가능합니다.`);
+          select.value = '';
+          couponDiscount = 0;
+          selectedCoupon = null;
+          if (msgEl) msgEl.innerText = `최소 ${ShopUI.formatPrice(minOrder)} 이상 주문 시 사용 가능`;
+        } else {
+          couponDiscount = discount;
+          selectedCoupon = {
+            id: couponId,
+            name: selectedOption.text.split(' (-')[0],
+            discount: discount
+          };
+          if (msgEl) msgEl.innerHTML = `<span class="text-rose-600 font-bold">🎉 [${selectedCoupon.name}] -${ShopUI.formatPrice(discount)} 할인 적용!</span>`;
+        }
+      }
+
+      // Check points boundary after coupon applied
+      handlePointsChange();
+      renderCheckoutSummary();
+    }
+
+    function handlePointsChange() {
+      const input = document.getElementById('co-points-input');
+      if (!input || !currentUser) return;
+
+      let val = parseInt(input.value) || 0;
+      const userMaxPoints = currentUser.points || 0;
+
+      // Max payable with points: (productTotal + shippingFee - couponDiscount)
+      const maxPayable = Math.max(0, summary.productTotal + summary.shippingFee - couponDiscount);
+      const effectiveMax = Math.min(userMaxPoints, maxPayable);
+
+      if (val > effectiveMax) {
+        val = effectiveMax;
+        input.value = val;
+      }
+      if (val < 0) {
+        val = 0;
+        input.value = 0;
+      }
+
+      appliedPoints = val;
+      renderCheckoutSummary();
+    }
+
+    function useAllPoints() {
+      if (!currentUser) {
+        alert('포인트는 로그인 회원만 사용 가능합니다.');
+        return;
+      }
+      const userMaxPoints = currentUser.points || 0;
+      const maxPayable = Math.max(0, summary.productTotal + summary.shippingFee - couponDiscount);
+      const effectiveMax = Math.min(userMaxPoints, maxPayable);
+
+      const input = document.getElementById('co-points-input');
+      if (input) {
+        input.value = effectiveMax;
+        handlePointsChange();
+      }
+    }
 
     function renderCheckoutSummary() {
       const container = document.getElementById('checkout-items-list');
@@ -228,15 +401,25 @@
         </div>
       `).join('');
 
-      document.getElementById('co-prod-total').innerText = ShopUI.formatPrice(summary.productTotal);
-      document.getElementById('co-coupon-discount').innerText = `-${ShopUI.formatPrice(summary.couponDiscount)}`;
-      document.getElementById('co-shipping-fee').innerText = summary.shippingFee === 0 ? '무료' : ShopUI.formatPrice(summary.shippingFee);
-      document.getElementById('co-final-total').innerText = ShopUI.formatPrice(summary.finalAmount);
-      document.getElementById('pay-button-text').innerText = `${ShopUI.formatPrice(summary.finalAmount)} 결제하기`;
+      // Calculations
+      const prodTotal = summary.productTotal;
+      const shipFee = summary.shippingFee;
+      const finalAmount = Math.max(0, prodTotal + shipFee - couponDiscount - appliedPoints);
+
+      document.getElementById('co-prod-total').innerText = ShopUI.formatPrice(prodTotal);
+      document.getElementById('co-coupon-discount').innerText = couponDiscount > 0 ? `-${ShopUI.formatPrice(couponDiscount)}` : '-0원';
+      document.getElementById('co-points-discount').innerText = appliedPoints > 0 ? `-${appliedPoints.toLocaleString()}P` : '-0P';
+      document.getElementById('co-shipping-fee').innerText = shipFee === 0 ? '무료' : ShopUI.formatPrice(shipFee);
+      document.getElementById('co-final-total').innerText = ShopUI.formatPrice(finalAmount);
+      document.getElementById('pay-button-text').innerText = `${ShopUI.formatPrice(finalAmount)} 결제하기`;
     }
 
     async function handleOrderSubmit(e) {
       e.preventDefault();
+
+      const prodTotal = summary.productTotal;
+      const shipFee = summary.shippingFee;
+      const finalAmount = Math.max(0, prodTotal + shipFee - couponDiscount - appliedPoints);
 
       const orderData = {
         customerName: document.getElementById('order-name').value,
@@ -248,28 +431,48 @@
         shippingNote: document.getElementById('ship-note').value,
         paymentMethod: document.querySelector('input[name="pay_method"]:checked').value,
         items: summary.selectedItems,
-        totalAmount: summary.finalAmount,
-        shippingFee: summary.shippingFee,
-        discountAmount: summary.couponDiscount + summary.totalSavings
+        totalAmount: finalAmount,
+        originalProductTotal: prodTotal,
+        shippingFee: shipFee,
+        discountAmount: couponDiscount + appliedPoints + (summary.totalSavings || 0),
+        couponDiscount: couponDiscount,
+        couponId: selectedCoupon ? selectedCoupon.id : null,
+        couponName: selectedCoupon ? selectedCoupon.name : null,
+        usedPoints: appliedPoints
       };
 
       try {
         const result = await ShopAPI.createOrder(orderData);
         CartStore.removeSelected();
 
-        // Update member order stats if logged in
+        // Deduct points and coupon in store
+        if (typeof AuthStore !== 'undefined') {
+          if (appliedPoints > 0) {
+            AuthStore.deductPoints(appliedPoints);
+          }
+          if (selectedCoupon && selectedCoupon.id) {
+            AuthStore.useCoupon(selectedCoupon.id);
+          }
+        }
+
+        // Update member order stats
         try {
-          const authUserRaw = localStorage.getItem('easyshop_auth_user');
-          if (authUserRaw) {
-            const authUser = JSON.parse(authUserRaw);
+          if (currentUser) {
             const usersRaw = localStorage.getItem('easyshop_users_v3');
             if (usersRaw) {
               const users = JSON.parse(usersRaw);
-              const uIdx = users.findIndex(u => u.email === authUser.email || u.id === authUser.id);
+              const uIdx = users.findIndex(u => u.email === currentUser.email || u.id === currentUser.id);
               if (uIdx >= 0) {
                 users[uIdx].orderCount = (users[uIdx].orderCount || 0) + 1;
-                users[uIdx].totalSpent = (users[uIdx].totalSpent || 0) + summary.finalAmount;
+                users[uIdx].totalSpent = (users[uIdx].totalSpent || 0) + finalAmount;
+                // Add 1% earned points
+                const earned = Math.round(finalAmount * 0.01);
+                users[uIdx].points = (users[uIdx].points || 0) + earned;
                 localStorage.setItem('easyshop_users_v3', JSON.stringify(users));
+
+                // Update current user points in session
+                const updatedSession = { ...currentUser, points: users[uIdx].points };
+                localStorage.setItem('easyshop_session_v3', JSON.stringify(updatedSession));
               }
             }
           }

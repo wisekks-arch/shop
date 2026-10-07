@@ -88,8 +88,16 @@
           <span class="text-slate-400">운송장 번호</span>
           <span id="res-tracking" class="font-mono font-bold text-indigo-600"></span>
         </div>
+        <div id="res-coupon-row" class="flex items-center justify-between pb-3 border-b border-slate-100 hidden">
+          <span class="text-slate-400">쿠폰 할인</span>
+          <span id="res-coupon" class="font-bold text-rose-500"></span>
+        </div>
+        <div id="res-points-row" class="flex items-center justify-between pb-3 border-b border-slate-100 hidden">
+          <span class="text-slate-400">포인트 사용</span>
+          <span id="res-points" class="font-bold text-amber-600"></span>
+        </div>
         <div class="flex items-center justify-between">
-          <span class="text-slate-400">결제 금액</span>
+          <span class="text-slate-400">최종 결제 금액</span>
           <span id="res-amount" class="font-black text-slate-900 text-sm"></span>
         </div>
       </div>
@@ -132,6 +140,26 @@
       document.getElementById('res-shipping').innerText = `${order.customerName} | ${order.shippingAddress}`;
       document.getElementById('res-tracking').innerText = order.trackingNumber ? `CJ대한통운 (${order.trackingNumber})` : '출고 준비 중';
       document.getElementById('res-amount').innerText = ShopUI.formatPrice(order.totalAmount);
+
+      // Coupon discount
+      const cRow = document.getElementById('res-coupon-row');
+      const cEl = document.getElementById('res-coupon');
+      if (order.couponDiscount && order.couponDiscount > 0) {
+        cRow.classList.remove('hidden');
+        cEl.innerText = `-${ShopUI.formatPrice(order.couponDiscount)}${order.couponName ? ` (${order.couponName})` : ''}`;
+      } else {
+        cRow.classList.add('hidden');
+      }
+
+      // Points usage
+      const pRow = document.getElementById('res-points-row');
+      const pEl = document.getElementById('res-points');
+      if (order.usedPoints && order.usedPoints > 0) {
+        pRow.classList.remove('hidden');
+        pEl.innerText = `-${order.usedPoints.toLocaleString()}P`;
+      } else {
+        pRow.classList.add('hidden');
+      }
 
       // Highlight step
       const steps = ['결제완료', '상품준비', '배송중', '배송완료'];

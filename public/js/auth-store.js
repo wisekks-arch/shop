@@ -392,5 +392,77 @@ const AuthStore = {
       user: updatedSession,
       message: '회원 정보가 성공적으로 수정되었습니다.'
     };
+  },
+
+  /**
+   * Get available coupons for current user
+   */
+  getUserCoupons() {
+    const user = this.getCurrentUser();
+    if (!user) return [];
+
+    const defaultCoupons = [
+      { id: 'cp-welcome-10k', name: '신규가입 웰컴 10,000원 쿠폰', discount: 10000, minOrder: 30000, used: false },
+      { id: 'cp-first-5k', name: '첫구매 감사 5,000원 할인쿠폰', discount: 5000, minOrder: 20000, used: false },
+      { id: 'cp-weekend-3k', name: '주말 특별 3,000원 할인쿠폰', discount: 3000, minOrder: 15000, used: false }
+    ];
+
+    const users = this.getUsers();
+    const u = users.find(item => item.id === user.id || item.email === user.email);
+    if (u) {
+      if (!Array.isArray(u.coupons) || u.coupons.length === 0) {
+        u.coupons = [...defaultCoupons];
+        this.saveUsers(users);
+      }
+      return u.coupons.filter(c => !c.used);
+    }
+    return defaultCoupons.filter(c => !c.used);
+  },
+
+  /**
+   * Deduct points from current user
+   */
+  deductPoints(amount) {
+    const deductAmount = parseInt(amount) || 0;
+    if (deductAmount <= 0) return true;
+
+    const user = this.getCurrentUser();
+    if (!user) return false;
+
+    const users = this.getUsers();
+    const idx = users.findIndex(u => u.id === user.id || u.email === user.email);
+    if (idx >= 0) {
+      users[idx].points = Math.max(0, (users[idx].points || 0) - deductAmount);
+      this.saveUsers(users);
+
+      const updatedUser = { ...user, points: users[idx].points };
+      localStorage.setItem(this.SESSION_KEY, JSON.stringify(updatedUser));
+      this.notify();
+      return true;
+    }
+    return false;
+  },
+
+  /**
+   * Mark a coupon as used
+   */
+  useCoupon(couponId) {
+    if (!couponId) return true;
+    const user = this.getCurrentUser();
+    if (!user) return false;
+
+    const users = this.getUsers();
+    const idx = users.findIndex(u => u.id === user.id || u.email === user.email);
+    if (idx >= 0 && Array.isArray(users[idx].coupons)) {
+      const c = users[idx].coupons.find(item => item.id === couponId);
+      if (c) c.used = true;
+      this.saveUsers(users);
+
+      const updatedUser = { ...user, coupons: users[idx].coupons };
+      localStorage.setItem(this.SESSION_KEY, JSON.stringify(updatedUser));
+      this.notify();
+      return true;
+    }
+    return false;
   }
 };
