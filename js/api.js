@@ -13278,8 +13278,19 @@ const ShopAPI = {
 
         if (method === 'GET') {
           if (orderId) {
-            const ord = orderList.find(o => o.orderId === orderId);
+            const cleanId = orderId.trim().toLowerCase();
+            const ord = orderList.find(o => (o.orderId || '').trim().toLowerCase() === cleanId);
             return ord || null;
+          }
+          const phone = urlObj.searchParams.get('phone');
+          if (phone) {
+            const cleanPhone = phone.replace(/[^0-9]/g, '');
+            const matching = orderList.filter(o => {
+              const cp = (o.customerPhone || '').replace(/[^0-9]/g, '');
+              const sp = (o.shippingPhone || '').replace(/[^0-9]/g, '');
+              return (cleanPhone && (cp.includes(cleanPhone) || sp.includes(cleanPhone)));
+            });
+            return matching;
           }
           const status = urlObj.searchParams.get('status');
           const search = urlObj.searchParams.get('search');
@@ -13292,10 +13303,12 @@ const ShopAPI = {
           }
           if (search) {
             const q = search.toLowerCase();
+            const qDigits = search.replace(/[^0-9]/g, '');
             filtered = filtered.filter(o =>
               (o.orderId && o.orderId.toLowerCase().includes(q)) ||
               (o.customerName && o.customerName.toLowerCase().includes(q)) ||
-              (o.customerPhone && o.customerPhone.includes(q)) ||
+              (o.customerPhone && (o.customerPhone.includes(q) || (qDigits.length >= 4 && o.customerPhone.replace(/[^0-9]/g, '').includes(qDigits)))) ||
+              (o.shippingPhone && (o.shippingPhone.includes(q) || (qDigits.length >= 4 && o.shippingPhone.replace(/[^0-9]/g, '').includes(qDigits)))) ||
               (o.items && o.items.some(it => it.name && it.name.toLowerCase().includes(q)))
             );
           }
@@ -13627,7 +13640,45 @@ const ShopAPI = {
   },
 
   async getOrderById(orderId) {
-    return await this.request('/api/orders?orderId=' + encodeURIComponent(orderId));
+    if (!orderId) return null;
+    return await this.request('/api/orders?orderId=' + encodeURIComponent(orderId.trim()));
+  },
+
+  async lookupOrder({ orderId = '', phone = '' } = {}) {
+    const cleanId = (orderId || '').trim();
+    const cleanPhone = (phone || '').replace(/[^0-9]/g, '');
+
+    // 1. 주문번호가 입력된 경우
+    if (cleanId) {
+      const ord = await this.getOrderById(cleanId);
+      if (ord) {
+        if (!cleanPhone) return ord;
+        const cp = (ord.customerPhone || '').replace(/[^0-9]/g, '');
+        const sp = (ord.shippingPhone || '').replace(/[^0-9]/g, '');
+        if (cp.includes(cleanPhone) || sp.includes(cleanPhone)) {
+          return ord;
+        }
+      }
+    }
+
+    // 2. 연락처로 검색
+    if (cleanPhone) {
+      const orders = await this.getOrders();
+      const matches = (orders || []).filter(o => {
+        const cp = (o.customerPhone || '').replace(/[^0-9]/g, '');
+        const sp = (o.shippingPhone || '').replace(/[^0-9]/g, '');
+        return cp.includes(cleanPhone) || sp.includes(cleanPhone);
+      });
+      if (matches.length > 0) {
+        if (cleanId) {
+          const matchId = matches.find(o => (o.orderId || '').toLowerCase() === cleanId.toLowerCase());
+          if (matchId) return matchId;
+        }
+        return matches[0];
+      }
+    }
+
+    return null;
   },
 
   async createOrder(orderData) {
