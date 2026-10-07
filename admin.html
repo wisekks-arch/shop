@@ -453,78 +453,86 @@
             <!-- ================= 3. ORDERS TAB (주문 & 배송 관리 + 기간별 매출 분석) ================= -->
       <section id="tab-orders" class="hidden space-y-8">
         
-        <!-- Period Sales & Revenue KPI Board -->
-        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-indigo-900/40 space-y-6">
+        <!-- Period Sales & Revenue KPI Board (Modern Pure White & Soft Indigo) -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xs border border-slate-200/90 space-y-6 text-slate-800">
           
-          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 pb-5">
             <div>
-              <div class="flex items-center gap-2">
-                <span class="p-2 rounded-xl bg-indigo-600/30 border border-indigo-500/40 text-indigo-400 shadow-sm"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></span>
-                <h3 class="text-lg sm:text-xl font-black text-white font-heading">주문 & 배송 실시간 데이터 분석 보드</h3>
+              <div class="flex items-center gap-2.5">
+                <span class="p-2.5 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 shadow-2xs">
+                  <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                </span>
+                <div>
+                  <h3 class="text-lg sm:text-xl font-black text-slate-900 font-heading">주문 & 배송 실시간 데이터 분석 보드</h3>
+                  <p class="text-xs text-slate-500 mt-0.5">회원이 결제한 주문의 상품 가격과 진행 상태를 조회기간별로 실시간 집계 및 관리합니다.</p>
+                </div>
               </div>
-              <p class="text-xs text-slate-400 mt-1">회원이 결제한 주문의 상품 가격과 진행 상태를 조회기간별로 실시간 집계 및 관리합니다.</p>
             </div>
 
             <!-- Quick Period Buttons -->
-            <div class="flex flex-wrap items-center gap-1.5 p-1 bg-slate-800/90 backdrop-blur-xs rounded-2xl border border-slate-700/60 text-xs font-bold" id="order-period-btn-group">
-              <button onclick="setOrderPeriod('all')" id="period-btn-all" class="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition order-period-btn">전체 기간</button>
-              <button onclick="setOrderPeriod('today')" id="period-btn-today" class="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition order-period-btn">오늘</button>
-              <button onclick="setOrderPeriod('yesterday')" id="period-btn-yesterday" class="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition order-period-btn">어제</button>
-              <button onclick="setOrderPeriod('week')" id="period-btn-week" class="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition order-period-btn">최근 7일</button>
+            <div class="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100/90 rounded-2xl border border-slate-200/70 text-xs font-bold" id="order-period-btn-group">
+              <button onclick="setOrderPeriod('all')" id="period-btn-all" class="px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white transition order-period-btn">전체 기간</button>
+              <button onclick="setOrderPeriod('today')" id="period-btn-today" class="px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white transition order-period-btn">오늘</button>
+              <button onclick="setOrderPeriod('yesterday')" id="period-btn-yesterday" class="px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white transition order-period-btn">어제</button>
+              <button onclick="setOrderPeriod('week')" id="period-btn-week" class="px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white transition order-period-btn">최근 7일</button>
               <button onclick="setOrderPeriod('month')" id="period-btn-month" class="px-3.5 py-1.5 rounded-xl bg-indigo-600 text-white shadow-xs transition order-period-btn active">이번 달</button>
-              <button onclick="setOrderPeriod('3months')" id="period-btn-3months" class="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition order-period-btn">최근 3개월</button>
+              <button onclick="setOrderPeriod('3months')" id="period-btn-3months" class="px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white transition order-period-btn">최근 3개월</button>
             </div>
           </div>
 
           <!-- Period Sales Summary Cards Grid (4 Cards) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             
-            <div class="bg-slate-800/70 border border-slate-700/60 rounded-2xl p-5 space-y-1 relative overflow-hidden group">
-              <div class="flex items-center justify-between text-slate-400 text-xs font-bold">
+            <!-- Card 1: Sales Total -->
+            <div class="bg-gradient-to-br from-indigo-50/70 via-white to-indigo-50/30 border border-indigo-100/90 rounded-2xl p-5 space-y-1 relative overflow-hidden group shadow-2xs hover:shadow-xs transition">
+              <div class="flex items-center justify-between text-indigo-900/70 text-xs font-bold">
                 <span>조회 기간 총 매출액</span>
-                <span class="p-1.5 rounded-lg bg-indigo-500/20 text-indigo-400"><i data-lucide="coins" class="w-4 h-4"></i></span>
+                <span class="p-1.5 rounded-xl bg-indigo-100 text-indigo-600 shadow-2xs"><i data-lucide="coins" class="w-4 h-4"></i></span>
               </div>
-              <p class="text-2xl font-black text-white font-heading" id="period-sales-total">0원</p>
-              <span class="text-[11px] text-indigo-300 font-medium block truncate" id="period-sales-sub">실결제 합계 금액 (취소 제외)</span>
+              <p class="text-2xl font-black text-slate-900 font-heading tracking-tight" id="period-sales-total">0원</p>
+              <span class="text-[11px] text-indigo-600 font-semibold block truncate" id="period-sales-sub">실결제 합계 금액 (취소 제외)</span>
             </div>
 
-            <div class="bg-slate-800/70 border border-slate-700/60 rounded-2xl p-5 space-y-1 relative overflow-hidden group">
-              <div class="flex items-center justify-between text-slate-400 text-xs font-bold">
+            <!-- Card 2: Order Count -->
+            <div class="bg-gradient-to-br from-teal-50/70 via-white to-teal-50/30 border border-teal-100/90 rounded-2xl p-5 space-y-1 relative overflow-hidden group shadow-2xs hover:shadow-xs transition">
+              <div class="flex items-center justify-between text-teal-900/70 text-xs font-bold">
                 <span>조회 기간 주문 건수</span>
-                <span class="p-1.5 rounded-lg bg-teal-500/20 text-teal-400"><i data-lucide="shopping-bag" class="w-4 h-4"></i></span>
+                <span class="p-1.5 rounded-xl bg-teal-100 text-teal-600 shadow-2xs"><i data-lucide="shopping-bag" class="w-4 h-4"></i></span>
               </div>
-              <p class="text-2xl font-black text-white font-heading" id="period-order-count">0건</p>
-              <span class="text-[11px] text-teal-300 font-medium block truncate" id="period-order-sub">결제완료 주문 건수</span>
+              <p class="text-2xl font-black text-slate-900 font-heading tracking-tight" id="period-order-count">0건</p>
+              <span class="text-[11px] text-teal-700 font-semibold block truncate" id="period-order-sub">결제완료 주문 건수</span>
             </div>
 
-            <div class="bg-slate-800/70 border border-slate-700/60 rounded-2xl p-5 space-y-1 relative overflow-hidden group">
-              <div class="flex items-center justify-between text-slate-400 text-xs font-bold">
+            <!-- Card 3: Average Order Value -->
+            <div class="bg-gradient-to-br from-amber-50/70 via-white to-amber-50/30 border border-amber-100/90 rounded-2xl p-5 space-y-1 relative overflow-hidden group shadow-2xs hover:shadow-xs transition">
+              <div class="flex items-center justify-between text-amber-900/70 text-xs font-bold">
                 <span>평균 결제 객단가</span>
-                <span class="p-1.5 rounded-lg bg-amber-500/20 text-amber-400"><i data-lucide="trending-up" class="w-4 h-4"></i></span>
+                <span class="p-1.5 rounded-xl bg-amber-100 text-amber-600 shadow-2xs"><i data-lucide="trending-up" class="w-4 h-4"></i></span>
               </div>
-              <p class="text-2xl font-black text-white font-heading" id="period-avg-price">0원</p>
-              <span class="text-[11px] text-amber-300 font-medium block truncate" id="period-avg-sub">주문 1건당 평균 결제액</span>
+              <p class="text-2xl font-black text-slate-900 font-heading tracking-tight" id="period-avg-price">0원</p>
+              <span class="text-[11px] text-amber-700 font-semibold block truncate" id="period-avg-sub">주문 1건당 평균 결제액</span>
             </div>
 
-            <div class="bg-slate-800/70 border border-slate-700/60 rounded-2xl p-5 space-y-1 relative overflow-hidden group">
-              <div class="flex items-center justify-between text-slate-400 text-xs font-bold">
+            <!-- Card 4: Shipping Status -->
+            <div class="bg-gradient-to-br from-purple-50/70 via-white to-purple-50/30 border border-purple-100/90 rounded-2xl p-5 space-y-1 relative overflow-hidden group shadow-2xs hover:shadow-xs transition">
+              <div class="flex items-center justify-between text-purple-900/70 text-xs font-bold">
                 <span>배송 대기 & 진행 현황</span>
-                <span class="p-1.5 rounded-lg bg-purple-500/20 text-purple-400"><i data-lucide="truck" class="w-4 h-4"></i></span>
+                <span class="p-1.5 rounded-xl bg-purple-100 text-purple-600 shadow-2xs"><i data-lucide="truck" class="w-4 h-4"></i></span>
               </div>
-              <p class="text-2xl font-black text-white font-heading" id="period-shipping-status">0건</p>
-              <span class="text-[11px] text-purple-300 font-medium block truncate" id="period-shipping-sub">결제완료 0건 / 배송중 0건</span>
+              <p class="text-2xl font-black text-slate-900 font-heading tracking-tight" id="period-shipping-status">0건</p>
+              <span class="text-[11px] text-purple-700 font-semibold block truncate" id="period-shipping-sub">결제완료 0건 / 배송중 0건</span>
             </div>
 
           </div>
 
           <!-- Top Ordered Products in this Period (기간 내 주문된 상품별 가격 & 판매량 요약) -->
-          <div class="p-4 bg-slate-800/50 rounded-2xl border border-slate-700/50">
+          <div class="p-4 bg-slate-50/90 rounded-2xl border border-slate-200/80">
             <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <i data-lucide="award" class="w-4 h-4 text-amber-500"></i>
                 조회 기간 내 인기 주문 상품 및 판매 금액
               </span>
-              <span class="text-[11px] text-slate-400" id="period-prod-count-text">총 0개 품목</span>
+              <span class="text-[11px] text-slate-500 font-medium" id="period-prod-count-text">총 0개 품목</span>
             </div>
             <div id="period-top-products-bar" class="flex flex-wrap items-center gap-2">
               <!-- Dynamically populated tags with product price & qty -->
@@ -2181,7 +2189,7 @@
     function setOrderPeriod(period) {
       currentOrderPeriod = period;
       document.querySelectorAll('.order-period-btn').forEach(btn => {
-        btn.className = 'px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition order-period-btn';
+        btn.className = 'px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white transition order-period-btn';
       });
       const activeBtn = document.getElementById(`period-btn-${period}`);
       if (activeBtn) {
@@ -2241,7 +2249,7 @@
       orderEndDate = e;
 
       document.querySelectorAll('.order-period-btn').forEach(btn => {
-        btn.className = 'px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition order-period-btn';
+        btn.className = 'px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white transition order-period-btn';
       });
 
       applyOrderFilters();
@@ -2396,14 +2404,14 @@
           topBar.innerHTML = `<span class="text-xs text-slate-400 py-1">선택한 조회 기간에 접수된 주문 상품 내역이 없습니다.</span>`;
         } else {
           topBar.innerHTML = topProducts.slice(0, 5).map((tp, idx) => `
-            <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-700/80 text-xs shadow-xs">
-              <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-black flex items-center justify-center">${idx + 1}</span>
-              <img src="${tp.thumbnail}" alt="" class="w-6 h-6 rounded-md object-cover border border-slate-700" />
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-slate-200/90 text-xs shadow-2xs hover:border-indigo-300 transition">
+              <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-black flex items-center justify-center shrink-0">${idx + 1}</span>
+              <img src="${tp.thumbnail}" alt="" class="w-6 h-6 rounded-md object-cover border border-slate-200 shrink-0" />
               <div class="max-w-[140px] truncate">
-                <span class="font-bold text-white block truncate">${tp.name}</span>
-                <span class="text-[10px] text-slate-400">${ShopUI.formatPrice(tp.price)} × ${tp.quantity}개</span>
+                <span class="font-bold text-slate-800 block truncate">${tp.name}</span>
+                <span class="text-[10px] text-slate-500">${ShopUI.formatPrice(tp.price)} × ${tp.quantity}개</span>
               </div>
-              <span class="font-black text-amber-400 text-xs ml-1 font-mono">${ShopUI.formatPrice(tp.total)}</span>
+              <span class="font-black text-indigo-600 text-xs ml-1 font-mono">${ShopUI.formatPrice(tp.total)}</span>
             </div>
           `).join('');
         }
