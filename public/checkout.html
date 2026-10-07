@@ -252,33 +252,29 @@
       ShopUI.renderNavbar();
       ShopUI.renderFooter();
 
-      // Load Logged-in User
+      // Load Logged-in User & Enforce Member Checkout
       currentUser = typeof AuthStore !== 'undefined' ? AuthStore.getCurrentUser() : null;
-      if (currentUser) {
-        if (currentUser.name && document.getElementById('order-name')) document.getElementById('order-name').value = currentUser.name;
-        if (currentUser.phone && document.getElementById('order-phone')) document.getElementById('order-phone').value = currentUser.phone;
-        if (currentUser.email && document.getElementById('order-email')) document.getElementById('order-email').value = currentUser.email;
-        if (currentUser.name && document.getElementById('ship-name')) document.getElementById('ship-name').value = currentUser.name;
-        if (currentUser.phone && document.getElementById('ship-phone')) document.getElementById('ship-phone').value = currentUser.phone;
-        if (currentUser.address && document.getElementById('ship-address')) document.getElementById('ship-address').value = currentUser.address;
-        if (currentUser.addressDetail && document.getElementById('ship-address-detail')) document.getElementById('ship-address-detail').value = currentUser.addressDetail;
-
-        // Points
-        const availPoints = currentUser.points || 0;
-        document.getElementById('co-avail-points').innerText = `${availPoints.toLocaleString()}P`;
-
-        // Coupons
-        loadMemberCoupons();
-      } else {
-        const badge = document.getElementById('co-member-badge');
-        if (badge) {
-          badge.className = 'px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-500';
-          badge.innerText = '비회원 주문';
-        }
-        document.getElementById('co-avail-points').innerText = '0P (비회원)';
-        document.getElementById('co-points-input').disabled = true;
-        document.getElementById('co-coupon-select').disabled = true;
+      if (!currentUser) {
+        alert('이지샵은 회원 전용 주문 서비스를 제공합니다.\n로그인 또는 간편 회원가입 후 주문을 진행해 주세요.');
+        const returnUrl = window.location.pathname.split('/').pop() + window.location.search;
+        window.location.href = `login.html?redirect=${encodeURIComponent(returnUrl || 'checkout.html')}`;
+        return;
       }
+
+      if (currentUser.name && document.getElementById('order-name')) document.getElementById('order-name').value = currentUser.name;
+      if (currentUser.phone && document.getElementById('order-phone')) document.getElementById('order-phone').value = currentUser.phone;
+      if (currentUser.email && document.getElementById('order-email')) document.getElementById('order-email').value = currentUser.email;
+      if (currentUser.name && document.getElementById('ship-name')) document.getElementById('ship-name').value = currentUser.name;
+      if (currentUser.phone && document.getElementById('ship-phone')) document.getElementById('ship-phone').value = currentUser.phone;
+      if (currentUser.address && document.getElementById('ship-address')) document.getElementById('ship-address').value = currentUser.address;
+      if (currentUser.addressDetail && document.getElementById('ship-address-detail')) document.getElementById('ship-address-detail').value = currentUser.addressDetail;
+
+      // Points
+      const availPoints = currentUser.points || 0;
+      document.getElementById('co-avail-points').innerText = `${availPoints.toLocaleString()}P`;
+
+      // Coupons
+      loadMemberCoupons();
 
       // Read URL coupon parameter if passed from cart
       const urlParams = new URLSearchParams(window.location.search);
@@ -416,6 +412,13 @@
 
     async function handleOrderSubmit(e) {
       e.preventDefault();
+
+      // 2차 로그인 검증 (비회원 결제 차단)
+      if (!currentUser || (typeof AuthStore !== 'undefined' && !AuthStore.isLoggedIn())) {
+        alert('이지샵은 회원 전용 서비스입니다. 로그인 후 결제해 주세요.');
+        window.location.href = 'login.html?redirect=checkout.html';
+        return;
+      }
 
       const prodTotal = summary.productTotal;
       const shipFee = summary.shippingFee;

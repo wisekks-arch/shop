@@ -297,9 +297,9 @@ const ShopUI = {
             <a href="cart.html" class="py-3 px-4 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-center rounded-xl transition text-sm">
               장바구니 가기
             </a>
-            <a href="checkout.html" class="py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-center rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
+            <button type="button" onclick="ShopUI.proceedCheckoutFromDrawer()" class="py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-center rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm cursor-pointer">
               바로 주문하기
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -350,6 +350,23 @@ const ShopUI = {
         window.location.href = 'index.html';
       }
     }, 400);
+  },
+
+  proceedCheckoutFromDrawer() {
+    const items = typeof CartStore !== 'undefined' ? CartStore.getItems() : [];
+    if (items.length === 0) {
+      this.showToast('장바구니에 담긴 상품이 없습니다.', 'error');
+      return;
+    }
+    const isLoggedIn = typeof AuthStore !== 'undefined' && AuthStore.isLoggedIn();
+    if (!isLoggedIn) {
+      this.showToast('이지샵은 회원 전용 주문 서비스입니다. 로그인 페이지로 이동합니다.');
+      setTimeout(() => {
+        window.location.href = 'login.html?redirect=checkout.html';
+      }, 600);
+      return;
+    }
+    window.location.href = 'checkout.html';
   },
 
   updateNavBadges() {

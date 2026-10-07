@@ -562,10 +562,10 @@
             <span>간편 회원가입 (3,000P 받기)</span>
           </button>
 
-          <!-- 3. 비회원 주문 계속 진행 -->
+          <!-- 3. 닫기 / 쇼핑 계속하기 -->
           <div class="text-center pt-1">
-            <button onclick="continueGuestCheckout()" class="text-xs text-slate-400 hover:text-slate-700 font-semibold underline transition cursor-pointer">
-              비회원으로 바로 주문하기
+            <button onclick="closeAuthGuideModal()" class="text-xs text-slate-400 hover:text-slate-700 font-semibold underline transition cursor-pointer">
+              닫기 / 쇼핑 계속하기
             </button>
           </div>
         </div>
@@ -812,10 +812,6 @@
 
     function goToSignupForCheckout() {
       window.location.href = 'signup.html?redirect=checkout.html';
-    }
-
-    function continueGuestCheckout() {
-      window.location.href = 'checkout.html';
     }
 
     function toggleDetailWish() {
