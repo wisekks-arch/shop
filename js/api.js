@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EasyShop REST API Client Module (v7 Pure UTF-8 with Built-in 60 Products & 1200 Reviews)
  */
 const DEFAULT_CATEGORIES = [
@@ -14170,6 +14170,7 @@ const ShopAPI = {
             id: 'inq-' + Date.now(),
             productId: bodyData.productId || '',
             productName: bodyData.productName || '일반 문의',
+            category: bodyData.category || '상품문의',
             author: bodyData.author || '고객',
             authorEmail: bodyData.authorEmail || '',
             title: bodyData.title || '상품 문의',
