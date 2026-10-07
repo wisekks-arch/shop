@@ -43,10 +43,21 @@ const AuthStore = {
           id: 'user-default-2',
           email: 'kmagick@naver.com',
           password: 'naver@#2026pass',
-          name: '관리자회원',
+          name: '관리자회원(kmagick)',
           phone: '010-9876-5432',
           address: '서울특별시 서초구 반포대로 58',
           addressDetail: '101호',
+          points: 10000,
+          joinedAt: '2026-09-01'
+        },
+        {
+          id: 'user-default-3',
+          email: 'kks@do-best.co.kr',
+          password: 'kks@#2026pass',
+          name: '관리자회원(kks)',
+          phone: '010-5555-7777',
+          address: '서울특별시 강남구 테헤란로 152',
+          addressDetail: '1802호',
           points: 10000,
           joinedAt: '2026-09-01'
         }

@@ -17,6 +17,10 @@ const ShopUI = {
     const wishlistCount = typeof CartStore !== 'undefined' ? CartStore.getWishlist().length : 0;
     const currentUser = typeof AuthStore !== 'undefined' ? AuthStore.getCurrentUser() : null;
 
+    // Admin authorization check (Only kmagick@naver.com and kks@do-best.co.kr)
+    const ADMIN_EMAILS = ['kmagick@naver.com', 'kks@do-best.co.kr'];
+    const isAdmin = !!(currentUser && currentUser.email && ADMIN_EMAILS.includes(currentUser.email.trim().toLowerCase()));
+
     // Top Utility Auth Buttons
     const topAuthHtml = currentUser ? `
       <div class="flex items-center gap-2">
@@ -114,10 +118,12 @@ const ShopUI = {
             <a href="order-lookup.html" class="hover:text-white transition hidden sm:flex items-center gap-1">
               <i data-lucide="truck" class="w-3.5 h-3.5 text-indigo-400"></i> 주문/배송 조회
             </a>
+            ${isAdmin ? `
             <span class="text-slate-600">|</span>
             <a href="admin.html" class="hover:text-amber-300 font-semibold text-amber-400 transition flex items-center gap-1">
               <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> 관리자 어드민
             </a>
+            ` : ''}
           </div>
         </div>
       </div>
@@ -233,9 +239,11 @@ const ShopUI = {
             <a href="order-lookup.html" class="py-2 text-slate-700 font-medium flex items-center gap-2">
               <i data-lucide="truck" class="w-4 h-4"></i> 주문 및 배송조회
             </a>
+            ${isAdmin ? `
             <a href="admin.html" class="py-2 text-amber-600 font-bold flex items-center gap-2">
               <i data-lucide="shield-check" class="w-4 h-4"></i> 관리자 어드민 대시보드
             </a>
+            ` : ''}
           </div>
         </div>
       </header>
@@ -542,7 +550,11 @@ const ShopUI = {
                 <li><a href="products.html" class="hover:text-white transition">카테고리 전체보기</a></li>
                 <li><a href="order-lookup.html" class="hover:text-white transition">주문 / 배송 실시간 조회</a></li>
                 <li><a href="cart.html" class="hover:text-white transition">장바구니 관리</a></li>
-                <li><a href="admin.html" class="hover:text-amber-400 transition font-semibold text-amber-400">관리자 대시보드</a></li>
+                ${(() => {
+                  const u = typeof AuthStore !== 'undefined' ? AuthStore.getCurrentUser() : null;
+                  const isAdm = !!(u && u.email && ['kmagick@naver.com', 'kks@do-best.co.kr'].includes(u.email.trim().toLowerCase()));
+                  return isAdm ? `<li><a href="admin.html" class="hover:text-amber-400 transition font-semibold text-amber-400">관리자 대시보드</a></li>` : '';
+                })()}
               </ul>
             </div>
 

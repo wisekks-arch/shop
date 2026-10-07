@@ -890,6 +890,17 @@
     let salesChartInstance = null;
 
     document.addEventListener('DOMContentLoaded', async () => {
+      // Admin permission guard (Only kmagick@naver.com and kks@do-best.co.kr)
+      const ADMIN_EMAILS = ['kmagick@naver.com', 'kks@do-best.co.kr'];
+      const currentUser = typeof AuthStore !== 'undefined' ? AuthStore.getCurrentUser() : null;
+      const isAdmin = currentUser && currentUser.email && ADMIN_EMAILS.includes(currentUser.email.trim().toLowerCase());
+
+      if (!isAdmin) {
+        alert('관리자 권한이 있는 계정(kmagick@naver.com 또는 kks@do-best.co.kr)으로 로그인이 필요합니다.');
+        window.location.href = 'login.html?redirect=admin.html';
+        return;
+      }
+
       await loadAdminUsers();
       await loadAllAdminData();
       setDashPeriod('thisMonth');
