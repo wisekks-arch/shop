@@ -1,5 +1,5 @@
 /**
- * EasyShop Global UI Components
+ * EasyShop Global UI Components (v8 Auth & Logout Integrated)
  * Header, Footer, Cart Drawer, Toast System
  */
 const ShopUI = {
@@ -13,8 +13,82 @@ const ShopUI = {
     const root = document.getElementById('navbar-root');
     if (!root) return;
 
-    const cartCount = CartStore.getTotalCount();
-    const wishlistCount = CartStore.getWishlist().length;
+    const cartCount = typeof CartStore !== 'undefined' ? CartStore.getTotalCount() : 0;
+    const wishlistCount = typeof CartStore !== 'undefined' ? CartStore.getWishlist().length : 0;
+    const currentUser = typeof AuthStore !== 'undefined' ? AuthStore.getCurrentUser() : null;
+
+    // Top Utility Auth Buttons
+    const topAuthHtml = currentUser ? `
+      <div class="flex items-center gap-2">
+        <span class="text-emerald-300 font-bold flex items-center gap-1">
+          <i data-lucide="user-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>${currentUser.name} 님</span>
+          <span class="text-[10px] bg-emerald-950/80 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/30">${(currentUser.points || 0).toLocaleString()}P</span>
+        </span>
+        <span class="text-slate-600">|</span>
+        <button type="button" onclick="ShopUI.handleLogout()" class="hover:text-rose-300 text-slate-300 transition flex items-center gap-1 cursor-pointer font-medium">
+          <i data-lucide="log-out" class="w-3.5 h-3.5 text-rose-400"></i> 로그아웃
+        </button>
+      </div>
+    ` : `
+      <div class="flex items-center gap-2.5">
+        <a href="login.html" class="hover:text-white text-slate-200 transition flex items-center gap-1 font-semibold">
+          <i data-lucide="log-in" class="w-3.5 h-3.5 text-indigo-400"></i> 로그인
+        </a>
+        <span class="text-slate-600">|</span>
+        <a href="signup.html" class="hover:text-amber-300 text-amber-400 transition flex items-center gap-1 font-bold">
+          <i data-lucide="user-plus" class="w-3.5 h-3.5"></i> 회원가입
+        </a>
+      </div>
+    `;
+
+    // Main Header Auth Button (Desktop)
+    const desktopAuthHtml = currentUser ? `
+      <div class="hidden md:flex items-center gap-2">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 border border-indigo-100 rounded-full text-xs font-bold text-indigo-900">
+          <i data-lucide="user" class="w-3.5 h-3.5 text-indigo-600"></i>
+          <span>${currentUser.name} 님</span>
+        </div>
+        <button type="button" onclick="ShopUI.handleLogout()" class="px-3 py-1.5 rounded-full border border-slate-200 hover:border-rose-300 hover:bg-rose-50 text-slate-600 hover:text-rose-600 text-xs font-semibold transition flex items-center gap-1 cursor-pointer" title="로그아웃">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+          <span>로그아웃</span>
+        </button>
+      </div>
+    ` : `
+      <div class="hidden md:flex items-center gap-2">
+        <a href="login.html" class="px-3.5 py-1.5 rounded-full border border-slate-200 hover:border-indigo-500 hover:text-indigo-600 text-slate-700 text-xs font-bold transition flex items-center gap-1">
+          <i data-lucide="log-in" class="w-3.5 h-3.5 text-indigo-600"></i>
+          <span>로그인</span>
+        </a>
+      </div>
+    `;
+
+    // Mobile Drawer Auth Section
+    const mobileAuthHtml = currentUser ? `
+      <div class="p-3 bg-indigo-50/90 rounded-xl flex items-center justify-between border border-indigo-100 mb-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">
+            ${currentUser.name ? currentUser.name.slice(0, 1) : 'U'}
+          </div>
+          <div>
+            <p class="text-xs font-bold text-slate-900">${currentUser.name} 님</p>
+            <p class="text-[10px] text-indigo-600 font-semibold">${(currentUser.points || 0).toLocaleString()}P 보유</p>
+          </div>
+        </div>
+        <button type="button" onclick="ShopUI.handleLogout()" class="px-2.5 py-1 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-lg border border-rose-200 transition">
+          로그아웃
+        </button>
+      </div>
+    ` : `
+      <div class="grid grid-cols-2 gap-2 pt-2 pb-2">
+        <a href="login.html" class="py-2.5 px-3 bg-indigo-600 text-white font-bold text-xs rounded-xl text-center shadow-xs">
+          로그인
+        </a>
+        <a href="signup.html" class="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl text-center">
+          회원가입
+        </a>
+      </div>
+    `;
 
     root.innerHTML = `
       <!-- Top Promotion Banner Bar -->
@@ -25,8 +99,10 @@ const ShopUI = {
             <span class="text-slate-200 hidden sm:inline">신규 가입 시 <strong>10,000원 웰컴 쿠폰팩</strong> 즉시 지급!</span>
             <span class="text-slate-300 sm:hidden">5만원 이상 무료배송 혜택</span>
           </div>
-          <div class="flex items-center gap-4 text-slate-300 text-[11px]">
-            <a href="order-lookup.html" class="hover:text-white transition flex items-center gap-1">
+          <div class="flex items-center gap-3 sm:gap-4 text-slate-300 text-[11px]">
+            ${topAuthHtml}
+            <span class="text-slate-600 hidden sm:inline">|</span>
+            <a href="order-lookup.html" class="hover:text-white transition hidden sm:flex items-center gap-1">
               <i data-lucide="truck" class="w-3.5 h-3.5 text-indigo-400"></i> 주문/배송 조회
             </a>
             <span class="text-slate-600">|</span>
@@ -85,11 +161,14 @@ const ShopUI = {
                 </span>
               </a>
 
+              <!-- Desktop Auth Button (Login / User + Logout) -->
+              ${desktopAuthHtml}
+
               <!-- Cart Drawer Trigger Button -->
               <button 
                 type="button" 
                 onclick="ShopUI.openCartDrawer()"
-                class="flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold transition shadow-xs group"
+                class="flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold transition shadow-xs group cursor-pointer"
               >
                 <div class="relative">
                   <i data-lucide="shopping-cart" class="w-4 h-4"></i>
@@ -131,6 +210,7 @@ const ShopUI = {
 
         <!-- Mobile Drawer Menu -->
         <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-2">
+          ${mobileAuthHtml}
           <a href="products.html" class="block py-2 text-slate-800 font-bold">전체 상품 탐색</a>
           <a href="products.html?category=패션 / 의류" class="block py-2 text-slate-600">패션 / 의류</a>
           <a href="products.html?category=디지털 / 가전" class="block py-2 text-slate-600">디지털 / 가전</a>
@@ -222,10 +302,37 @@ const ShopUI = {
     }
 
     // Subscribe to cart updates for badges
-    CartStore.subscribe(() => {
-      this.updateNavBadges();
-      this.renderDrawerItems();
-    });
+    if (typeof CartStore !== 'undefined' && !this._cartSubscribed) {
+      this._cartSubscribed = true;
+      CartStore.subscribe(() => {
+        this.updateNavBadges();
+        this.renderDrawerItems();
+      });
+    }
+
+    // Subscribe to auth updates for navbar re-rendering
+    if (typeof AuthStore !== 'undefined' && !this._authSubscribed) {
+      this._authSubscribed = true;
+      AuthStore.subscribe(() => {
+        ShopUI.renderNavbar(active);
+      });
+    }
+  },
+
+  // Handle User Logout
+  handleLogout() {
+    if (typeof AuthStore !== 'undefined') {
+      AuthStore.logout();
+    } else {
+      try { localStorage.removeItem('easyshop_session_v3'); } catch(e) {}
+    }
+    this.showToast('성공적으로 로그아웃되었습니다.', 'info');
+    setTimeout(() => {
+      this.renderNavbar();
+      if (window.location.pathname.includes('checkout.html') || window.location.pathname.includes('product-edit.html')) {
+        window.location.href = 'index.html';
+      }
+    }, 400);
   },
 
   updateNavBadges() {
@@ -233,8 +340,8 @@ const ShopUI = {
     const wishlistBadge = document.getElementById('nav-wishlist-badge');
     const drawerCount = document.getElementById('drawer-cart-count');
 
-    const totalCount = CartStore.getTotalCount();
-    const wishlistCount = CartStore.getWishlist().length;
+    const totalCount = typeof CartStore !== 'undefined' ? CartStore.getTotalCount() : 0;
+    const wishlistCount = typeof CartStore !== 'undefined' ? CartStore.getWishlist().length : 0;
 
     if (cartBadge) cartBadge.innerText = totalCount;
     if (drawerCount) drawerCount.innerText = totalCount;
@@ -277,7 +384,7 @@ const ShopUI = {
 
   renderDrawerItems() {
     const container = document.getElementById('drawer-item-list');
-    if (!container) return;
+    if (!container || typeof CartStore === 'undefined') return;
 
     const items = CartStore.getItems();
     const summary = CartStore.getSummary();
