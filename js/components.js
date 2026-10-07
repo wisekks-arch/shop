@@ -578,7 +578,7 @@ const ShopUI = {
             <div>
               <h4 class="text-white font-bold text-xs uppercase tracking-wider mb-4">사업자 정보</h4>
               <div class="text-[11px] text-slate-400 space-y-1 leading-relaxed">
-                <p>상호명: (주)이지샵 | 대표: 홍길동</p>
+                <p>상호명: (주)이지샵 | 대표: 김광수</p>
                 <p>사업자등록번호: 123-45-67890</p>
                 <p>통신판매업신고: 제2026-서울강남-01234호</p>
                 <p>주소: 서울특별시 강남구 테헤란로 152 18층</p>
