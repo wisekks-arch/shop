@@ -9,265 +9,245 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css?v=20261007_v18">
+  <link rel="stylesheet" href="css/style.css?v=20261007_v20">
 </head>
 <body class="bg-slate-50 flex flex-col min-h-screen text-slate-800">
 
   <!-- Global Navbar -->
   <div id="navbar-root"></div>
 
-  <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-8">
+  <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-8">
     
     <!-- Page Header -->
-    <div class="text-center max-w-lg mx-auto">
+    <div class="text-center max-w-xl mx-auto">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold uppercase mb-3">
-        <i data-lucide="truck" class="w-4 h-4"></i> 실시간 배송 추적
+        <i data-lucide="truck" class="w-4 h-4"></i> 실시간 배송 추적 & 구매 내역
       </div>
       <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-heading">
         주문 / 배송 조회
       </h1>
       <p class="text-xs sm:text-sm text-slate-500 mt-2">
-        주문번호 또는 주문 시 입력하신 연락처(휴대폰 번호)로 실시간 배송 현황을 확인하실 수 있습니다.
+        회원님의 최근 구매 내역을 기간별로 조회하고 건별 실시간 배송 상황을 즉시 확인하실 수 있습니다.
       </p>
     </div>
 
-    <!-- Quick Recent Order Banner (Shown if fresh order exists in session) -->
-    <div id="fresh-order-banner" class="hidden bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-2xl p-4 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
-          <i data-lucide="sparkles" class="w-5 h-5 text-amber-300"></i>
+    <!-- Mode Tabs (내 구매내역 vs 직접 검색) -->
+    <div class="flex items-center justify-center">
+      <div class="inline-flex p-1.5 bg-slate-200/70 rounded-2xl border border-slate-200 shadow-inner max-w-md w-full">
+        <button 
+          id="tab-member-orders" 
+          onclick="switchTab('member')" 
+          class="flex-1 py-2.5 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 bg-white text-indigo-600 shadow-sm cursor-pointer"
+        >
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span>내 구매 내역</span>
+          <span id="tab-member-count-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-100">0</span>
+        </button>
+        <button 
+          id="tab-direct-search" 
+          onclick="switchTab('direct')" 
+          class="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900 cursor-pointer"
+        >
+          <i data-lucide="search" class="w-4 h-4"></i>
+          <span>주문번호 직접 검색</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Fresh Order Alert Banner (Shown if purchase was made just now) -->
+    <div id="fresh-order-banner" class="hidden bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 text-white rounded-3xl p-5 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-fade-in">
+      <div class="flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/20 shadow-inner">
+          <i data-lucide="sparkles" class="w-6 h-6 text-amber-300"></i>
         </div>
         <div>
-          <h4 class="text-xs font-black text-white">방금 접수된 주문건이 있습니다!</h4>
-          <p id="fresh-order-desc" class="text-[11px] text-indigo-100 mt-0.5">주문번호: ORD-XXXXXX</p>
+          <span class="px-2 py-0.5 rounded-md bg-amber-400 text-slate-950 font-black text-[10px] uppercase tracking-wide">방금 완료된 주문</span>
+          <h4 id="fresh-order-title" class="text-sm font-black text-white mt-0.5">주문이 성공적으로 접수되었습니다!</h4>
+          <p id="fresh-order-desc" class="text-xs text-indigo-100 mt-0.5">주문번호: ORD-XXXXXX</p>
         </div>
       </div>
-      <button onclick="loadFreshOrder()" class="px-4 py-2 bg-white text-indigo-600 hover:bg-indigo-50 font-bold rounded-xl text-xs transition shrink-0 shadow-sm cursor-pointer">
-        바로 확인하기
+      <button onclick="focusFreshOrder()" class="px-5 py-2.5 bg-white text-indigo-600 hover:bg-indigo-50 font-black rounded-xl text-xs transition shrink-0 shadow-md cursor-pointer flex items-center gap-1.5">
+        <span>지금 배송 확인</span>
+        <i data-lucide="chevron-down" class="w-4 h-4"></i>
       </button>
     </div>
 
-    <!-- Lookup Form Card -->
-    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm">
-      <form onsubmit="handleLookup(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
-        <div class="sm:col-span-5">
-          <label class="block text-xs font-bold text-slate-700 mb-1.5">
-            주문 번호
-            <span class="text-[11px] font-normal text-slate-400 ml-1">(주문서에 기재된 번호)</span>
-          </label>
-          <input 
-            type="text" 
-            id="lookup-order-id" 
-            placeholder="예: ORD-20261007-1234" 
-            class="w-full p-3 rounded-xl border border-slate-200 text-xs font-mono font-semibold focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:outline-none transition" 
-          />
-        </div>
-        <div class="sm:col-span-4">
-          <label class="block text-xs font-bold text-slate-700 mb-1.5">
-            연락처
-            <span class="text-[11px] font-normal text-slate-400 ml-1">(휴대폰 번호)</span>
-          </label>
-          <input 
-            type="tel" 
-            id="lookup-phone" 
-            placeholder="예: 01087549373 또는 010-8754-9373" 
-            class="w-full p-3 rounded-xl border border-slate-200 text-xs font-semibold focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:outline-none transition" 
-          />
-        </div>
-        <div class="sm:col-span-3">
-          <button 
-            type="submit" 
-            id="btn-lookup-submit"
-            class="w-full p-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs shadow-md shadow-indigo-600/20 transition flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <i data-lucide="search" class="w-4 h-4"></i>
-            <span>조회하기</span>
-          </button>
-        </div>
-      </form>
-      <div class="mt-3.5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-        <span class="flex items-center gap-1.5">
-          <i data-lucide="info" class="w-3.5 h-3.5 text-indigo-500"></i>
-          주문번호 또는 연락처 중 하나만 입력하셔도 빠른 조회가 가능합니다.
-        </span>
-        <span id="lookup-member-badge" class="font-semibold text-indigo-600 hidden"></span>
-      </div>
-    </div>
+    <!-- ============================================================ -->
+    <!-- SECTION A: LOGGED-IN MEMBER ORDERS (Default View) -->
+    <!-- ============================================================ -->
+    <div id="section-member-view" class="space-y-6">
 
-    <!-- Logged-in Member's Recent Orders List (Quick Select) -->
-    <div id="member-orders-card" class="hidden bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h3 class="text-sm font-black text-slate-900 flex items-center gap-2 font-heading">
-          <i data-lucide="package" class="w-4 h-4 text-indigo-600"></i>
-          <span>내 최근 주문 내역</span>
-        </h3>
-        <span class="text-[11px] text-slate-400">클릭하시면 해당 주문의 상세 배송 현황이 조회됩니다.</span>
+      <!-- Member Summary Dashboard Card -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+        <!-- Decorative blur background -->
+        <div class="absolute -right-10 -bottom-10 w-52 h-52 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="flex items-center gap-4">
+            <div id="member-avatar" class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-indigo-500 to-violet-500 text-white flex items-center justify-center font-black text-2xl shadow-lg border-2 border-white/20 shrink-0">
+              U
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 id="member-name-greeting" class="text-lg sm:text-xl font-black font-heading text-white">회원 구매 내역</h3>
+                <span class="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-bold text-[10px] tracking-wide border border-amber-400/30">
+                  VIP MEMBER
+                </span>
+              </div>
+              <p id="member-phone-badge" class="text-xs text-slate-300 mt-1 flex items-center gap-1.5">
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-indigo-400"></i>
+                <span>010-0000-0000</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Status Counts Chips (Clickable filters) -->
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+            <button onclick="filterByStatusPill('전체')" class="p-3 bg-white/10 hover:bg-white/20 rounded-2xl border border-white/10 text-center transition cursor-pointer group">
+              <span class="text-[11px] text-slate-300 block">전체 주문</span>
+              <span id="count-total" class="text-base sm:text-lg font-black text-white font-heading group-hover:scale-105 transition-transform inline-block">0</span>
+            </button>
+            <button onclick="filterByStatusPill('결제완료')" class="p-3 bg-white/10 hover:bg-indigo-600/30 rounded-2xl border border-white/10 text-center transition cursor-pointer group">
+              <span class="text-[11px] text-indigo-300 block">결제완료</span>
+              <span id="count-paid" class="text-base sm:text-lg font-black text-indigo-300 font-heading group-hover:scale-105 transition-transform inline-block">0</span>
+            </button>
+            <button onclick="filterByStatusPill('상품준비')" class="p-3 bg-white/10 hover:bg-amber-600/30 rounded-2xl border border-white/10 text-center transition cursor-pointer group">
+              <span class="text-[11px] text-amber-300 block">상품준비</span>
+              <span id="count-preparing" class="text-base sm:text-lg font-black text-amber-300 font-heading group-hover:scale-105 transition-transform inline-block">0</span>
+            </button>
+            <button onclick="filterByStatusPill('배송중')" class="p-3 bg-white/10 hover:bg-sky-600/30 rounded-2xl border border-white/10 text-center transition cursor-pointer group">
+              <span class="text-[11px] text-sky-300 block">배송중</span>
+              <span id="count-shipping" class="text-base sm:text-lg font-black text-sky-300 font-heading group-hover:scale-105 transition-transform inline-block">0</span>
+            </button>
+            <button onclick="filterByStatusPill('배송완료')" class="p-3 bg-white/10 hover:bg-emerald-600/30 rounded-2xl border border-white/10 text-center transition cursor-pointer group col-span-2 sm:col-span-1">
+              <span class="text-[11px] text-emerald-300 block">배송완료</span>
+              <span id="count-delivered" class="text-base sm:text-lg font-black text-emerald-300 font-heading group-hover:scale-105 transition-transform inline-block">0</span>
+            </button>
+          </div>
+        </div>
       </div>
-      <div id="member-orders-list" class="space-y-2.5">
+
+      <!-- Date Range & Search Filter Card -->
+      <div class="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+        
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+          
+          <!-- Quick Date Range Buttons -->
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-2 flex items-center gap-1.5">
+              <i data-lucide="calendar" class="w-3.5 h-3.5 text-indigo-600"></i>
+              <span>조회 기간</span>
+            </label>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" onclick="setDateRange('today')" data-range="today" class="btn-quick-range px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer">오늘</button>
+              <button type="button" onclick="setDateRange('1week')" data-range="1week" class="btn-quick-range px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer">1주일</button>
+              <button type="button" onclick="setDateRange('1month')" data-range="1month" class="btn-quick-range px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer">1개월</button>
+              <button type="button" onclick="setDateRange('3months')" data-range="3months" class="btn-quick-range px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer">3개월</button>
+              <button type="button" onclick="setDateRange('6months')" data-range="6months" class="btn-quick-range px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer">6개월</button>
+              <button type="button" onclick="setDateRange('all')" data-range="all" class="btn-quick-range px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition cursor-pointer">전체</button>
+            </div>
+          </div>
+
+          <!-- Date Input & Status Filter -->
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="flex items-center gap-1.5 bg-slate-50 p-1.5 rounded-xl border border-slate-200">
+              <input type="date" id="filter-start-date" onchange="applyFilters()" class="bg-transparent text-xs font-semibold text-slate-700 focus:outline-none p-1" />
+              <span class="text-slate-400 text-xs">~</span>
+              <input type="date" id="filter-end-date" onchange="applyFilters()" class="bg-transparent text-xs font-semibold text-slate-700 focus:outline-none p-1" />
+            </div>
+
+            <select id="filter-status-select" onchange="applyFilters()" class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none focus:border-indigo-500">
+              <option value="전체">배송상태 전체</option>
+              <option value="결제완료">결제완료</option>
+              <option value="상품준비">상품준비</option>
+              <option value="배송중">배송중</option>
+              <option value="배송완료">배송완료</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Filter Sub-bar: Search Input & Order Count info -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400">조회된 주문 내역:</span>
+            <span id="filtered-orders-count-text" class="font-black text-indigo-600">0건</span>
+          </div>
+
+          <div class="relative max-w-xs w-full">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              id="filter-search-input" 
+              oninput="applyFilters()" 
+              placeholder="주문번호 또는 상품명 검색..." 
+              class="w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:border-indigo-500 transition" 
+            />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Orders Card List (Multi-order cards with instant accordion tracking) -->
+      <div id="member-orders-container" class="space-y-4">
         <!-- Rendered dynamically -->
       </div>
+
     </div>
 
-    <!-- Lookup Result Container -->
-    <div id="lookup-result" class="hidden bg-white rounded-3xl border border-slate-200/80 shadow-md overflow-hidden space-y-6">
+    <!-- ============================================================ -->
+    <!-- SECTION B: DIRECT LOOKUP BY ORDER ID / PHONE (Tab 2 or Non-member) -->
+    <!-- ============================================================ -->
+    <div id="section-direct-view" class="hidden space-y-6">
       
-      <!-- Result Header Card -->
-      <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 p-6 sm:p-8 text-white relative">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <div class="flex items-center gap-2 mb-1.5">
-              <span class="text-[11px] font-bold text-indigo-300 uppercase tracking-wider">주문번호</span>
-              <span id="res-order-id" class="text-lg sm:text-xl font-mono font-black text-white tracking-wide"></span>
-              <button onclick="copyOrderId()" class="p-1 text-slate-400 hover:text-white transition" title="주문번호 복사">
-                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-              </button>
-            </div>
-            <p id="res-status-desc" class="text-xs text-slate-300"></p>
+      <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-sm">
+        <h3 class="text-sm font-black text-slate-900 mb-1 flex items-center gap-2 font-heading">
+          <i data-lucide="search" class="w-4 h-4 text-indigo-600"></i>
+          <span>주문번호 또는 연락처로 직접 조회</span>
+        </h3>
+        <p class="text-xs text-slate-500 mb-6">비회원 주문이시거나 별도의 주문번호를 확인하고 싶으실 때 간편하게 조회하실 수 있습니다.</p>
+
+        <form onsubmit="handleDirectLookup(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+          <div class="sm:col-span-5">
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">
+              주문 번호
+              <span class="text-[11px] font-normal text-slate-400 ml-1">(주문서에 기재된 번호)</span>
+            </label>
+            <input 
+              type="text" 
+              id="direct-lookup-order-id" 
+              placeholder="예: ORD-20261007-1234" 
+              class="w-full p-3 rounded-xl border border-slate-200 text-xs font-mono font-semibold focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:outline-none transition" 
+            />
           </div>
-          <div class="flex items-center gap-2">
-            <span id="res-status-badge" class="px-3.5 py-1.5 rounded-full text-xs font-black bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 shadow-sm">
-              결제완료
-            </span>
+          <div class="sm:col-span-4">
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">
+              연락처
+              <span class="text-[11px] font-normal text-slate-400 ml-1">(휴대폰 번호)</span>
+            </label>
+            <input 
+              type="tel" 
+              id="direct-lookup-phone" 
+              placeholder="예: 01087549373 또는 010-8754-9373" 
+              class="w-full p-3 rounded-xl border border-slate-200 text-xs font-semibold focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 focus:outline-none transition" 
+            />
           </div>
-        </div>
+          <div class="sm:col-span-3">
+            <button 
+              type="submit" 
+              id="btn-direct-submit"
+              class="w-full p-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs shadow-md shadow-indigo-600/20 transition flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <i data-lucide="search" class="w-4 h-4"></i>
+              <span>단건 조회하기</span>
+            </button>
+          </div>
+        </form>
       </div>
 
-      <div class="p-6 sm:p-8 pt-0 space-y-8">
-        <!-- Status Timeline -->
-        <div class="p-6 bg-slate-50/80 rounded-2xl border border-slate-200/80">
-          <div class="flex items-center justify-between mb-5">
-            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-              <i data-lucide="milestone" class="w-3.5 h-3.5 text-indigo-600"></i> 배송 진행 단계
-            </h4>
-            <span id="res-timeline-updated" class="text-[11px] text-slate-400"></span>
-          </div>
-          <div class="grid grid-cols-4 gap-2 text-center relative" id="timeline-steps">
-            <div class="step-box" data-step="결제완료">
-              <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center mx-auto mb-2 font-black text-xs transition-all">1</div>
-              <span class="text-xs font-bold text-slate-700 block">결제완료</span>
-              <span class="text-[10px] text-slate-400 block mt-0.5">주문 확인</span>
-            </div>
-            <div class="step-box" data-step="상품준비">
-              <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center mx-auto mb-2 font-black text-xs transition-all">2</div>
-              <span class="text-xs font-bold text-slate-700 block">상품준비</span>
-              <span class="text-[10px] text-slate-400 block mt-0.5">검수 및 포장</span>
-            </div>
-            <div class="step-box" data-step="배송중">
-              <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center mx-auto mb-2 font-black text-xs transition-all">3</div>
-              <span class="text-xs font-bold text-slate-700 block">배송중</span>
-              <span class="text-[10px] text-slate-400 block mt-0.5">택배사 이동</span>
-            </div>
-            <div class="step-box" data-step="배송완료">
-              <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center mx-auto mb-2 font-black text-xs transition-all">4</div>
-              <span class="text-xs font-bold text-slate-700 block">배송완료</span>
-              <span class="text-[10px] text-slate-400 block mt-0.5">고객 수령</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Ordered Items Summary -->
-        <div class="space-y-3">
-          <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-indigo-600"></i> 주문 상품 목록
-          </h4>
-          <div id="res-items-container" class="divide-y divide-slate-100 border border-slate-200/80 rounded-2xl overflow-hidden bg-white">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-
-        <!-- Detail Information Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-          
-          <!-- Delivery Details -->
-          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-3">
-            <h5 class="font-bold text-slate-900 pb-2 border-b border-slate-200/80 flex items-center gap-1.5">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-indigo-600"></i> 배송지 정보
-            </h5>
-            <div class="space-y-2 text-slate-600">
-              <div class="flex justify-between">
-                <span class="text-slate-400">수령인</span>
-                <span id="res-recipient" class="font-bold text-slate-800"></span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">연락처</span>
-                <span id="res-phone" class="font-semibold text-slate-800"></span>
-              </div>
-              <div class="flex justify-between items-start gap-4">
-                <span class="text-slate-400 shrink-0">배송지 주소</span>
-                <span id="res-address" class="font-medium text-slate-800 text-right break-keep"></span>
-              </div>
-              <div class="flex justify-between items-start gap-4">
-                <span class="text-slate-400 shrink-0">배송 메모</span>
-                <span id="res-note" class="text-slate-600 text-right"></span>
-              </div>
-              <div class="flex justify-between items-center pt-2 border-t border-slate-200">
-                <span class="text-slate-400">운송장 정보</span>
-                <div class="text-right">
-                  <span id="res-tracking" class="font-mono font-bold text-indigo-600"></span>
-                  <div id="res-tracking-btn-wrap" class="mt-1 hidden">
-                    <button onclick="checkCarrierDelivery()" class="px-2 py-0.5 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-600 rounded text-[10px] font-bold transition">
-                      배송 위치 추적
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Payment Details -->
-          <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-3">
-            <h5 class="font-bold text-slate-900 pb-2 border-b border-slate-200/80 flex items-center gap-1.5">
-              <i data-lucide="credit-card" class="w-3.5 h-3.5 text-indigo-600"></i> 결제 정보
-            </h5>
-            <div class="space-y-2 text-slate-600">
-              <div class="flex justify-between">
-                <span class="text-slate-400">주문 일시</span>
-                <span id="res-date" class="font-bold text-slate-800"></span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">결제 수단</span>
-                <span id="res-paymethod" class="font-semibold text-slate-800"></span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">상품 금액</span>
-                <span id="res-prod-total" class="font-semibold text-slate-800">0원</span>
-              </div>
-              <div id="res-coupon-row" class="flex justify-between text-rose-500 hidden">
-                <span>쿠폰 할인</span>
-                <span id="res-coupon" class="font-bold">-0원</span>
-              </div>
-              <div id="res-points-row" class="flex justify-between text-amber-600 hidden">
-                <span>포인트 사용</span>
-                <span id="res-points" class="font-bold">-0P</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">배송비</span>
-                <span id="res-shipping-fee" class="font-semibold text-slate-800">0원</span>
-              </div>
-              <div class="flex justify-between items-baseline pt-2 border-t border-slate-200">
-                <span class="font-bold text-slate-900">최종 결제 금액</span>
-                <span id="res-amount" class="text-base font-black text-indigo-600 font-heading">0원</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Action Links -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-100">
-          <a href="products.html" class="text-xs text-slate-500 hover:text-indigo-600 transition flex items-center gap-1">
-            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> 쇼핑 계속하기
-          </a>
-          <div class="flex items-center gap-2">
-            <button onclick="window.print()" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-1.5 cursor-pointer">
-              <i data-lucide="printer" class="w-3.5 h-3.5"></i> 영수증/내역 인쇄
-            </button>
-            <a href="products.html" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs transition shadow-sm">
-              인기 상품 둘러보기
-            </a>
-          </div>
-        </div>
-
+      <!-- Direct Lookup Result Area -->
+      <div id="direct-result-container" class="space-y-4 hidden">
+        <!-- Rendered order card -->
       </div>
 
     </div>
@@ -278,370 +258,691 @@
   <div id="footer-root"></div>
 
   <!-- Scripts -->
-  <script src="js/auth-store.js?v=20261007_v4"></script>
-  <script src="js/cart-store.js?v=20261007_v4"></script>
-  <script src="js/api.js?v=20261007_v4"></script>
-  <script src="js/components.js?v=20261007_v4"></script>
+  <script src="js/auth-store.js?v=20261007_v5"></script>
+  <script src="js/cart-store.js?v=20261007_v5"></script>
+  <script src="js/api.js?v=20261007_v5"></script>
+  <script src="js/components.js?v=20261007_v5"></script>
   <script>
-    let currentLoadedOrder = null;
+    // State
+    let currentUser = null;
+    let allUserOrders = [];
+    let filteredUserOrders = [];
+    let currentQuickRange = 'all';
+    let currentActiveTab = 'member';
+    let autoFocusOrderId = null;
 
     document.addEventListener('DOMContentLoaded', async () => {
       ShopUI.renderNavbar();
       ShopUI.renderFooter();
 
-      const currentUser = typeof AuthStore !== 'undefined' ? AuthStore.getCurrentUser() : null;
+      // Check current logged in user
+      currentUser = typeof AuthStore !== 'undefined' ? AuthStore.getCurrentUser() : null;
 
-      // 1. 로그인 회원 연락처 자동 채우기 및 내 최근 주문 목록 로딩
+      // 1. URL params check (e.g. redirected from checkout / order-complete)
+      const urlParams = new URLSearchParams(window.location.search);
+      autoFocusOrderId = urlParams.get('orderId');
+
+      // 2. Initial Setup based on login status
       if (currentUser) {
-        const phoneInput = document.getElementById('lookup-phone');
-        if (phoneInput && currentUser.phone) {
-          phoneInput.value = currentUser.phone;
-        }
-
-        const badge = document.getElementById('lookup-member-badge');
-        if (badge) {
-          badge.classList.remove('hidden');
-          badge.textContent = `👤 ${currentUser.name || '회원'}님의 계정으로 연결됨`;
-        }
-
-        // 로그인 회원의 최근 주문 로드
-        await loadMemberRecentOrders(currentUser);
+        setupMemberHeader(currentUser);
+      } else {
+        // If not logged in, adjust UI to suggest login but default to direct search
+        const nameGreeting = document.getElementById('member-name-greeting');
+        if (nameGreeting) nameGreeting.innerHTML = '비로그인 상태 <a href="login.html?redirect=order-lookup.html" class="text-xs text-indigo-400 underline font-normal ml-2">로그인 후 내 주문 전체보기</a>';
       }
 
-      // 2. URL 파라미터 orderId 확인 (구매완료 버튼 등으로 바로 진입한 경우)
-      const urlParams = new URLSearchParams(window.location.search);
-      const paramOrderId = urlParams.get('orderId');
+      // 3. Load all orders & filter for current member
+      await loadMemberOrders();
 
-      if (paramOrderId) {
-        document.getElementById('lookup-order-id').value = paramOrderId.trim();
-        await performLookup({ orderId: paramOrderId.trim() });
+      // 4. Check if fresh order exists in session
+      checkFreshOrderSession();
+
+      // 5. If autoFocusOrderId provided, expand that specific order
+      if (autoFocusOrderId) {
+        setTimeout(() => {
+          focusSpecificOrder(autoFocusOrderId);
+        }, 300);
+      }
+    });
+
+    // Setup Header UI for member
+    function setupMemberHeader(user) {
+      const greeting = document.getElementById('member-name-greeting');
+      const phoneBadge = document.getElementById('member-phone-badge');
+      const avatar = document.getElementById('member-avatar');
+
+      if (greeting) greeting.textContent = `${user.name || '회원'}님의 구매 내역`;
+      if (phoneBadge) {
+        phoneBadge.innerHTML = `<i data-lucide="phone" class="w-3.5 h-3.5 text-indigo-400"></i> <span>${user.phone || '연락처 미등록'}</span> | <span class="text-slate-400">${user.email || ''}</span>`;
+      }
+      if (avatar) {
+        avatar.textContent = (user.name || 'U').charAt(0);
+      }
+      const directPhone = document.getElementById('direct-lookup-phone');
+      if (directPhone && user.phone) directPhone.value = user.phone;
+    }
+
+    // Load orders from API & Storage
+    async function loadMemberOrders() {
+      try {
+        const orders = await ShopAPI.getOrders();
+        const all = Array.isArray(orders) ? orders : [];
+
+        if (currentUser) {
+          const cleanUserPhone = (currentUser.phone || '').replace(/[^0-9]/g, '');
+          const userEmail = (currentUser.email || '').trim().toLowerCase();
+          const userName = (currentUser.name || '').trim();
+
+          // Match orders belonging to this user
+          allUserOrders = all.filter(o => {
+            const oPhone1 = (o.customerPhone || '').replace(/[^0-9]/g, '');
+            const oPhone2 = (o.shippingPhone || '').replace(/[^0-9]/g, '');
+            const oEmail = (o.customerEmail || '').trim().toLowerCase();
+            const oName1 = (o.customerName || '').trim();
+            const oName2 = (o.shippingName || '').trim();
+
+            const matchPhone = cleanUserPhone && (oPhone1 === cleanUserPhone || oPhone2 === cleanUserPhone);
+            const matchEmail = userEmail && oEmail && userEmail === oEmail;
+            const matchName = userName && (oName1 === userName || oName2 === userName);
+
+            return matchPhone || matchEmail || matchName;
+          });
+
+          // If member has 0 matched orders (new user), also show recent demo orders so they can experience the UI
+          if (allUserOrders.length === 0 && all.length > 0) {
+            allUserOrders = all.slice(0, 3); // show demo orders as sample
+          }
+        } else {
+          // Non-member: show top recent orders as public preview
+          allUserOrders = all.slice(0, 3);
+        }
+
+        // Sort descending by date
+        allUserOrders.sort((a, b) => new Date(b.orderDate || 0) - new Date(a.orderDate || 0));
+
+        // Update dashboard count numbers
+        updateStatusCounts();
+
+        // Update Tab badge
+        const badge = document.getElementById('tab-member-count-badge');
+        if (badge) badge.textContent = allUserOrders.length;
+
+        // Apply default filter (all)
+        filteredUserOrders = [...allUserOrders];
+        renderMemberOrdersList();
+
+      } catch (err) {
+        console.error('Failed to load orders:', err);
+      }
+    }
+
+    // Update Top Status Pills Counters
+    function updateStatusCounts() {
+      const counts = {
+        '전체': allUserOrders.length,
+        '결제완료': 0,
+        '상품준비': 0,
+        '배송중': 0,
+        '배송완료': 0
+      };
+
+      allUserOrders.forEach(ord => {
+        const s = ord.status || '결제완료';
+        if (counts[s] !== undefined) counts[s]++;
+      });
+
+      document.getElementById('count-total').textContent = counts['전체'];
+      document.getElementById('count-paid').textContent = counts['결제완료'];
+      document.getElementById('count-preparing').textContent = counts['상품준비'];
+      document.getElementById('count-shipping').textContent = counts['배송중'];
+      document.getElementById('count-delivered').textContent = counts['배송완료'];
+    }
+
+    // Status Pill click handler
+    function filterByStatusPill(status) {
+      const select = document.getElementById('filter-status-select');
+      if (select) select.value = status;
+      applyFilters();
+    }
+
+    // Quick Date Range Button Handler
+    function setDateRange(range) {
+      currentQuickRange = range;
+      const today = new Date();
+      const endDateStr = today.toISOString().slice(0, 10);
+      let startDate = new Date();
+
+      if (range === 'today') {
+        // today
+      } else if (range === '1week') {
+        startDate.setDate(today.getDate() - 7);
+      } else if (range === '1month') {
+        startDate.setMonth(today.getMonth() - 1);
+      } else if (range === '3months') {
+        startDate.setMonth(today.getMonth() - 3);
+      } else if (range === '6months') {
+        startDate.setMonth(today.getMonth() - 6);
+      } else if (range === 'all') {
+        startDate = null;
+      }
+
+      const startInput = document.getElementById('filter-start-date');
+      const endInput = document.getElementById('filter-end-date');
+      if (startInput) startInput.value = startDate ? startDate.toISOString().slice(0, 10) : '';
+      if (endInput) endInput.value = startDate ? endDateStr : '';
+
+      // Update button visual styles
+      document.querySelectorAll('.btn-quick-range').forEach(btn => {
+        if (btn.dataset.range === range) {
+          btn.className = 'btn-quick-range px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition cursor-pointer';
+        } else {
+          btn.className = 'btn-quick-range px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer';
+        }
+      });
+
+      applyFilters();
+    }
+
+    // Apply Filters (Date + Status + Search Query)
+    function applyFilters() {
+      const startVal = document.getElementById('filter-start-date')?.value || '';
+      const endVal = document.getElementById('filter-end-date')?.value || '';
+      const statusVal = document.getElementById('filter-status-select')?.value || '전체';
+      const searchVal = (document.getElementById('filter-search-input')?.value || '').trim().toLowerCase();
+
+      filteredUserOrders = allUserOrders.filter(ord => {
+        // Date filter
+        const orderDateStr = (ord.orderDate || '').slice(0, 10);
+        if (startVal && orderDateStr < startVal) return false;
+        if (endVal && orderDateStr > endVal) return false;
+
+        // Status filter
+        if (statusVal && statusVal !== '전체' && ord.status !== statusVal) return false;
+
+        // Search text (orderId or item name)
+        if (searchVal) {
+          const matchId = (ord.orderId || '').toLowerCase().includes(searchVal);
+          const matchItem = ord.items && Array.isArray(ord.items) && ord.items.some(it => (it.name || '').toLowerCase().includes(searchVal));
+          if (!matchId && !matchItem) return false;
+        }
+
+        return true;
+      });
+
+      const countText = document.getElementById('filtered-orders-count-text');
+      if (countText) countText.textContent = `${filteredUserOrders.length}건`;
+
+      renderMemberOrdersList();
+    }
+
+    // Render Orders Cards List
+    function renderMemberOrdersList() {
+      const container = document.getElementById('member-orders-container');
+      if (!container) return;
+
+      if (filteredUserOrders.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-3xl border border-slate-200/80 p-12 text-center space-y-4">
+            <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+              <i data-lucide="package-open" class="w-8 h-8"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-slate-800">조회된 주문 내역이 없습니다</h4>
+              <p class="text-xs text-slate-500 mt-1">선택하신 기간 또는 조건에 일치하는 구매 내역이 없습니다.</p>
+            </div>
+            <div class="pt-2">
+              <button onclick="setDateRange('all')" class="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition">
+                전체 기간으로 보기
+              </button>
+            </div>
+          </div>
+        `;
+        if (window.lucide) window.lucide.createIcons();
         return;
       }
 
-      // 3. 세션스토리지 최신 주문(latest_order) 배너 확인
-      try {
-        const latestRaw = sessionStorage.getItem('latest_order');
-        if (latestRaw) {
-          const latest = JSON.parse(latestRaw);
-          if (latest && (latest.orderId || latest.items)) {
-            const banner = document.getElementById('fresh-order-banner');
-            const desc = document.getElementById('fresh-order-desc');
-            if (banner && desc) {
-              banner.classList.remove('hidden');
-              const oid = latest.orderId || '최근 주문';
-              const amt = ShopUI.formatPrice(latest.totalAmount || 0);
-              desc.textContent = `주문번호: ${oid} | 결제금액: ${amt}`;
-            }
-          }
-        }
-      } catch (e) {}
-    });
-
-    // 세션 최신 주문 원클릭 조회
-    async function loadFreshOrder() {
-      try {
-        const latestRaw = sessionStorage.getItem('latest_order');
-        if (latestRaw) {
-          const latest = JSON.parse(latestRaw);
-          if (latest.orderId) {
-            document.getElementById('lookup-order-id').value = latest.orderId;
-            await performLookup({ orderId: latest.orderId });
-          }
-        }
-      } catch (e) {}
+      container.innerHTML = filteredUserOrders.map(ord => renderOrderCardHtml(ord)).join('');
+      if (window.lucide) window.lucide.createIcons();
     }
 
-    // 회원 최근 주문 목록 렌더링
-    async function loadMemberRecentOrders(currentUser) {
-      try {
-        const allOrders = await ShopAPI.getOrders();
-        if (!allOrders || !Array.isArray(allOrders)) return;
+    // Generate Single Order Card HTML with Accordions
+    function renderOrderCardHtml(ord) {
+      const status = ord.status || '결제완료';
+      const statusColor = status === '배송완료' ? 'bg-emerald-50 text-emerald-700 border-emerald-300' :
+                          status === '배송중' ? 'bg-sky-50 text-sky-700 border-sky-300' :
+                          status === '상품준비' ? 'bg-amber-50 text-amber-700 border-amber-300' :
+                          'bg-indigo-50 text-indigo-700 border-indigo-300';
 
-        const cleanUserPhone = (currentUser.phone || '').replace(/[^0-9]/g, '');
-        const memberOrders = allOrders.filter(o => {
-          const oPhone = (o.customerPhone || o.shippingPhone || '').replace(/[^0-9]/g, '');
-          const oName = (o.customerName || o.shippingName || '').trim();
-          const oEmail = (o.customerEmail || '').trim().toLowerCase();
+      const items = Array.isArray(ord.items) && ord.items.length > 0 ? ord.items : [];
+      const itemsHtml = items.map(item => `
+        <div class="flex items-center gap-4 py-2.5 first:pt-0 last:pb-0">
+          <img 
+            src="${item.thumbnail || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200'}" 
+            alt="${item.name || '상품'}" 
+            class="w-14 h-14 rounded-xl object-cover border border-slate-100 shrink-0 shadow-xs" 
+          />
+          <div class="flex-1 min-w-0">
+            <h5 class="text-xs font-bold text-slate-900 line-clamp-1">${item.name || '주문 상품'}</h5>
+            <p class="text-[11px] text-slate-400 mt-0.5">
+              ${item.selectedOption || item.option ? `옵션: ${item.selectedOption || item.option} / ` : ''}수량: ${item.quantity || 1}개
+            </p>
+          </div>
+          <div class="text-right shrink-0">
+            <span class="text-xs font-black text-slate-900 font-heading">
+              ${ShopUI.formatPrice((item.price || 0) * (item.quantity || 1))}
+            </span>
+          </div>
+        </div>
+      `).join('');
+
+      return `
+        <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow overflow-hidden order-card" id="card-${ord.orderId}">
           
-          return (cleanUserPhone && oPhone && cleanUserPhone === oPhone) ||
-                 (currentUser.email && oEmail && currentUser.email.toLowerCase() === oEmail) ||
-                 (currentUser.name && oName && currentUser.name === oName);
-        }).slice(0, 5); // 최근 5건
+          <!-- Card Header -->
+          <div class="p-5 sm:p-6 bg-slate-50/80 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+              <span class="text-xs font-bold text-slate-500">${ord.orderDate || ''}</span>
+              <span class="text-slate-300">|</span>
+              <span class="font-mono font-black text-xs text-indigo-600">${ord.orderId}</span>
+              <button onclick="copyOrderIdVal('${ord.orderId}')" class="p-1 text-slate-400 hover:text-indigo-600 transition" title="주문번호 복사">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+            <div class="flex items-center gap-2 self-start sm:self-auto">
+              <span class="px-3 py-1 rounded-full text-xs font-black border ${statusColor} shadow-2xs">
+                ${status}
+              </span>
+            </div>
+          </div>
 
-        if (memberOrders.length > 0) {
-          const card = document.getElementById('member-orders-card');
-          const list = document.getElementById('member-orders-list');
-          if (card && list) {
-            card.classList.remove('hidden');
-            list.innerHTML = memberOrders.map(ord => {
-              const itemSummary = ord.items && ord.items.length > 0 
-                ? `${ord.items[0].name}${ord.items.length > 1 ? ` 외 ${ord.items.length - 1}건` : ''}` 
-                : '주문 상품';
-              
-              const statusColor = ord.status === '배송완료' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                                  ord.status === '배송중' ? 'bg-sky-50 text-sky-700 border-sky-200' :
-                                  ord.status === '상품준비' ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                                  'bg-indigo-50 text-indigo-700 border-indigo-200';
+          <!-- Card Body: Ordered Items -->
+          <div class="p-5 sm:p-6 space-y-4">
+            <div class="space-y-1 divide-y divide-slate-100">
+              ${itemsHtml}
+            </div>
 
-              return `
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-2xl border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/20 transition gap-3">
-                  <div class="space-y-1">
-                    <div class="flex items-center gap-2">
-                      <span class="font-mono font-bold text-xs text-indigo-600">${ord.orderId}</span>
-                      <span class="text-[10px] text-slate-400">${ord.orderDate ? ord.orderDate.slice(0, 16) : ''}</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${statusColor}">
-                        ${ord.status || '결제완료'}
-                      </span>
-                    </div>
-                    <p class="text-xs font-semibold text-slate-800 line-clamp-1">${itemSummary}</p>
-                  </div>
-                  <div class="flex items-center justify-between sm:justify-end gap-3 shrink-0">
-                    <span class="font-black text-xs text-slate-900">${ShopUI.formatPrice(ord.totalAmount)}</span>
-                    <button 
-                      onclick="selectMemberOrder('${ord.orderId}')" 
-                      class="px-3 py-1.5 bg-slate-900 hover:bg-indigo-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>배송조회</span>
-                      <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                    </button>
-                  </div>
+            <!-- Card Bottom Bar: Amount & Action Buttons -->
+            <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span class="text-[11px] text-slate-400 block">총 결제금액</span>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-base sm:text-lg font-black text-slate-900 font-heading">
+                    ${ShopUI.formatPrice(ord.totalAmount || 0)}
+                  </span>
+                  ${ord.couponDiscount ? `<span class="text-[11px] font-bold text-rose-500">(쿠폰 -${ShopUI.formatPrice(ord.couponDiscount)})</span>` : ''}
+                  ${ord.usedPoints ? `<span class="text-[11px] font-bold text-amber-600">(${ord.usedPoints.toLocaleString()}P 사용)</span>` : ''}
                 </div>
-              `;
-            }).join('');
+              </div>
 
-            if (window.lucide) window.lucide.createIcons();
-          }
+              <div class="flex items-center gap-2">
+                <button 
+                  onclick="toggleTrackingPanel('${ord.orderId}')" 
+                  id="btn-toggle-tracking-${ord.orderId}"
+                  class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-black shadow-md shadow-indigo-600/20 transition flex items-center gap-1.5 cursor-pointer"
+                >
+                  <i data-lucide="truck" class="w-4 h-4"></i>
+                  <span id="btn-toggle-tracking-text-${ord.orderId}">실시간 배송조회 ▼</span>
+                </button>
+                <button 
+                  onclick="toggleDetailPanel('${ord.orderId}')" 
+                  class="px-4 py-2.5 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                >
+                  <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
+                  <span>주문/영수증 상세</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion 1: Expandable Real-Time Tracking Panel -->
+          <div id="tracking-panel-${ord.orderId}" class="hidden bg-slate-900 text-slate-100 border-t border-slate-800 p-6 sm:p-8 space-y-6 animate-fade-in">
+            ${renderTrackingTimelineHtml(ord)}
+          </div>
+
+          <!-- Accordion 2: Expandable Order / Receipt Detail Panel -->
+          <div id="detail-panel-${ord.orderId}" class="hidden bg-slate-50 border-t border-slate-200/80 p-6 sm:p-8 space-y-4 animate-fade-in">
+            ${renderOrderDetailSummaryHtml(ord)}
+          </div>
+
+        </div>
+      `;
+    }
+
+    // Render Timeline & Tracking Details inside Accordion
+    function renderTrackingTimelineHtml(ord) {
+      const status = ord.status || '결제완료';
+      const steps = ['결제완료', '상품준비', '배송중', '배송완료'];
+      const curIdx = steps.indexOf(status) >= 0 ? steps.indexOf(status) : 0;
+
+      let statusMsg = '';
+      if (status === '배송완료') statusMsg = '고객님께 배송이 안전하게 완료되었습니다. 구매해 주셔서 감사합니다.';
+      else if (status === '배송중') statusMsg = '택배사로 상품이 인계되어 고객님의 배송지로 이동 중입니다.';
+      else if (status === '상품준비') statusMsg = '판매자가 주문 상품을 꼼꼼하게 검수 및 포장 중입니다.';
+      else statusMsg = '결제가 안전하게 완료되어 판매자가 주문을 확인하고 있습니다.';
+
+      const timelineStepsHtml = steps.map((s, i) => {
+        let circleClass = '';
+        let titleClass = '';
+        let stepContent = i + 1;
+
+        if (i < curIdx) {
+          circleClass = 'w-9 h-9 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto mb-2 font-black text-xs shadow-md shadow-emerald-500/30';
+          stepContent = '✓';
+          titleClass = 'text-xs font-bold text-slate-200';
+        } else if (i === curIdx) {
+          circleClass = 'w-9 h-9 rounded-full bg-indigo-500 text-white flex items-center justify-center mx-auto mb-2 font-black text-xs shadow-lg shadow-indigo-500/40 ring-4 ring-indigo-400/30 animate-pulse';
+          titleClass = 'text-xs font-black text-indigo-400';
+        } else {
+          circleClass = 'w-9 h-9 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center mx-auto mb-2 font-black text-xs';
+          titleClass = 'text-xs font-medium text-slate-500';
         }
-      } catch (err) {
-        console.warn('Member orders fetch warning:', err);
+
+        return `
+          <div class="text-center relative">
+            <div class="${circleClass}">${stepContent}</div>
+            <span class="${titleClass} block">${s}</span>
+          </div>
+        `;
+      }).join('');
+
+      return `
+        <div class="space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-2">
+            <div>
+              <span class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider">실시간 배송 상태</span>
+              <h4 class="text-sm font-black text-white mt-0.5">${statusMsg}</h4>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-mono font-bold text-indigo-300">
+                ${ord.trackingNumber ? `CJ대한통운 (${ord.trackingNumber})` : '출고 준비 중 (송장 발급 대기)'}
+              </span>
+              ${ord.trackingNumber ? `
+                <div class="mt-1">
+                  <button onclick="alert('[CJ대한통운 실시간 배송추적]\\n\\n운송장번호: ${ord.trackingNumber}\\n상태: 배송 터미널 집하 완료 후 고객님 배송지로 안전하게 이동 중입니다.')" class="px-2.5 py-1 bg-indigo-600/40 hover:bg-indigo-600 border border-indigo-400/40 text-indigo-200 rounded-lg text-[10px] font-bold transition cursor-pointer">
+                    위치 추적 확인
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+
+          <!-- 4-step Timeline -->
+          <div class="p-6 bg-slate-950/60 rounded-2xl border border-slate-800/80">
+            <div class="grid grid-cols-4 gap-2">
+              ${timelineStepsHtml}
+            </div>
+          </div>
+
+          <!-- Shipping Details Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-300">
+            <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700/60 space-y-2">
+              <div class="flex justify-between">
+                <span class="text-slate-400">수령인</span>
+                <span class="font-bold text-white">${ord.shippingName || ord.customerName || '고객'}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">연락처</span>
+                <span class="font-semibold text-white">${ord.shippingPhone || ord.customerPhone || '-'}</span>
+              </div>
+              <div class="flex justify-between items-start gap-4">
+                <span class="text-slate-400 shrink-0">배송지</span>
+                <span class="text-right text-slate-200">${ord.shippingAddress || '기본 주소'}</span>
+              </div>
+            </div>
+
+            <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700/60 space-y-2">
+              <div class="flex justify-between">
+                <span class="text-slate-400">배송 메모</span>
+                <span class="text-right text-slate-200">${ord.shippingNote ? `"${ord.shippingNote}"` : '요청사항 없음'}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">택배사</span>
+                <span class="text-white font-bold">CJ대한통운</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">운송장 번호</span>
+                <span class="font-mono text-indigo-400 font-bold">${ord.trackingNumber || '배송준비 단계에서 발급됩니다.'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Render Order / Receipt Detail inside Accordion
+    function renderOrderDetailSummaryHtml(ord) {
+      return `
+        <div class="space-y-4 text-xs">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+            <h5 class="font-bold text-slate-900 flex items-center gap-1.5">
+              <i data-lucide="receipt" class="w-4 h-4 text-indigo-600"></i> 결제 및 영수증 내역
+            </h5>
+            <button onclick="window.print()" class="px-3 py-1 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 rounded-lg text-[11px] font-bold transition flex items-center gap-1 cursor-pointer">
+              <i data-lucide="printer" class="w-3 h-3"></i> 영수증 인쇄
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-2 text-slate-600">
+              <div class="flex justify-between">
+                <span class="text-slate-400">결제 수단</span>
+                <span class="font-bold text-slate-800">${ord.paymentMethod || '신용/체크카드'}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">주문 일시</span>
+                <span class="font-medium text-slate-800">${ord.orderDate || ''}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">주문자 성함</span>
+                <span class="font-medium text-slate-800">${ord.customerName || ''}</span>
+              </div>
+            </div>
+
+            <div class="space-y-2 text-slate-600">
+              <div class="flex justify-between">
+                <span class="text-slate-400">상품 금액</span>
+                <span class="font-medium text-slate-800">${ShopUI.formatPrice(ord.originalProductTotal || ord.totalAmount || 0)}</span>
+              </div>
+              ${ord.couponDiscount ? `
+                <div class="flex justify-between text-rose-500 font-bold">
+                  <span>쿠폰 할인 (${ord.couponName || '할인쿠폰'})</span>
+                  <span>-${ShopUI.formatPrice(ord.couponDiscount)}</span>
+                </div>
+              ` : ''}
+              ${ord.usedPoints ? `
+                <div class="flex justify-between text-amber-600 font-bold">
+                  <span>포인트 사용</span>
+                  <span>-${ord.usedPoints.toLocaleString()}P</span>
+                </div>
+              ` : ''}
+              <div class="flex justify-between">
+                <span class="text-slate-400">배송비</span>
+                <span class="font-medium text-slate-800">${ord.shippingFee ? ShopUI.formatPrice(ord.shippingFee) : '무료배송'}</span>
+              </div>
+              <div class="flex justify-between pt-2 border-t border-slate-200 items-baseline">
+                <span class="font-black text-slate-900">최종 결제 금액</span>
+                <span class="text-base font-black text-indigo-600 font-heading">${ShopUI.formatPrice(ord.totalAmount || 0)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Toggle Tracking Accordion
+    function toggleTrackingPanel(orderId) {
+      const panel = document.getElementById(`tracking-panel-${orderId}`);
+      const btnText = document.getElementById(`btn-toggle-tracking-text-${orderId}`);
+      if (!panel) return;
+
+      const isHidden = panel.classList.contains('hidden');
+      if (isHidden) {
+        panel.classList.remove('hidden');
+        if (btnText) btnText.textContent = '배송조회 닫기 ▲';
+      } else {
+        panel.classList.add('hidden');
+        if (btnText) btnText.textContent = '실시간 배송조회 ▼';
       }
+      if (window.lucide) window.lucide.createIcons();
     }
 
-    // 목록에서 배송조회 클릭
-    async function selectMemberOrder(orderId) {
-      document.getElementById('lookup-order-id').value = orderId;
-      await performLookup({ orderId });
+    // Toggle Detail Accordion
+    function toggleDetailPanel(orderId) {
+      const panel = document.getElementById(`detail-panel-${orderId}`);
+      if (!panel) return;
+      panel.classList.toggle('hidden');
+      if (window.lucide) window.lucide.createIcons();
     }
 
-    // 폼 제출 핸들러
-    async function handleLookup(e) {
+    // Tab Switcher (member vs direct)
+    function switchTab(tab) {
+      currentActiveTab = tab;
+      const memberSec = document.getElementById('section-member-view');
+      const directSec = document.getElementById('section-direct-view');
+      const tabMemberBtn = document.getElementById('tab-member-orders');
+      const tabDirectBtn = document.getElementById('tab-direct-search');
+
+      if (tab === 'member') {
+        memberSec.classList.remove('hidden');
+        directSec.classList.add('hidden');
+
+        tabMemberBtn.className = 'flex-1 py-2.5 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 bg-white text-indigo-600 shadow-sm cursor-pointer';
+        tabDirectBtn.className = 'flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900 cursor-pointer';
+      } else {
+        memberSec.classList.add('hidden');
+        directSec.classList.remove('hidden');
+
+        tabDirectBtn.className = 'flex-1 py-2.5 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 bg-white text-indigo-600 shadow-sm cursor-pointer';
+        tabMemberBtn.className = 'flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 text-slate-600 hover:text-slate-900 cursor-pointer';
+      }
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    // Direct Lookup Handler
+    async function handleDirectLookup(e) {
       if (e) e.preventDefault();
-      const orderId = document.getElementById('lookup-order-id').value.trim();
-      const phone = document.getElementById('lookup-phone').value.trim();
+      const orderId = document.getElementById('direct-lookup-order-id').value.trim();
+      const phone = document.getElementById('direct-lookup-phone').value.trim();
 
       if (!orderId && !phone) {
         alert('주문 번호 또는 연락처(휴대폰 번호)를 입력해 주세요.');
         return;
       }
 
-      await performLookup({ orderId, phone });
-    }
-
-    // 실제 주문 조회 실행 함수
-    async function performLookup({ orderId = '', phone = '' }) {
-      const submitBtn = document.getElementById('btn-lookup-submit');
+      const submitBtn = document.getElementById('btn-direct-submit');
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span><span>조회 중...</span>';
       }
 
       try {
-        let order = null;
-
-        if (ShopAPI.lookupOrder) {
-          order = await ShopAPI.lookupOrder({ orderId, phone });
-        } else if (orderId) {
-          order = await ShopAPI.getOrderById(orderId);
-        }
-
-        // 만약 못 찾았을 경우 전체 주문 목록에서 유연한 2차 검색
+        let order = await ShopAPI.lookupOrder({ orderId, phone });
         if (!order) {
           const all = await ShopAPI.getOrders();
-          if (Array.isArray(all)) {
-            const cleanId = orderId.toLowerCase();
-            const cleanPhone = phone.replace(/[^0-9]/g, '');
+          const cleanId = orderId.toLowerCase();
+          const cleanPhone = phone.replace(/[^0-9]/g, '');
 
-            order = all.find(o => {
-              const oId = (o.orderId || '').toLowerCase();
-              const oPhone = (o.customerPhone || o.shippingPhone || '').replace(/[^0-9]/g, '');
-
-              if (cleanId && cleanPhone) {
-                return oId === cleanId && (oPhone.includes(cleanPhone) || cleanPhone.includes(oPhone));
-              }
-              if (cleanId) return oId === cleanId;
-              if (cleanPhone) return oPhone && (oPhone.includes(cleanPhone) || cleanPhone.includes(oPhone));
-              return false;
-            });
-          }
+          order = (all || []).find(o => {
+            const oId = (o.orderId || '').toLowerCase();
+            const oP = (o.customerPhone || o.shippingPhone || '').replace(/[^0-9]/g, '');
+            if (cleanId && cleanPhone) return oId === cleanId && (oP.includes(cleanPhone) || cleanPhone.includes(oP));
+            if (cleanId) return oId === cleanId;
+            if (cleanPhone) return oP && (oP.includes(cleanPhone) || cleanPhone.includes(oP));
+            return false;
+          });
         }
 
-        const resultBox = document.getElementById('lookup-result');
+        const resContainer = document.getElementById('direct-result-container');
         if (!order) {
-          alert('입력하신 정보와 일치하는 주문을 찾을 수 없습니다.\n\n- 주문번호가 정확한지 확인해 주세요.\n- 연락처는 숫자만 입력하셔도 됩니다.');
-          resultBox.classList.add('hidden');
+          alert('일치하는 주문 정보를 찾을 수 없습니다.\n주문번호 또는 연락처를 다시 확인해 주세요.');
+          resContainer.classList.add('hidden');
           return;
         }
 
-        currentLoadedOrder = order;
-        renderOrderResult(order);
+        resContainer.classList.remove('hidden');
+        resContainer.innerHTML = renderOrderCardHtml(order);
 
-        // 결과창 표시 및 스크롤 부드럽게 이동
-        resultBox.classList.remove('hidden');
-        resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Open tracking accordion immediately for direct search
+        setTimeout(() => {
+          toggleTrackingPanel(order.orderId);
+        }, 100);
+
+        resContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       } catch (err) {
-        console.error('Lookup error:', err);
-        alert('주문 조회 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+        console.error('Direct lookup error:', err);
+        alert('조회 중 오류가 발생했습니다.');
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i><span>조회하기</span>';
+          submitBtn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i><span>단건 조회하기</span>';
           if (window.lucide) window.lucide.createIcons();
         }
       }
     }
 
-    // 결과 렌더링 함수
-    function renderOrderResult(order) {
-      document.getElementById('res-order-id').innerText = order.orderId;
-      document.getElementById('res-date').innerText = order.orderDate || new Date().toLocaleString('ko-KR');
-      document.getElementById('res-recipient').innerText = order.shippingName || order.customerName || '고객';
-      document.getElementById('res-phone').innerText = order.shippingPhone || order.customerPhone || '-';
-      document.getElementById('res-address').innerText = order.shippingAddress || '기본 배송지';
-      document.getElementById('res-note').innerText = order.shippingNote ? `"${order.shippingNote}"` : '요청사항 없음';
-      document.getElementById('res-paymethod').innerText = order.paymentMethod || '신용/체크카드';
+    // Fresh Order Banner Handling
+    function checkFreshOrderSession() {
+      try {
+        const latestRaw = sessionStorage.getItem('latest_order');
+        if (!latestRaw) return;
 
-      // Tracking info
-      const trackingEl = document.getElementById('res-tracking');
-      const trackingBtnWrap = document.getElementById('res-tracking-btn-wrap');
-      if (order.trackingNumber) {
-        trackingEl.innerText = `CJ대한통운 (${order.trackingNumber})`;
-        if (trackingBtnWrap) trackingBtnWrap.classList.remove('hidden');
-      } else {
-        trackingEl.innerText = '출고 준비 중 (송장 발급 대기)';
-        if (trackingBtnWrap) trackingBtnWrap.classList.add('hidden');
-      }
-
-      // Amounts
-      const prodTotal = order.originalProductTotal || order.totalAmount || 0;
-      document.getElementById('res-prod-total').innerText = ShopUI.formatPrice(prodTotal);
-      document.getElementById('res-shipping-fee').innerText = (order.shippingFee && order.shippingFee > 0) ? ShopUI.formatPrice(order.shippingFee) : '무료배송';
-      document.getElementById('res-amount').innerText = ShopUI.formatPrice(order.totalAmount);
-
-      // Coupon discount
-      const cRow = document.getElementById('res-coupon-row');
-      const cEl = document.getElementById('res-coupon');
-      if (order.couponDiscount && order.couponDiscount > 0) {
-        cRow.classList.remove('hidden');
-        cEl.innerText = `-${ShopUI.formatPrice(order.couponDiscount)}${order.couponName ? ` (${order.couponName})` : ''}`;
-      } else {
-        cRow.classList.add('hidden');
-      }
-
-      // Points usage
-      const pRow = document.getElementById('res-points-row');
-      const pEl = document.getElementById('res-points');
-      if (order.usedPoints && order.usedPoints > 0) {
-        pRow.classList.remove('hidden');
-        pEl.innerText = `-${order.usedPoints.toLocaleString()}P`;
-      } else {
-        pRow.classList.add('hidden');
-      }
-
-      // Status badge and descriptions
-      const statusBadge = document.getElementById('res-status-badge');
-      const statusDesc = document.getElementById('res-status-desc');
-      const status = order.status || '결제완료';
-
-      statusBadge.innerText = status;
-      if (status === '배송완료') {
-        statusBadge.className = 'px-3.5 py-1.5 rounded-full text-xs font-black bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 shadow-sm';
-        statusDesc.innerText = '고객님께 배송이 안전하게 완료되었습니다. 구매해 주셔서 감사합니다.';
-      } else if (status === '배송중') {
-        statusBadge.className = 'px-3.5 py-1.5 rounded-full text-xs font-black bg-sky-500/20 border border-sky-400/40 text-sky-300 shadow-sm';
-        statusDesc.innerText = '택배사로 상품이 인계되어 고객님의 배송지로 이동 중입니다.';
-      } else if (status === '상품준비') {
-        statusBadge.className = 'px-3.5 py-1.5 rounded-full text-xs font-black bg-amber-500/20 border border-amber-400/40 text-amber-300 shadow-sm';
-        statusDesc.innerText = '판매자가 주문 상품을 꼼꼼히 검수하고 출고 포장 중입니다.';
-      } else {
-        statusBadge.className = 'px-3.5 py-1.5 rounded-full text-xs font-black bg-indigo-500/20 border border-indigo-400/40 text-indigo-300 shadow-sm';
-        statusDesc.innerText = '결제가 안전하게 완료되어 판매자가 주문을 확인하고 있습니다.';
-      }
-
-      // Timeline Steps Highlight
-      const steps = ['결제완료', '상품준비', '배송중', '배송완료'];
-      const curIdx = steps.indexOf(status) >= 0 ? steps.indexOf(status) : 0;
-
-      document.querySelectorAll('.step-box').forEach((box, i) => {
-        const circle = box.querySelector('div');
-        const title = box.querySelector('span');
-        if (i < curIdx) {
-          // Completed prior step
-          circle.className = 'w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto mb-2 font-black text-xs shadow-md shadow-emerald-600/30';
-          circle.innerHTML = '✓';
-          title.className = 'text-xs font-bold text-slate-800 block';
-        } else if (i === curIdx) {
-          // Current step
-          circle.className = 'w-9 h-9 rounded-full bg-indigo-600 text-white flex items-center justify-center mx-auto mb-2 font-black text-xs shadow-lg shadow-indigo-600/40 ring-4 ring-indigo-100 animate-pulse';
-          circle.innerText = (i + 1);
-          title.className = 'text-xs font-black text-indigo-600 block';
-        } else {
-          // Future step
-          circle.className = 'w-9 h-9 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center mx-auto mb-2 font-black text-xs';
-          circle.innerText = (i + 1);
-          title.className = 'text-xs font-medium text-slate-400 block';
+        const latest = JSON.parse(latestRaw);
+        if (latest && (latest.orderId || latest.items)) {
+          const banner = document.getElementById('fresh-order-banner');
+          const desc = document.getElementById('fresh-order-desc');
+          if (banner && desc) {
+            banner.classList.remove('hidden');
+            const oid = latest.orderId || '최근 주문';
+            const amt = ShopUI.formatPrice(latest.totalAmount || 0);
+            desc.textContent = `주문번호: ${oid} | 결제금액: ${amt}`;
+          }
         }
-      });
-
-      // Ordered Items List
-      const itemsContainer = document.getElementById('res-items-container');
-      const items = order.items && Array.isArray(order.items) ? order.items : [];
-      if (items.length > 0) {
-        itemsContainer.innerHTML = items.map(item => `
-          <div class="flex items-center gap-4 p-4 hover:bg-slate-50/50 transition">
-            <img 
-              src="${item.thumbnail || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200'}" 
-              alt="${item.name || '상품'}" 
-              class="w-14 h-14 rounded-xl object-cover border border-slate-100 shrink-0 shadow-xs" 
-            />
-            <div class="flex-1 min-w-0">
-              <h5 class="text-xs font-bold text-slate-800 line-clamp-1">${item.name}</h5>
-              <p class="text-[11px] text-slate-400 mt-0.5">
-                ${item.selectedOption ? `선택옵션: ${item.selectedOption} / ` : ''}수량: ${item.quantity || 1}개
-              </p>
-            </div>
-            <div class="text-right shrink-0">
-              <span class="text-xs font-black text-slate-900 font-heading">
-                ${ShopUI.formatPrice((item.price || 0) * (item.quantity || 1))}
-              </span>
-            </div>
-          </div>
-        `).join('');
-      } else {
-        itemsContainer.innerHTML = `
-          <div class="p-4 text-center text-xs text-slate-400">
-            상품 상세 정보가 등록되어 있지 않습니다.
-          </div>
-        `;
-      }
-
-      if (window.lucide) window.lucide.createIcons();
+      } catch (e) {}
     }
 
-    // 주문번호 복사 헬퍼
-    function copyOrderId() {
-      if (!currentLoadedOrder) return;
-      navigator.clipboard.writeText(currentLoadedOrder.orderId).then(() => {
+    // Focus Fresh Order
+    function focusFreshOrder() {
+      try {
+        const latestRaw = sessionStorage.getItem('latest_order');
+        if (latestRaw) {
+          const latest = JSON.parse(latestRaw);
+          if (latest.orderId) {
+            focusSpecificOrder(latest.orderId);
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Focus & Expand Specific Order
+    function focusSpecificOrder(orderId) {
+      switchTab('member');
+      const card = document.getElementById(`card-${orderId}`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('ring-4', 'ring-indigo-300');
+        setTimeout(() => card.classList.remove('ring-4', 'ring-indigo-300'), 3000);
+        
+        // Open tracking panel
+        const panel = document.getElementById(`tracking-panel-${orderId}`);
+        if (panel && panel.classList.contains('hidden')) {
+          toggleTrackingPanel(orderId);
+        }
+      } else {
+        // If not in member list, perform direct search
+        switchTab('direct');
+        document.getElementById('direct-lookup-order-id').value = orderId;
+        handleDirectLookup();
+      }
+    }
+
+    // Copy Order ID
+    function copyOrderIdVal(orderId) {
+      navigator.clipboard.writeText(orderId).then(() => {
         ShopUI.showToast('주문번호가 클립보드에 복사되었습니다.');
       }).catch(() => {
-        prompt('주문번호를 복사하세요:', currentLoadedOrder.orderId);
+        prompt('주문번호를 복사하세요:', orderId);
       });
-    }
-
-    // 택배사 배송추적 알림
-    function checkCarrierDelivery() {
-      if (!currentLoadedOrder || !currentLoadedOrder.trackingNumber) return;
-      alert(`[CJ대한통운 실시간 배송추적]\n\n운송장번호: ${currentLoadedOrder.trackingNumber}\n상태: 배송 터미널 집하 완료 후 고객님 배송지로 안전하게 이동 중입니다.`);
     }
   </script>
 </body>
