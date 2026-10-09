@@ -266,7 +266,11 @@ const ShopUI = {
         <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div class="flex items-center gap-2">
             <i data-lucide="shopping-bag" class="w-5 h-5 text-indigo-600"></i>
-            <h3 class="font-bold text-slate-900 text-lg">장바구니 (<span id="drawer-cart-count">0</span>)</h3>
+            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-1.5">
+              <span>장바구니</span>
+              <span id="drawer-user-label" class="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded-md font-medium"></span>
+              <span class="text-slate-400 font-normal text-sm">(<span id="drawer-cart-count">0</span>)</span>
+            </h3>
           </div>
           <button onclick="ShopUI.closeCartDrawer()" class="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200 rounded-full transition">
             <i data-lucide="x" class="w-5 h-5"></i>
