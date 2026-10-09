@@ -1644,6 +1644,17 @@
         const todayCount = adminUsers.filter(u => (u.joinedAt || '').startsWith(todayStr) || (u.status === '신규')).length;
         document.getElementById('kpi-today-new-users').innerText = `${todayCount}명`;
       }
+      if (document.getElementById('kpi-vip-ratio') && adminUsers.length > 0) {
+        const vipCount = adminUsers.filter(u => u.grade === 'VIP').length;
+        const activeCount = adminUsers.filter(u => u.status === '정상' || u.status === '신규').length;
+        const vipPct = Math.round((vipCount / adminUsers.length) * 100);
+        const activePct = Math.round((activeCount / adminUsers.length) * 100);
+        document.getElementById('kpi-vip-ratio').innerText = `VIP ${vipPct}% / 활성 ${activePct}%`;
+      }
+      if (document.getElementById('kpi-active-users')) {
+        const activeCount = adminUsers.filter(u => u.status !== '탈퇴' && u.status !== '휴면').length;
+        document.getElementById('kpi-active-users').innerText = `${activeCount}명`;
+      }
 
       if (!users.length) {
         tbody.innerHTML = '<tr><td colspan="9" class="p-8 text-center text-slate-400 font-bold">일치하는 회원 데이터가 없습니다.</td></tr>';
@@ -1778,12 +1789,17 @@
 
       // 2. User Grade & Device Doughnut Chart
       if (userTierChartInstance) userTierChartInstance.destroy();
+      const vipCount = adminUsers.filter(u => u.grade === 'VIP').length;
+      const goldCount = adminUsers.filter(u => u.grade === 'GOLD').length;
+      const silverCount = adminUsers.filter(u => u.grade === 'SILVER').length;
+      const generalCount = Math.max(0, adminUsers.length - (vipCount + goldCount + silverCount));
+
       userTierChartInstance = new Chart(tierCanvas, {
         type: 'doughnut',
         data: {
           labels: ['VIP 회원', 'GOLD 회원', 'SILVER 회원', '일반 회원'],
           datasets: [{
-            data: [18, 27, 33, 22],
+            data: [vipCount, goldCount, silverCount, generalCount],
             backgroundColor: ['#9333ea', '#f59e0b', '#64748b', '#4f46e5'],
             borderWidth: 2,
             borderColor: '#ffffff'

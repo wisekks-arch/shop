@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Continue'
+﻿$ErrorActionPreference = 'Continue'
 $port = 4000
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { (Get-Location).Path }
 $publicDir = Join-Path $scriptDir 'public'
@@ -43,6 +43,11 @@ function Write-RawJsonFile($fileName, $jsonString) {
     $filePath = Join-Path $dataDir $fileName
     try {
         [System.IO.File]::WriteAllText($filePath, $jsonString, [System.Text.Encoding]::UTF8)
+        $pubDataDir = Join-Path $publicDir 'data'
+        if (Test-Path $pubDataDir) {
+            $pubFilePath = Join-Path $pubDataDir $fileName
+            [System.IO.File]::WriteAllText($pubFilePath, $jsonString, [System.Text.Encoding]::UTF8)
+        }
         return $true
     } catch {
         return $false
@@ -194,7 +199,7 @@ while ($listener.IsListening) {
                 $orderId = 'ORD-' + (Get-Date -Format 'yyyyMMdd') + '-' + (Get-Random -Minimum 1000 -Maximum 9999)
                 $orderData | Add-Member -NotePropertyName 'orderId' -NotePropertyValue $orderId -Force
                 $orderData | Add-Member -NotePropertyName 'orderDate' -NotePropertyValue (Get-Date -Format 'yyyy-MM-dd HH:mm:ss') -Force
-                $orderData | Add-Member -NotePropertyName 'status' -NotePropertyValue '寃곗젣?꾨즺' -Force
+                $orderData | Add-Member -NotePropertyName 'status' -NotePropertyValue '결제완료' -Force
                 $orderData | Add-Member -NotePropertyName 'trackingNumber' -NotePropertyValue '' -Force
 
                 $items = @(ConvertFrom-Json $raw)
@@ -239,7 +244,7 @@ while ($listener.IsListening) {
                 $inqId = 'inq-' + (Get-Date -Format 'yyyyMMddHHmmss')
                 $inqData | Add-Member -NotePropertyName 'id' -NotePropertyValue $inqId -Force
                 $inqData | Add-Member -NotePropertyName 'createdAt' -NotePropertyValue (Get-Date -Format 'yyyy-MM-dd HH:mm') -Force
-                $inqData | Add-Member -NotePropertyName 'status' -NotePropertyValue '?듬??湲? -Force
+                $inqData | Add-Member -NotePropertyName 'status' -NotePropertyValue '답변대기' -Force
                 $items = @(ConvertFrom-Json $raw)
                 $items = @($inqData) + $items
                 Write-RawJsonFile 'inquiries.json' ($items | ConvertTo-Json -Depth 10)
@@ -255,7 +260,7 @@ while ($listener.IsListening) {
                 foreach ($inq in $items) {
                     if ($inq.id -eq $queryId) {
                         $inq.answer = $ansData.answer
-                        $inq.status = '?듬??꾨즺'
+                        $inq.status = '답변완료'
                         $inq.answeredAt = (Get-Date -Format 'yyyy-MM-dd HH:mm')
                         break
                     }

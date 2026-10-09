@@ -13675,6 +13675,57 @@ const DEFAULT_PRODUCTS = [
 
 const DEFAULT_USERS = [
   {
+    "id": "user-default-2",
+    "email": "kmagick@naver.com",
+    "password": "naver@#2026pass",
+    "name": "관리자회원(kmagick)",
+    "phone": "010-9876-5432",
+    "address": "서울특별시 서초구 반포대로 58",
+    "addressDetail": "101호",
+    "points": 10000,
+    "grade": "VIP",
+    "status": "정상",
+    "orderCount": 15,
+    "totalSpent": 1850000,
+    "device": "PC (Windows)",
+    "lastLogin": "2026-10-09 16:30:00",
+    "joinedAt": "2026-09-01"
+  },
+  {
+    "id": "user-default-3",
+    "email": "kks@do-best.co.kr",
+    "password": "kks@#2026pass",
+    "name": "관리자회원(kks)",
+    "phone": "010-5555-7777",
+    "address": "서울특별시 강남구 테헤란로 152",
+    "addressDetail": "1802호",
+    "points": 10000,
+    "grade": "VIP",
+    "status": "정상",
+    "orderCount": 22,
+    "totalSpent": 2940000,
+    "device": "PC (Windows)",
+    "lastLogin": "2026-10-09 16:45:00",
+    "joinedAt": "2026-09-01"
+  },
+  {
+    "id": "user-default-1",
+    "email": "demo@easyshop.kr",
+    "password": "demo@123#pass",
+    "name": "이지샵체험회원",
+    "phone": "010-1234-5678",
+    "address": "서울특별시 강남구 테헤란로 152",
+    "addressDetail": "18층 이지샵",
+    "points": 3000,
+    "grade": "일반",
+    "status": "정상",
+    "orderCount": 2,
+    "totalSpent": 128000,
+    "device": "Mobile (iOS)",
+    "lastLogin": "2026-10-08 14:10:00",
+    "joinedAt": "2026-09-01"
+  },
+  {
     "id": "usr-1001",
     "email": "kim.minjun@gmail.com",
     "name": "김민준",
@@ -14734,3 +14785,6 @@ const ShopAPI = {
     return await this.request('/api/stats');
   }
 };
+
+
+if (typeof window !== 'undefined') window.ShopAPI = ShopAPI;
