@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EasyShop REST API Client Module (v7 Pure UTF-8 with Built-in 60 Products & 1200 Reviews)
  */
 const DEFAULT_CATEGORIES = [
@@ -14367,12 +14367,16 @@ const ShopAPI = {
       if (endpoint.startsWith('/api/users')) {
         let userList = [];
         try {
-          const stored = localStorage.getItem('easyshop_users_v3');
-          if (stored) {
-            userList = JSON.parse(stored);
+          if (typeof AuthStore !== 'undefined' && AuthStore.getUsers) {
+            userList = AuthStore.getUsers();
           } else {
-            userList = [...DEFAULT_USERS];
-            localStorage.setItem('easyshop_users_v3', JSON.stringify(userList));
+            const stored = localStorage.getItem('easyshop_users_v3');
+            if (stored) {
+              userList = JSON.parse(stored);
+            } else {
+              userList = [...DEFAULT_USERS];
+              localStorage.setItem('easyshop_users_v3', JSON.stringify(userList));
+            }
           }
         } catch {
           userList = [...DEFAULT_USERS];
@@ -14410,15 +14414,22 @@ const ShopAPI = {
 
         if (method === 'POST') {
           const newUser = JSON.parse(options.body || '{}');
-          newUser.id = newUser.id || 'usr-' + Date.now().toString().slice(-4);
+          newUser.id = newUser.id || 'usr-' + Date.now().toString().slice(-6);
           newUser.joinedAt = newUser.joinedAt || new Date().toISOString().slice(0, 10);
           newUser.lastLogin = newUser.lastLogin || new Date().toISOString().replace('T', ' ').slice(0, 19);
-          newUser.status = newUser.status || '정상';
+          newUser.status = newUser.status || '신규';
           newUser.grade = newUser.grade || '일반';
-          newUser.points = parseInt(newUser.points) || 0;
+          newUser.points = parseInt(newUser.points) || 3000;
           newUser.orderCount = parseInt(newUser.orderCount) || 0;
           newUser.totalSpent = parseInt(newUser.totalSpent) || 0;
-          userList.unshift(newUser);
+          newUser.device = newUser.device || (typeof navigator !== 'undefined' && /Mobi|Android|iPhone/i.test(navigator.userAgent) ? 'Mobile' : 'PC (Web)');
+
+          const existIdx = userList.findIndex(u => (u.id && u.id === newUser.id) || (u.email && newUser.email && u.email.toLowerCase() === newUser.email.toLowerCase()));
+          if (existIdx >= 0) {
+            userList[existIdx] = { ...userList[existIdx], ...newUser };
+          } else {
+            userList.unshift(newUser);
+          }
           localStorage.setItem('easyshop_users_v3', JSON.stringify(userList));
           return { success: true, user: newUser };
         }

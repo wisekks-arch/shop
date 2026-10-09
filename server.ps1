@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 'Continue'
+$ErrorActionPreference = 'Continue'
 $port = 4000
 $scriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { (Get-Location).Path }
 $publicDir = Join-Path $scriptDir 'public'
@@ -262,6 +262,92 @@ while ($listener.IsListening) {
                 }
                 Write-RawJsonFile 'inquiries.json' ($items | ConvertTo-Json -Depth 10)
                 Send-JsonResponse $res 200 '{"success":true}'
+                continue
+            }
+        }
+
+        # API: /api/users
+        if ($path -eq '/api/users') {
+            $raw = Read-RawJsonFile 'users.json' '[]'
+
+            if ($httpMethod -eq 'GET') {
+                $queryId = $req.QueryString['id']
+                if ($queryId) {
+                    $items = ConvertFrom-Json $raw
+                    $target = $items | Where-Object { $_.id -eq $queryId } | Select-Object -First 1
+                    if ($target) {
+                        Send-JsonResponse $res 200 ($target | ConvertTo-Json -Depth 10)
+                    } else {
+                        Send-JsonResponse $res 404 '{"error":"User not found"}'
+                    }
+                } else {
+                    Send-JsonResponse $res 200 $raw
+                }
+                continue
+            }
+
+            if ($httpMethod -eq 'POST') {
+                $reader = New-Object System.IO.StreamReader($req.InputStream, [System.Text.Encoding]::UTF8)
+                $body = $reader.ReadToEnd()
+                $userData = ConvertFrom-Json $body
+                if (-not $userData.id) {
+                    $userData | Add-Member -NotePropertyName 'id' -NotePropertyValue ('usr-' + (Get-Date -Format 'yyyyMMddHHmmss')) -Force
+                }
+                if (-not $userData.joinedAt) {
+                    $userData | Add-Member -NotePropertyName 'joinedAt' -NotePropertyValue (Get-Date -Format 'yyyy-MM-dd') -Force
+                }
+                if (-not $userData.status) {
+                    $userData | Add-Member -NotePropertyName 'status' -NotePropertyValue '신규' -Force
+                }
+                if (-not $userData.grade) {
+                    $userData | Add-Member -NotePropertyName 'grade' -NotePropertyValue '일반' -Force
+                }
+                $items = @(ConvertFrom-Json $raw)
+                $existingIdx = -1
+                for ($i = 0; $i -lt $items.Count; $i++) {
+                    if (($items[$i].id -and $items[$i].id -eq $userData.id) -or ($items[$i].email -and $userData.email -and $items[$i].email.ToLower() -eq $userData.email.ToLower())) {
+                        $existingIdx = $i
+                        break
+                    }
+                }
+                if ($existingIdx -ge 0) {
+                    $items[$existingIdx] = $userData
+                } else {
+                    $items = @($userData) + $items
+                }
+                $newJson = $items | ConvertTo-Json -Depth 10
+                Write-RawJsonFile 'users.json' $newJson
+                Send-JsonResponse $res 201 ($userData | ConvertTo-Json -Depth 10)
+                continue
+            }
+
+            if ($httpMethod -eq 'PUT') {
+                $queryId = $req.QueryString['id']
+                $reader = New-Object System.IO.StreamReader($req.InputStream, [System.Text.Encoding]::UTF8)
+                $body = $reader.ReadToEnd()
+                $updateObj = ConvertFrom-Json $body
+                $items = @(ConvertFrom-Json $raw)
+                for ($i = 0; $i -lt $items.Count; $i++) {
+                    if ($items[$i].id -eq $queryId) {
+                        foreach ($prop in $updateObj.PSObject.Properties) {
+                            $items[$i] | Add-Member -NotePropertyName $prop.Name -NotePropertyValue $prop.Value -Force
+                        }
+                        break
+                    }
+                }
+                $newJson = $items | ConvertTo-Json -Depth 10
+                Write-RawJsonFile 'users.json' $newJson
+                Send-JsonResponse $res 200 '{"success":true,"message":"User updated"}'
+                continue
+            }
+
+            if ($httpMethod -eq 'DELETE') {
+                $queryId = $req.QueryString['id']
+                $items = @(ConvertFrom-Json $raw)
+                $items = $items | Where-Object { $_.id -ne $queryId }
+                $newJson = $items | ConvertTo-Json -Depth 10
+                Write-RawJsonFile 'users.json' $newJson
+                Send-JsonResponse $res 200 '{"success":true,"message":"User deleted"}'
                 continue
             }
         }

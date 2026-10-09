@@ -24,21 +24,10 @@ const AuthStore = {
   getUsers() {
     try {
       const data = localStorage.getItem(this.USERS_KEY);
-      if (data) return JSON.parse(data);
+      let users = data ? JSON.parse(data) : null;
 
-      // Default demo users
+      // Base default users
       const initialUsers = [
-        {
-          id: 'user-default-1',
-          email: 'demo@easyshop.kr',
-          password: 'demo@123#pass',
-          name: '이지샵체험회원',
-          phone: '010-1234-5678',
-          address: '서울특별시 강남구 테헤란로 152',
-          addressDetail: '18층 이지샵',
-          points: 3000,
-          joinedAt: '2026-09-01'
-        },
         {
           id: 'user-default-2',
           email: 'kmagick@naver.com',
@@ -48,6 +37,12 @@ const AuthStore = {
           address: '서울특별시 서초구 반포대로 58',
           addressDetail: '101호',
           points: 10000,
+          grade: 'VIP',
+          status: '정상',
+          orderCount: 15,
+          totalSpent: 1850000,
+          device: 'PC (Windows)',
+          lastLogin: '2026-10-09 16:30:00',
           joinedAt: '2026-09-01'
         },
         {
@@ -59,11 +54,107 @@ const AuthStore = {
           address: '서울특별시 강남구 테헤란로 152',
           addressDetail: '1802호',
           points: 10000,
+          grade: 'VIP',
+          status: '정상',
+          orderCount: 22,
+          totalSpent: 2940000,
+          device: 'PC (Windows)',
+          lastLogin: '2026-10-09 16:45:00',
           joinedAt: '2026-09-01'
+        },
+        {
+          id: 'user-default-1',
+          email: 'demo@easyshop.kr',
+          password: 'demo@123#pass',
+          name: '이지샵체험회원',
+          phone: '010-1234-5678',
+          address: '서울특별시 강남구 테헤란로 152',
+          addressDetail: '18층 이지샵',
+          points: 3000,
+          grade: '일반',
+          status: '정상',
+          orderCount: 2,
+          totalSpent: 128000,
+          device: 'Mobile (iOS)',
+          lastLogin: '2026-10-08 14:10:00',
+          joinedAt: '2026-09-01'
+        },
+        {
+          id: 'usr-1001',
+          email: 'kim.minjun@gmail.com',
+          name: '김민준',
+          phone: '010-3849-1928',
+          grade: 'VIP',
+          points: 45000,
+          orderCount: 18,
+          totalSpent: 2450000,
+          status: '정상',
+          device: 'Mobile (iOS)',
+          lastLogin: '2026-10-06 17:35:12',
+          joinedAt: '2026-03-15',
+          address: '서울특별시 강남구 테헤란로 152',
+          addressDetail: '강남파이낸스센터 12층'
+        },
+        {
+          id: 'usr-1002',
+          email: 'lee.seoyeon@naver.com',
+          name: '이서연',
+          phone: '010-9281-4710',
+          grade: 'GOLD',
+          points: 21000,
+          orderCount: 9,
+          totalSpent: 1120000,
+          status: '정상',
+          device: 'Mobile (Android)',
+          lastLogin: '2026-10-06 16:50:20',
+          joinedAt: '2026-04-02',
+          address: '경기도 성남시 분당구 판교역로 235',
+          addressDetail: '에이치스퀘어 N동 801호'
+        },
+        {
+          id: 'usr-1003',
+          email: 'park.dohyun@kakao.com',
+          name: '박도현',
+          phone: '010-7712-3948',
+          grade: 'VIP',
+          points: 68000,
+          orderCount: 24,
+          totalSpent: 3890000,
+          status: '정상',
+          device: 'PC (Windows)',
+          lastLogin: '2026-10-06 17:42:05',
+          joinedAt: '2026-02-10',
+          address: '부산광역시 해운대구 센텀중앙로 78',
+          addressDetail: '센텀타워 1503호'
         }
       ];
-      localStorage.setItem(this.USERS_KEY, JSON.stringify(initialUsers));
-      return initialUsers;
+
+      if (!users || !Array.isArray(users) || users.length === 0) {
+        localStorage.setItem(this.USERS_KEY, JSON.stringify(initialUsers));
+        return initialUsers;
+      }
+
+      // Ensure admin accounts exist in users list
+      const adminEmails = ['kmagick@naver.com', 'kks@do-best.co.kr'];
+      adminEmails.forEach(admEmail => {
+        if (!users.some(u => (u.email || '').toLowerCase() === admEmail)) {
+          const defaultAdmin = initialUsers.find(u => u.email === admEmail);
+          if (defaultAdmin) users.push(defaultAdmin);
+        }
+      });
+
+      // Normalize missing admin attributes for all users
+      users.forEach(u => {
+        if (!u.grade) u.grade = '일반';
+        if (!u.status) u.status = '정상';
+        if (typeof u.orderCount !== 'number') u.orderCount = 0;
+        if (typeof u.totalSpent !== 'number') u.totalSpent = 0;
+        if (!u.joinedAt) u.joinedAt = '2026-09-01';
+        if (!u.device) u.device = 'PC (Web)';
+      });
+
+      localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+      return users;
     } catch (e) {
       return [];
     }
@@ -147,8 +238,12 @@ const AuthStore = {
       return { success: false, message: '이미 가입된 이메일(아이디)입니다. 다른 이메일을 사용해 주세요.' };
     }
 
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0, 10);
+    const timeStr = dateStr + ' ' + String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + ':' + String(now.getSeconds()).padStart(2, '0');
+
     const newUser = {
-      id: 'user-' + Date.now(),
+      id: 'usr-' + Date.now().toString().slice(-6),
       email: email,
       password: password,
       name: name,
@@ -157,10 +252,17 @@ const AuthStore = {
       addressDetail: addressDetail,
       points: 3000,
       coupon: 'WELCOME10',
-      joinedAt: new Date().toISOString().slice(0, 10)
+      grade: '일반',
+      status: '신규',
+      orderCount: 0,
+      totalSpent: 0,
+      device: typeof navigator !== 'undefined' && /Mobi|Android|iPhone/i.test(navigator.userAgent) ? 'Mobile' : 'PC (Web)',
+      lastLogin: timeStr,
+      joinedAt: dateStr
     };
 
-    users.push(newUser);
+    // Unshift so the newly registered user appears at the top of the admin table
+    users.unshift(newUser);
     this.saveUsers(users);
 
     // Auto login

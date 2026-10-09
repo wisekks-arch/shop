@@ -1112,6 +1112,11 @@
 
     async function loadAllAdminData() {
       try {
+        await loadAdminUsers();
+      } catch (e) {
+        console.error('Failed to load admin users:', e);
+      }
+      try {
         adminProducts = await ShopAPI.getProducts();
       } catch (e) {
         console.error('Failed to load products:', e);
@@ -1131,7 +1136,7 @@
       }
     }
 
-    function switchAdminTab(tab) {
+    async function switchAdminTab(tab) {
       ['dashboard', 'products', 'orders', 'users', 'inquiries'].forEach(t => {
         const tabEl = document.getElementById(`tab-${t}`);
         if (tabEl) tabEl.classList.add('hidden');
@@ -1180,7 +1185,11 @@
       if (tab === 'dashboard') renderDashboard();
       if (tab === 'products') renderAdminProductsTable(adminProducts);
       if (tab === 'orders') { applyOrderFilters(); }
-      if (tab === 'users') { renderAdminUsersTable(adminUsers); renderUserCharts(); }
+      if (tab === 'users') {
+        await loadAdminUsers();
+        renderAdminUsersTable(adminUsers);
+        renderUserCharts();
+      }
       if (tab === 'inquiries') renderAdminInquiriesTable(adminInquiries);
 
       if (window.lucide) window.lucide.createIcons();
@@ -1188,10 +1197,12 @@
 
     async function refreshCurrentTab() {
       await loadAllAdminData();
+      await loadAdminUsers();
       const currentTitle = document.getElementById('current-tab-title').innerText;
       if (currentTitle.includes('대시보드')) renderDashboard();
       else if (currentTitle.includes('상품')) renderAdminProductsTable(adminProducts);
       else if (currentTitle.includes('주문')) renderAdminOrdersTable(adminOrders);
+      else if (currentTitle.includes('회원')) { renderAdminUsersTable(adminUsers); renderUserCharts(); }
       else if (currentTitle.includes('문의')) renderAdminInquiriesTable(adminInquiries);
       ShopUI.showToast('데이터를 새로고침했습니다.');
     }
@@ -1626,7 +1637,12 @@
 
       // Update KPI Cards
       if (document.getElementById('kpi-total-users')) {
-        document.getElementById('kpi-total-users').innerText = `${adminUsers.length || 1280}명`;
+        document.getElementById('kpi-total-users').innerText = `${adminUsers.length}명`;
+      }
+      if (document.getElementById('kpi-today-new-users')) {
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const todayCount = adminUsers.filter(u => (u.joinedAt || '').startsWith(todayStr) || (u.status === '신규')).length;
+        document.getElementById('kpi-today-new-users').innerText = `${todayCount}명`;
       }
 
       if (!users.length) {

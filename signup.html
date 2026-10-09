@@ -185,9 +185,10 @@
   <div id="footer-root"></div>
 
   <!-- Scripts -->
-  <script src="js/auth-store.js?v=20261007_v2"></script>
+  <script src="js/auth-store.js?v=20261009_v3"></script>
   <script src="js/cart-store.js?v=20261007_v2"></script>
-  <script src="js/components.js?v=20261007_v2"></script>
+  <script src="js/api.js?v=20261009_v3"></script>
+  <script src="js/components.js?v=20261009_v3"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -294,7 +295,7 @@
       document.querySelectorAll('.agree-item').forEach(cb => cb.checked = master.checked);
     }
 
-    function handleSignUp(e) {
+    async function handleSignUp(e) {
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -324,6 +325,15 @@
       if (!res.success) {
         alert(res.message);
         return;
+      }
+
+      // Sync with ShopAPI & backend
+      if (typeof ShopAPI !== 'undefined' && ShopAPI.createUser && res.user) {
+        try {
+          await ShopAPI.createUser(res.user);
+        } catch (apiErr) {
+          console.warn('ShopAPI user sync note:', apiErr);
+        }
       }
 
       ShopUI.showToast(res.message);
