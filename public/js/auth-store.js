@@ -420,10 +420,18 @@ const AuthStore = {
   login(email, password) {
     const users = this.getUsers();
     const cleanEmail = (email || '').trim().toLowerCase();
-    const user = users.find(u => u.email.toLowerCase() === cleanEmail && u.password === password);
+    const cleanPassword = (password || '').trim();
+    const rawPassword = password || '';
+
+    // Match either trimmed or raw password for seamless compatibility
+    const user = users.find(u => u.email.toLowerCase() === cleanEmail && (u.password === cleanPassword || u.password === rawPassword));
 
     if (!user) {
-      return { success: false, message: '이메일 또는 비밀번호가 일치하지 않습니다.' };
+      const emailExists = users.some(u => u.email.toLowerCase() === cleanEmail);
+      if (emailExists) {
+        return { success: false, message: '비밀번호가 일치하지 않습니다. 최근 비밀번호를 변경하셨다면 새 비밀번호를 직접 입력해 주세요.' };
+      }
+      return { success: false, message: '가입되지 않은 이메일(아이디)입니다. 확인 후 다시 입력해 주세요.' };
     }
 
     const sessionData = {
@@ -556,13 +564,23 @@ const AuthStore = {
       return { success: false, message: '사용자 정보를 찾을 수 없습니다.' };
     }
 
-    users[userIndex].password = newPassword;
+    const cleanNewPw = (newPassword || '').trim();
+    users[userIndex].password = cleanNewPw;
     this.saveUsers(users);
 
     // Clear temp password
     const tempStore = JSON.parse(localStorage.getItem(this.TEMP_PW_KEY) || '{}');
     delete tempStore[cleanEmail];
     localStorage.setItem(this.TEMP_PW_KEY, JSON.stringify(tempStore));
+
+    // Sync to backend API & users.json if available
+    if (typeof ShopAPI !== 'undefined' && ShopAPI.updateUser && users[userIndex].id) {
+      try {
+        ShopAPI.updateUser(users[userIndex].id, { password: cleanNewPw });
+      } catch (apiErr) {
+        console.warn('ShopAPI password sync notice:', apiErr);
+      }
+    }
 
     return { success: true, message: '비밀번호가 성공적으로 재설정되었습니다! 새 비밀번호로 로그인해 주세요.' };
   },
@@ -595,20 +613,24 @@ const AuthStore = {
 
     // If changing password
     if (data.newPassword) {
-      if (!data.currentPassword) {
+      const cleanCurrent = (data.currentPassword || '').trim();
+      const cleanNew = (data.newPassword || '').trim();
+      const cleanConfirm = (data.confirmNewPassword || '').trim();
+
+      if (!cleanCurrent) {
         return { success: false, message: '비밀번호를 변경하려면 현재 비밀번호를 입력해 주세요.' };
       }
-      if (targetUser.password !== data.currentPassword) {
+      if (targetUser.password !== cleanCurrent && targetUser.password !== data.currentPassword) {
         return { success: false, message: '현재 비밀번호가 일치하지 않습니다.' };
       }
-      const pwVal = this.validatePassword(data.newPassword);
+      const pwVal = this.validatePassword(cleanNew);
       if (!pwVal.valid) {
         return { success: false, message: pwVal.message };
       }
-      if (data.newPassword !== data.confirmNewPassword) {
+      if (cleanNew !== cleanConfirm) {
         return { success: false, message: '새 비밀번호 확인이 일치하지 않습니다.' };
       }
-      targetUser.password = data.newPassword;
+      targetUser.password = cleanNew;
     }
 
     // Update fields
@@ -620,6 +642,15 @@ const AuthStore = {
 
     users[userIndex] = targetUser;
     this.saveUsers(users);
+
+    // Sync to backend API & users.json if available
+    if (typeof ShopAPI !== 'undefined' && ShopAPI.updateUser && targetUser.id) {
+      try {
+        ShopAPI.updateUser(targetUser.id, targetUser);
+      } catch (apiErr) {
+        console.warn('ShopAPI profile sync notice:', apiErr);
+      }
+    }
 
     // Update Session
     const updatedSession = {

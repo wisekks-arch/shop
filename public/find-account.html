@@ -275,6 +275,7 @@
       }
 
       recoveryEmail = email;
+      try { sessionStorage.setItem('easyshop_recovery_email', email); } catch(e){}
       document.getElementById('sent-email-label').innerText = `수신 계정: ${email} (임시비밀번호: ${res.tempPassword})`;
       document.getElementById('input-temp-pw').value = res.tempPassword; // Auto fill for demo ease
       
@@ -333,8 +334,8 @@
     function handleResetPassword(e) {
       e.preventDefault();
       const tempPw = document.getElementById('input-temp-pw').value.trim();
-      const newPw = document.getElementById('new-password').value;
-      const confirm = document.getElementById('new-password-confirm').value;
+      const newPw = document.getElementById('new-password').value.trim();
+      const confirm = document.getElementById('new-password-confirm').value.trim();
 
       if (newPw !== confirm) {
         alert('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
@@ -342,14 +343,25 @@
         return;
       }
 
-      const res = AuthStore.resetPassword(recoveryEmail, tempPw, newPw);
+      const activeEmail = recoveryEmail || (function(){
+        try { return sessionStorage.getItem('easyshop_recovery_email') || ''; } catch(e){ return ''; }
+      })();
+
+      if (!activeEmail) {
+        alert('비밀번호를 재설정할 계정(이메일) 정보가 확인되지 않습니다. 1단계부터 다시 진행해 주세요.');
+        window.location.reload();
+        return;
+      }
+
+      const res = AuthStore.resetPassword(activeEmail, tempPw, newPw);
       if (!res.success) {
         alert(res.message);
         return;
       }
 
-      alert('비밀번호가 성공적으로 변경되었습니다! 새 비밀번호로 로그인해 주세요.');
-      window.location.href = 'login.html';
+      try { sessionStorage.removeItem('easyshop_recovery_email'); } catch(e){}
+      alert('비밀번호가 성공적으로 변경되었습니다! 새로 변경하신 비밀번호로 로그인해 주세요.');
+      window.location.href = `login.html?email=${encodeURIComponent(activeEmail)}&reset=1`;
     }
   </script>
 </body>
