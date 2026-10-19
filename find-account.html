@@ -264,26 +264,54 @@
       if (window.lucide) window.lucide.createIcons();
     }
 
-    function handleRequestTempPw(e) {
+    async function handleRequestTempPw(e) {
       e.preventDefault();
-      const email = document.getElementById('find-pw-email').value.trim();
+      const emailInput = document.getElementById('find-pw-email');
+      const email = emailInput ? emailInput.value.trim() : '';
+      const btn = document.getElementById('btn-send-temp');
+      const origBtnHtml = btn ? btn.innerHTML : '';
 
-      const res = AuthStore.sendTempPassword(email);
-      if (!res.success) {
-        alert(res.message);
+      if (!email) {
+        alert('가입하신 이메일(아이디)을 입력해 주세요.');
         return;
       }
 
-      recoveryEmail = email;
-      try { sessionStorage.setItem('easyshop_recovery_email', email); } catch(e){}
-      document.getElementById('sent-email-label').innerText = `수신 계정: ${email} (임시비밀번호: ${res.tempPassword})`;
-      document.getElementById('input-temp-pw').value = res.tempPassword; // Auto fill for demo ease
-      
-      document.getElementById('pw-step-1').classList.add('hidden');
-      document.getElementById('pw-step-2').classList.remove('hidden');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<span class="inline-flex items-center gap-2"><span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span> 임시 비밀번호 이메일 발송 중...</span>`;
+      }
 
-      alert(`[안내] ${email} 로 임시 비밀번호가 발송되었습니다.\n\n발송된 임시 비밀번호: ${res.tempPassword}\n\n임시 비밀번호를 입력하고 새 비밀번호를 설정해 주세요.`);
-      if (window.lucide) window.lucide.createIcons();
+      try {
+        const res = await AuthStore.sendTempPassword(email);
+        if (!res.success) {
+          alert(res.message || '임시 비밀번호 발송에 실패했습니다.');
+          return;
+        }
+
+        recoveryEmail = email;
+        try { sessionStorage.setItem('easyshop_recovery_email', email); } catch(e){}
+
+        // Clean UI: Never display or auto-fill temporary password on screen
+        const labelEl = document.getElementById('sent-email-label');
+        if (labelEl) labelEl.innerText = `수신 계정: ${email}`;
+        
+        const tempPwInput = document.getElementById('input-temp-pw');
+        if (tempPwInput) tempPwInput.value = ''; // Empty for true email verification
+
+        document.getElementById('pw-step-1').classList.add('hidden');
+        document.getElementById('pw-step-2').classList.remove('hidden');
+
+        alert(`[안내] ${email} 회원님의 메일함으로 임시 비밀번호가 안전하게 발송되었습니다.\n\n수신된 이메일(스팸함 포함)의 임시 비밀번호를 확인하신 후 입력해 주세요.`);
+        if (window.lucide) window.lucide.createIcons();
+      } catch (err) {
+        alert('임시 비밀번호 발송 처리 중 통신 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origBtnHtml;
+          if (window.lucide) window.lucide.createIcons();
+        }
+      }
     }
 
     function checkNewPwStrength(pw) {
